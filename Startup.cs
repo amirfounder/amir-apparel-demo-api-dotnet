@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using amir_apparel_demo_api_dotnet_5.Data;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -27,6 +28,7 @@ namespace amir_apparel_demo_api_dotnet_5
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllers();
+            services.AddDataServices();
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "amir_apparel_demo_api_dotnet_5", Version = "v1" });

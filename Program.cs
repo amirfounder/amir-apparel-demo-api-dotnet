@@ -9,7 +9,7 @@ using Microsoft.Extensions.Logging;
 
 namespace amir_apparel_demo_api_dotnet_5
 {
-    public class Program
+    public class Programs
     {
         public static void Main(string[] args)
         {
