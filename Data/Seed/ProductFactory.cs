@@ -77,7 +77,8 @@ namespace amir_apparel_demo_api_dotnet_5.Data.Seed
             var min = 10;
             var max = 100;
             var randomDouble = rand.NextDouble();
-            return (decimal)(min + (randomDouble * (max - min)));
+            var price = (decimal)(min + (randomDouble * (max - min)));
+            return decimal.Round(price, 2, MidpointRounding.AwayFromZero);
         }
 
         private int BuildRandomQuantity()

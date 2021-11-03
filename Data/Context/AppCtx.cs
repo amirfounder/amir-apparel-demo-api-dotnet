@@ -15,6 +15,7 @@ namespace amir_apparel_demo_api_dotnet_5.Data.Context
         public AppCtx(DbContextOptions<AppCtx> options) : base(options)
         {
         }
+
         public DbSet<Product> Products { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
