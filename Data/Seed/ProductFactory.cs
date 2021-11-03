@@ -1,18 +1,15 @@
 ﻿using amir_apparel_demo_api_dotnet_5.Data.Models;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace amir_apparel_demo_api_dotnet_5.Data.Seed
 {
     public class ProductFactory
     {
 
-        private Random rand = new Random();
+        private readonly Random rand = new();
 
-        private int getRandomIndex(int maxBound)
+        private int GetRandomIndex(int maxBound)
         {
             return rand.Next(0, maxBound);
         }
@@ -25,7 +22,7 @@ namespace amir_apparel_demo_api_dotnet_5.Data.Seed
         {
             var products = new List<Product>();
 
-            for (int i = 0; i < count; i ++)
+            for (int i = 0; i < count; i++)
             {
                 products.Add(BuildRandomProduct(i + 1));
             }
@@ -38,7 +35,8 @@ namespace amir_apparel_demo_api_dotnet_5.Data.Seed
             var type = BuildRandomType();
             var name = BuildName(material, type);
 
-            return new Product {
+            return new Product
+            {
                 Id = id,
                 Name = name,
                 Type = type,
@@ -49,16 +47,16 @@ namespace amir_apparel_demo_api_dotnet_5.Data.Seed
                 Status = BuildRandomStatus()
             };
         }
-        
+
         private string GetRandomMaterial()
         {
-            int randomIndex = getRandomIndex(Materials.Length);
+            int randomIndex = GetRandomIndex(Materials.Length);
             return Materials[randomIndex];
         }
 
         private string BuildRandomType()
         {
-            int randomIndex = getRandomIndex(Types.Length);
+            int randomIndex = GetRandomIndex(Types.Length);
             return Types[randomIndex];
         }
 
@@ -78,7 +76,7 @@ namespace amir_apparel_demo_api_dotnet_5.Data.Seed
             var max = 100;
             var randomDouble = rand.NextDouble();
             var price = (decimal)(min + (randomDouble * (max - min)));
-            return decimal.Round(price, 2, MidpointRounding.AwayFromZero);
+            return decimal.Round(price, 2);
         }
 
         private int BuildRandomQuantity()
