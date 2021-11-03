@@ -10,11 +10,13 @@ namespace amir_apparel_demo_api_dotnet_5.Data.Seed
 {
     public static class Extensions
     {
-        public static void SeedDatabase(ModelBuilder modelBuilder)
+        public static void SeedDatabase(this ModelBuilder modelBuilder)
         {
             var productFactory = new ProductFactory();
 
-            modelBuilder.Entity<Product>().HasData(productFactory.BuildRandomProducts(5));
+            var products = productFactory.BuildRandomProducts(25);
+
+            modelBuilder.Entity<Product>().HasData(products);
         }
     }
 }
