@@ -8,7 +8,7 @@ using amir_apparel_demo_api_dotnet_5.Data.Context;
 
 namespace amir_apparel_demo_api_dotnet_5.Migrations
 {
-    [DbContext(typeof(Context))]
+    [DbContext(typeof(AppCtx))]
     [Migration("20211103004542_InitialCreate")]
     partial class InitialCreate
     {

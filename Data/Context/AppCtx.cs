@@ -9,12 +9,9 @@ using System.Threading.Tasks;
 
 namespace amir_apparel_demo_api_dotnet_5.Data.Context
 {
-    public class Context : DbContext, IContext
+    public class AppCtx : DbContext, IAppCtx
     {
         public DbSet<Product> Products { get; set; }
-
-        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-            => optionsBuilder.UseNpgsql("Host=localhost; Port=5432; Database=postgres; UserName=postgres; Password=root");
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {

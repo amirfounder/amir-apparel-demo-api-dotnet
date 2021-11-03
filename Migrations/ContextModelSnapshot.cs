@@ -7,7 +7,7 @@ using amir_apparel_demo_api_dotnet_5.Data.Context;
 
 namespace amir_apparel_demo_api_dotnet_5.Migrations
 {
-    [DbContext(typeof(Context))]
+    [DbContext(typeof(AppCtx))]
     partial class ContextModelSnapshot : ModelSnapshot
     {
         protected override void BuildModel(ModelBuilder modelBuilder)
