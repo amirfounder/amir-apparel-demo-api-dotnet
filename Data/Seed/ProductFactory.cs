@@ -1,4 +1,5 @@
 ﻿using amir_apparel_demo_api_dotnet_5.Data.Models;
+using amir_apparel_demo_api_dotnet_5.Utilities;
 using System;
 using System.Collections.Generic;
 
@@ -9,13 +10,10 @@ namespace amir_apparel_demo_api_dotnet_5.Data.Seed
 
         private readonly Random rand = new();
 
-        private int GetRandomIndex(int maxBound)
-        {
-            return rand.Next(0, maxBound);
-        }
-
         private readonly string[] Materials = new string[] { "Cotton", "Polyesters", "Silk", "Leather" };
         private readonly string[] Types = new string[] { "Gloves", "Shorts", "Pants", "Shoes", "Socks", "Boxers" };
+        private readonly string[] Demographics = new string[] { "Men", "Women", "Kids" };
+        private readonly string[] HexCodes = new string[] { "b0160b", "16f7d2", "870bb0", "0b81b0" };
 
 
         public List<Product> BuildRandomProducts(int count)
@@ -34,6 +32,7 @@ namespace amir_apparel_demo_api_dotnet_5.Data.Seed
             var material = GetRandomMaterial();
             var type = BuildRandomType();
             var name = BuildName(material, type);
+            var hexCode = BuildRandomHexCode();
 
             return new Product
             {
@@ -41,6 +40,10 @@ namespace amir_apparel_demo_api_dotnet_5.Data.Seed
                 Name = name,
                 Type = type,
                 Description = BuildDescription(name),
+                LaunchDate = BuildRandomLaunchDate(),
+                HexCode = hexCode,
+                Color = BuildColor(hexCode),
+                Demographic = BuildRandomDemographic(),
                 Material = material,
                 Price = BuildRandomPrice(),
                 AvailableQuantity = BuildRandomQuantity(),
@@ -50,24 +53,29 @@ namespace amir_apparel_demo_api_dotnet_5.Data.Seed
 
         private string GetRandomMaterial()
         {
-            int randomIndex = GetRandomIndex(Materials.Length);
-            return Materials[randomIndex];
+            return Materials.Random();
         }
 
         private string BuildRandomType()
         {
-            int randomIndex = GetRandomIndex(Types.Length);
-            return Types[randomIndex];
+            return Types.Random();
         }
 
-        private string BuildName(string material, string type)
+        private string BuildRandomDemographic()
         {
-            return material + " " + type;
+            return Demographics.Random();
         }
 
-        private string BuildDescription(string name)
+        private DateTime BuildRandomLaunchDate()
         {
-            return "These are some awesome " + name + "! These guys are definitely a steal!";
+            DateTime start = new DateTime(1995, 1, 1);
+            int range = (DateTime.Today - start).Days;
+            return start.AddDays(rand.Next(range));
+        }
+
+        private string BuildRandomHexCode()
+        {
+            return HexCodes.Random();
         }
 
         private decimal BuildRandomPrice()
@@ -81,14 +89,33 @@ namespace amir_apparel_demo_api_dotnet_5.Data.Seed
 
         private int BuildRandomQuantity()
         {
-            var min = 10;
-            var max = 100;
+            var min = 100;
+            var max = 500;
             return rand.Next(min, max);
         }
 
         private bool BuildRandomStatus()
         {
             return rand.NextDouble() >= 0.5;
+        }
+
+        private string BuildColor(string hexCode) => hexCode switch
+        {
+            "b0160b" => "Dark Red",
+            "16f7d2" => "Purple",
+            "870bb0" => "Turquoise",
+            "0b81b0" => "Blue",
+            _ => "Unkown"
+        };
+
+        private static string BuildName(string material, string type)
+        {
+            return material + " " + type;
+        }
+
+        private static string BuildDescription(string name)
+        {
+            return "These are some awesome " + name + "! These guys are definitely a steal!";
         }
 
     }
