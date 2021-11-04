@@ -11,6 +11,8 @@ namespace amir_apparel_demo_api_dotnet_5
 {
     public class Startup
     {
+
+        private string MyAllowSpecificOrigins = "_myAllowSpecificOrigins";
         public Startup(IConfiguration configuration)
         {
             Configuration = configuration;
@@ -24,6 +26,18 @@ namespace amir_apparel_demo_api_dotnet_5
             services.AddControllers();
             services.AddProviderServices();
             services.AddDataServices();
+
+            services.AddCors(options =>
+            {
+                options.AddPolicy(name: MyAllowSpecificOrigins,
+                    builder =>
+                    {
+                        builder.WithOrigins(
+                            "http://localhost:5000",
+                            "https://localhost:5001"
+                            );
+                    });
+            });
 
             services.AddSwaggerGen(c =>
             {
@@ -44,6 +58,8 @@ namespace amir_apparel_demo_api_dotnet_5
             app.UseHttpsRedirection();
 
             app.UseRouting();
+
+            app.UseCors(MyAllowSpecificOrigins);
 
             app.UseAuthorization();
 
