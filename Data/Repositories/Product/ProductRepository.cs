@@ -1,11 +1,8 @@
 ﻿using amir_apparel_demo_api_dotnet_5.Data.Context;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using amir_apparel_demo_api_dotnet_5.Data.Models;
 using Microsoft.EntityFrameworkCore;
+using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace amir_apparel_demo_api_dotnet_5.Data.Repositories
 {
