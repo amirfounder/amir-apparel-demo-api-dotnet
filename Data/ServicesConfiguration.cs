@@ -1,5 +1,5 @@
 ﻿using amir_apparel_demo_api_dotnet_5.Data.Context;
-using amir_apparel_demo_api_dotnet_5.Data.Repositories.Product;
+using amir_apparel_demo_api_dotnet_5.Data.Repositories;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 

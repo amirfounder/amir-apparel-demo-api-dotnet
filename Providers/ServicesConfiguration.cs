@@ -1,5 +1,4 @@
-﻿using amir_apparel_demo_api_dotnet_5.Providers.Product;
-using Microsoft.Extensions.DependencyInjection;
+﻿using Microsoft.Extensions.DependencyInjection;
 using System;
 using System.Collections.Generic;
 using System.Linq;
