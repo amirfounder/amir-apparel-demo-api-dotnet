@@ -6,10 +6,11 @@ using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using System.Web.Http.Cors;
 
 namespace amir_apparel_demo_api_dotnet_5.Controllers
 {
-    [Route("/products")]
+    [Route("products")]
     [ApiController]
     public class ProductController : ControllerBase
     {

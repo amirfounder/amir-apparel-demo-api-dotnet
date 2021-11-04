@@ -1,5 +1,7 @@
+using amir_apparel_demo_api_dotnet_5.Controllers;
 using amir_apparel_demo_api_dotnet_5.Data;
 using amir_apparel_demo_api_dotnet_5.Providers;
+using amir_apparel_demo_api_dotnet_5.Utilities;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
@@ -11,6 +13,7 @@ namespace amir_apparel_demo_api_dotnet_5
 {
     public class Startup
     {
+
         public Startup(IConfiguration configuration)
         {
             Configuration = configuration;
@@ -21,6 +24,7 @@ namespace amir_apparel_demo_api_dotnet_5
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddCorsServices();
             services.AddControllers();
             services.AddProviderServices();
             services.AddDataServices();
@@ -44,6 +48,8 @@ namespace amir_apparel_demo_api_dotnet_5
             app.UseHttpsRedirection();
 
             app.UseRouting();
+
+            app.UseCors(Constants.AmirApparelCorsPolicy);
 
             app.UseAuthorization();
 
