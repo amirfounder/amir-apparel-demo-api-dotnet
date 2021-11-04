@@ -23,10 +23,10 @@ namespace amir_apparel_demo_api_dotnet_5.Controllers
         }
 
         [HttpGet]
-        public async Task<IEnumerable<ProductDTO>> GetProductsAsync()
+        public async Task<ActionResult<IEnumerable<ProductDTO>>> GetProductsAsync()
         {
             var products = await _provider.GetProductsAsync();
-            return _mapper.Map<List<ProductDTO>>(products.ToList());
+            return Ok(_mapper.Map<List<ProductDTO>>(products.ToList()));
         }
 
         private IMapper InitializeMapper()
