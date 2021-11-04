@@ -29,6 +29,13 @@ namespace amir_apparel_demo_api_dotnet_5.Controllers
             return Ok(_mapper.Map<List<ProductDTO>>(products.ToList()));
         }
 
+        [HttpGet("{id}")]
+        public async Task<ActionResult<ProductDTO>> GetProductByIdAsync(int id)
+        {
+            var product = await _provider.getProductByIdAsync(id);
+            return Ok(_mapper.Map<ProductDTO>(product));
+        }
+
         private IMapper InitializeMapper()
         {
             var config = new MapperConfiguration(config =>
