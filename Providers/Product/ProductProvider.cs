@@ -1,8 +1,7 @@
 ﻿using amir_apparel_demo_api_dotnet_5.API.QueryParams;
 using amir_apparel_demo_api_dotnet_5.Data.Models;
 using amir_apparel_demo_api_dotnet_5.Data.Repositories;
-using amir_apparel_demo_api_dotnet_5.DTOs;
-using amir_apparel_demo_api_dotnet_5.Exceptions;
+using amir_apparel_demo_api_dotnet_5.HttpStatusExceptions;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 

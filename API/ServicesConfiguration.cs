@@ -1,4 +1,4 @@
-﻿using amir_apparel_demo_api_dotnet_5.Exceptions;
+﻿using amir_apparel_demo_api_dotnet_5.API.Filters;
 using amir_apparel_demo_api_dotnet_5.Utilities;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.DependencyInjection;
@@ -41,5 +41,6 @@ namespace amir_apparel_demo_api_dotnet_5.Controllers
             });
             return services;
         }
+
     }
 }

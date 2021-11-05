@@ -17,8 +17,6 @@ namespace amir_apparel_demo_api_dotnet_5.Data
             
             services.AddScoped<IProductRepository<Product>, ProductRepository>();
 
-            services.AddSingleton<ProductMapper>();
-
             return services;
         }
     }
