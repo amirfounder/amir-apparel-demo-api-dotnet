@@ -1,4 +1,4 @@
-﻿using amir_apparel_demo_api_dotnet_5.API.Controllers;
+﻿using amir_apparel_demo_api_dotnet_5.API.QueryParams;
 using amir_apparel_demo_api_dotnet_5.Data.Models;
 using amir_apparel_demo_api_dotnet_5.DTOs;
 using amir_apparel_demo_api_dotnet_5.Providers;
@@ -26,7 +26,9 @@ namespace amir_apparel_demo_api_dotnet_5.Controllers
         }
 
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<ProductDTO>>> GetProductsAsync([FromQuery] ProductParameters productParameters)
+        public async Task<ActionResult<IEnumerable<ProductDTO>>> GetProductsAsync(
+            [FromQuery] PaginationQueryParams productParameters
+        )
         {
             var products = await _provider.GetProductsAsync(productParameters);
             return Ok(_mapper.Map<List<ProductDTO>>(products.ToList()));

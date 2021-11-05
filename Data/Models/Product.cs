@@ -2,11 +2,10 @@
 
 namespace amir_apparel_demo_api_dotnet_5.Data.Models
 {
-    public class Product : BaseEntity
+    public class Product : Entity
     {
-        public Product()
-        {
-        }
+        public Product() { }
+
         public string Name { get; set; }
 
         public string HexCode { get; set; }

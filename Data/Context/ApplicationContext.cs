@@ -4,10 +4,10 @@ using Microsoft.EntityFrameworkCore;
 
 namespace amir_apparel_demo_api_dotnet_5.Data.Context
 {
-    public class AppCtx : DbContext, IAppCtx
+    public class ApplicationContext : DbContext, IApplicationContext
     {
 
-        public AppCtx(DbContextOptions<AppCtx> options) : base(options)
+        public ApplicationContext(DbContextOptions<ApplicationContext> options) : base(options)
         {
         }
 
