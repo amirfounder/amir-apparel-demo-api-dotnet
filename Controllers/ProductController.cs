@@ -1,5 +1,6 @@
 ﻿using amir_apparel_demo_api_dotnet_5.Data.Models;
 using amir_apparel_demo_api_dotnet_5.DTOs;
+using amir_apparel_demo_api_dotnet_5.Exceptions;
 using amir_apparel_demo_api_dotnet_5.Providers;
 using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
@@ -27,6 +28,20 @@ namespace amir_apparel_demo_api_dotnet_5.Controllers
         {
             var products = await _provider.GetProductsAsync();
             return Ok(_mapper.Map<List<ProductDTO>>(products.ToList()));
+        }
+
+        [HttpGet("{id}")]
+        public async Task<ActionResult<ProductDTO>> GetProductByIdAsync(int id)
+        {
+            var product = await _provider.getProductByIdAsync(id);
+            if (product == null)
+            {
+                ExceptionResponse notFound = new();
+                notFound.statusCode = System.Net.HttpStatusCode.NotFound;
+                notFound.errorMessage = "Could not find product";
+                return NotFound(notFound);
+            }
+            return Ok(_mapper.Map<ProductDTO>(product));
         }
 
         private IMapper InitializeMapper()

@@ -19,5 +19,10 @@ namespace amir_apparel_demo_api_dotnet_5.Data.Repositories
         {
             return await _ctx.Products.ToListAsync();
         }
+
+        public async Task<Product> GetProductByIdAsync(int id)
+        {
+            return await _ctx.Products.FindAsync(id);
+        }
     }
 }
