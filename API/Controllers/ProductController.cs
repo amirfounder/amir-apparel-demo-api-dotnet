@@ -44,7 +44,7 @@ namespace amir_apparel_demo_api_dotnet_5.Controllers
         private IMapper InitializeMapper()
         {
             var config = new MapperConfiguration(config =>
-                config.CreateMap<Product, ProductDTO>().ReverseMap());
+                config.CreateMap<T, ProductDTO>().ReverseMap());
 
             return config.CreateMapper();
         }

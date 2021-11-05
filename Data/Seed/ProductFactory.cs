@@ -16,9 +16,9 @@ namespace amir_apparel_demo_api_dotnet_5.Data.Seed
         private readonly string[] HexCodes = new string[] { "b0160b", "16f7d2", "870bb0", "0b81b0" };
 
 
-        public List<Product> BuildRandomProducts(int count)
+        public List<T> BuildRandomProducts(int count)
         {
-            var products = new List<Product>();
+            var products = new List<T>();
 
             for (int i = 0; i < count; i++)
             {
@@ -27,14 +27,14 @@ namespace amir_apparel_demo_api_dotnet_5.Data.Seed
 
             return products;
         }
-        private Product BuildRandomProduct(int id)
+        private T BuildRandomProduct(int id)
         {
             var material = GetRandomMaterial();
             var type = BuildRandomType();
             var name = BuildName(material, type);
             var hexCode = BuildRandomHexCode();
 
-            return new Product
+            return new T
             {
                 Id = id,
                 Name = name,

@@ -7,13 +7,13 @@ using System.Threading.Tasks;
 
 namespace amir_apparel_demo_api_dotnet_5.Data.Repositories
 {
-    public abstract class EntityFrameworkBaseRepository<TEntity, TContext> : IRepository<TEntity>
+    public abstract class EFBaseRepository<TEntity, TContext> : IRepository<TEntity>
         where TEntity : class, IEntity
         where TContext : DbContext
     {
         private readonly TContext context;
 
-        public EntityFrameworkBaseRepository(TContext context)
+        public EFBaseRepository(TContext context)
         {
             this.context = context;
         }

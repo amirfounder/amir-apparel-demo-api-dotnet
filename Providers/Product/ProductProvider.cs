@@ -9,22 +9,22 @@ namespace amir_apparel_demo_api_dotnet_5.Providers
 {
     public class ProductProvider : IProductProvider
     {
-        private readonly ProductRepository _repository;
+        private readonly IProductRepository<T> _repository;
 
-        public ProductProvider(ProductRepository repository)
+        public ProductProvider(IProductRepository<T> repository)
         {
             _repository = repository;
         }
 
 
-        public async Task<IEnumerable<Product>> GetProductsAsync(PaginationQueryParams productParameters)
+        public async Task<IEnumerable<T>> GetProductsAsync(PaginationQueryParams productParameters)
         {
             return await _repository.GetAll(productParameters);
         }
 
-        public async Task<Product> getProductByIdAsync(int id)
+        public async Task<T> getProductByIdAsync(int id)
         {
-            Product product;
+            T product;
 
             product = await _repository.Get(id);
 

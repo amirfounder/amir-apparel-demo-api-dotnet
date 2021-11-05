@@ -11,7 +11,7 @@ namespace amir_apparel_demo_api_dotnet_5.Data.Context
         {
         }
 
-        public DbSet<Product> Products { get; set; }
+        public DbSet<T> Products { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
