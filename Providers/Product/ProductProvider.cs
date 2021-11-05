@@ -1,8 +1,9 @@
 ﻿using amir_apparel_demo_api_dotnet_5.Data.Models;
 using amir_apparel_demo_api_dotnet_5.Data.Repositories;
 using System.Collections.Generic;
+using System.Net;
 using System.Threading.Tasks;
-
+using System.Web.Http;
 
 namespace amir_apparel_demo_api_dotnet_5.Providers
 {
@@ -23,7 +24,23 @@ namespace amir_apparel_demo_api_dotnet_5.Providers
 
         public async Task<Product> getProductByIdAsync(int id)
         {
-            return await _repository.GetProductByIdAsync(id);
+            Product product;
+
+            try
+            {
+                product = await _repository.GetProductByIdAsync(id);
+            }
+            catch
+            {
+                throw new HttpResponseException(HttpStatusCode.InternalServerError);
+            }
+
+            if (product == null)
+            {
+                throw new HttpResponseException(HttpStatusCode.NotFound);
+            }
+
+            return product;
         }
     }
 }
