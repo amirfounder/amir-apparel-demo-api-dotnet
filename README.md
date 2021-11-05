@@ -6,6 +6,7 @@
 
 - https://github.com/nbarbettini/BeautifulRestApi/blob/master/src/Startup.cs
 - https://github.com/FabianGosebrink/ASPNETCore-WebAPI-Sample
+- https://github.com/kilicars/AspNetCoreRepositoryPattern
 
 ### Developers
 

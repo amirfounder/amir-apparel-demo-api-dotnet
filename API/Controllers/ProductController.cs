@@ -1,4 +1,5 @@
-﻿using amir_apparel_demo_api_dotnet_5.Data.Models;
+﻿using amir_apparel_demo_api_dotnet_5.API.Controllers;
+using amir_apparel_demo_api_dotnet_5.Data.Models;
 using amir_apparel_demo_api_dotnet_5.DTOs;
 using amir_apparel_demo_api_dotnet_5.Providers;
 using AutoMapper;
@@ -16,6 +17,8 @@ namespace amir_apparel_demo_api_dotnet_5.Controllers
         private readonly IProductProvider _provider;
         private readonly IMapper _mapper;
 
+        public int FromQuery { get; private set; }
+
         public ProductController(IProductProvider provider)
         {
             _provider = provider;
@@ -23,9 +26,9 @@ namespace amir_apparel_demo_api_dotnet_5.Controllers
         }
 
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<ProductDTO>>> GetProductsAsync()
+        public async Task<ActionResult<IEnumerable<ProductDTO>>> GetProductsAsync([FromQuery] ProductParameters productParameters)
         {
-            var products = await _provider.GetProductsAsync();
+            var products = await _provider.GetProductsAsync(productParameters);
             return Ok(_mapper.Map<List<ProductDTO>>(products.ToList()));
         }
 

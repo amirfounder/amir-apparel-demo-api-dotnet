@@ -1,4 +1,5 @@
-﻿using amir_apparel_demo_api_dotnet_5.Data.Models;
+﻿using amir_apparel_demo_api_dotnet_5.API.Controllers;
+using amir_apparel_demo_api_dotnet_5.Data.Models;
 using amir_apparel_demo_api_dotnet_5.Data.Repositories;
 using amir_apparel_demo_api_dotnet_5.Exceptions;
 using System.Collections.Generic;
@@ -16,9 +17,9 @@ namespace amir_apparel_demo_api_dotnet_5.Providers
         }
 
 
-        public async Task<IEnumerable<Product>> GetProductsAsync()
+        public async Task<IEnumerable<Product>> GetProductsAsync(ProductParameters productParameters)
         {
-            return await _repository.GetProductsAsync();
+            return await _repository.GetProductsAsync(productParameters);
         }
 
         public async Task<Product> getProductByIdAsync(int id)
