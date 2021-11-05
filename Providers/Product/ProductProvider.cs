@@ -1,5 +1,6 @@
 ﻿using amir_apparel_demo_api_dotnet_5.Data.Models;
 using amir_apparel_demo_api_dotnet_5.Data.Repositories;
+using amir_apparel_demo_api_dotnet_5.Exceptions;
 using System.Collections.Generic;
 using System.Net;
 using System.Net.Http;
@@ -36,12 +37,12 @@ namespace amir_apparel_demo_api_dotnet_5.Providers
                 HttpResponseMessage response = new();
                 response.ReasonPhrase = "Internal server error";
                 response.StatusCode = HttpStatusCode.InternalServerError;
-                throw new HttpResponseException(response);
+                throw new System.Web.Http.HttpResponseException(response);
             }
 
             if (product == null)
             {
-                return null;
+                throw new NotFoundException("Could not find error");
             }
 
             return product;

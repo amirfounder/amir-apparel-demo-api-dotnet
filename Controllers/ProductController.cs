@@ -34,18 +34,6 @@ namespace amir_apparel_demo_api_dotnet_5.Controllers
         public async Task<ActionResult<ProductDTO>> GetProductByIdAsync(int id)
         {
             var product = await _provider.getProductByIdAsync(id);
-            if (product == null)
-            {
-                throw new ExceptionResponse()
-                {
-                    Status = 404,
-                    Value = new ExceptionResponseValue()
-                    {
-                        Status = 404,
-                        ErrorMessage = "Could not find product with id " + id
-                    }
-                };
-            }
             return Ok(_mapper.Map<ProductDTO>(product));
         }
 
