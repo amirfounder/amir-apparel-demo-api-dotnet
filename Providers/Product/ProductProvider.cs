@@ -25,14 +25,7 @@ namespace amir_apparel_demo_api_dotnet_5.Providers
         {
             Product product;
 
-            try
-            {
-                product = await _repository.GetProductByIdAsync(id);
-            }
-            catch
-            {
-                throw new ServiceUnavailableException("Service unavailable");
-            }
+            product = await _repository.GetProductByIdAsync(id);
 
             if (product == null)
             {

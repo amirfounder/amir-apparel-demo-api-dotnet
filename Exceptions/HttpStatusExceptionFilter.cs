@@ -3,7 +3,7 @@ using Microsoft.AspNetCore.Mvc.Filters;
 
 namespace amir_apparel_demo_api_dotnet_5.Exceptions
 {
-    public class HttpResponseExceptionFilter : IActionFilter, IOrderedFilter
+    public class HttpStatusExceptionFilter : IActionFilter, IOrderedFilter
     {
         public int Order { get; } = int.MaxValue - 10;
         public void OnActionExecuting(ActionExecutingContext context) { }
@@ -12,9 +12,9 @@ namespace amir_apparel_demo_api_dotnet_5.Exceptions
         {
             if (context.Exception is IHttpResponseException exception)
             {
-                context.Result = new ObjectResult(exception.ObjectData)
+                context.Result = new ObjectResult(exception.ErrorObject)
                 {
-                    StatusCode = exception.Status
+                    StatusCode = exception.ErrorObject.Status
                 };
                 context.ExceptionHandled = true;
             }

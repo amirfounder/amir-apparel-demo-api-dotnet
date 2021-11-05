@@ -27,7 +27,7 @@ namespace amir_apparel_demo_api_dotnet_5.Controllers
         {
             services.AddControllers(options =>
             {
-                options.Filters.Add(new HttpResponseExceptionFilter());
+                options.Filters.Add(new HttpStatusExceptionFilter());
             })
             .ConfigureApiBehaviorOptions(options =>
             {

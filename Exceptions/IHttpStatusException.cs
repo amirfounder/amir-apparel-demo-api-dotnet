@@ -2,7 +2,6 @@
 {
     public interface IHttpResponseException
     {
-        public int Status { get; }
-        public object ObjectData { get; set; }
+        HttpStatusExceptionErrorObject ErrorObject { get; set; }
     }
 }

@@ -6,16 +6,9 @@ namespace amir_apparel_demo_api_dotnet_5.Exceptions
     {
         public NotFoundException(string errorMessage)
         {
-            Status = 404;
-            ObjectData = new HttpResponseExceptionObject()
-            {
-                Status = 404,
-                Error = "Not Found",
-                ErrorMessage = errorMessage,
-                Timestamp = DateTime.UtcNow,
-            };
+            ErrorObject = new(status: 404, error: "Not Found", errorMessage: errorMessage);
         }
-        public int Status { get; }
-        public object ObjectData { get; set; }
+
+        public HttpStatusExceptionErrorObject ErrorObject { get; set; }
     }
 }
