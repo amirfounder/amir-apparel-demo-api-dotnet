@@ -28,20 +28,8 @@ namespace amir_apparel_demo_api_dotnet_5
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddCorsServices();
-            services.AddControllers(options =>
-                {
-                    options.Filters.Add(new ExceptionResponseFilter());
-                })
-                .ConfigureApiBehaviorOptions(options =>
-                {
-                    options.InvalidModelStateResponseFactory = context =>
-                    {
-                        var result = new BadRequestObjectResult(context.ModelState);
-                        result.ContentTypes.Add(MediaTypeNames.Application.Json);
+            services.AddCustomControllers();
 
-                        return result;
-                    };
-                });
             services.AddProviderServices();
             services.AddDataServices();
 

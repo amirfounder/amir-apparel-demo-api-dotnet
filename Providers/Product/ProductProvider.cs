@@ -17,7 +17,7 @@ namespace amir_apparel_demo_api_dotnet_5.Providers
             _repository = repository;
         }
 
-        
+
         public async Task<IEnumerable<Product>> GetProductsAsync()
         {
             return await _repository.GetProductsAsync();

@@ -39,7 +39,11 @@ namespace amir_apparel_demo_api_dotnet_5.Controllers
                 throw new ExceptionResponse()
                 {
                     Status = 404,
-                    Value = "Could not find Product"
+                    Value = new ExceptionResponseValue()
+                    {
+                        Status = 404,
+                        ErrorMessage = "Could not find product with id " + id
+                    }
                 };
             }
             return Ok(_mapper.Map<ProductDTO>(product));
