@@ -7,12 +7,10 @@ using System.Threading.Tasks;
 
 namespace amir_apparel_demo_api_dotnet_5.Exceptions
 {
-    public class ExceptionResponse
+    public class ExceptionResponse : Exception
     {
-        public ExceptionResponse()
-        {
-        }
-        public HttpStatusCode statusCode { get; set; }
-        public string errorMessage { get; set; }
+        public int Status { get; set; } = 500;
+
+        public object Value { get; set; }
     }
 }

@@ -36,10 +36,11 @@ namespace amir_apparel_demo_api_dotnet_5.Controllers
             var product = await _provider.getProductByIdAsync(id);
             if (product == null)
             {
-                ExceptionResponse notFound = new();
-                notFound.statusCode = System.Net.HttpStatusCode.NotFound;
-                notFound.errorMessage = "Could not find product";
-                return NotFound(notFound);
+                throw new ExceptionResponse()
+                {
+                    Status = 404,
+                    Value = "Could not find Product"
+                };
             }
             return Ok(_mapper.Map<ProductDTO>(product));
         }
