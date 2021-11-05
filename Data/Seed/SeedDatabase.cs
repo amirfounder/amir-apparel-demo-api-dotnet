@@ -11,7 +11,7 @@ namespace amir_apparel_demo_api_dotnet_5.Data.Seed
 
             var products = productFactory.BuildRandomProducts(500);
 
-            modelBuilder.Entity<T>().HasData(products);
+            modelBuilder.Entity<Product>().HasData(products);
         }
     }
 }

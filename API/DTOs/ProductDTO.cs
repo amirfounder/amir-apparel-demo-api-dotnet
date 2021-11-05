@@ -1,4 +1,4 @@
-﻿namespace amir_apparel_demo_api_dotnet_5.DTOs
+﻿namespace amir_apparel_demo_api_dotnet_5.API
 {
     public class ProductDTO
     {

@@ -15,14 +15,14 @@ namespace amir_apparel_demo_api_dotnet_5.Controllers
     public class ProductController : ControllerBase
     {
         private readonly IProductProvider _provider;
-        private readonly IMapper _mapper;
+        private readonly ProductMapper _mapper;
 
         public int FromQuery { get; private set; }
 
-        public ProductController(IProductProvider provider)
+        public ProductController(IProductProvider provider, ProductMapper mapper)
         {
             _provider = provider;
-            _mapper = InitializeMapper();
+            _mapper = mapper;
         }
 
         [HttpGet]
@@ -44,7 +44,7 @@ namespace amir_apparel_demo_api_dotnet_5.Controllers
         private IMapper InitializeMapper()
         {
             var config = new MapperConfiguration(config =>
-                config.CreateMap<T, ProductDTO>().ReverseMap());
+                config.CreateMap<Product, ProductDTO>().ReverseMap());
 
             return config.CreateMapper();
         }

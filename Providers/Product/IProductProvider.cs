@@ -7,7 +7,7 @@ namespace amir_apparel_demo_api_dotnet_5.Providers
 {
     public interface IProductProvider
     {
-        Task<IEnumerable<T>> GetProductsAsync(PaginationQueryParams productParameters);
-        Task<T> getProductByIdAsync(int id);
+        Task<IEnumerable<Product>> GetProductsAsync(PaginationQueryParams productParameters);
+        Task<Product> getProductByIdAsync(int id);
     }
 }

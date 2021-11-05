@@ -14,7 +14,10 @@ namespace amir_apparel_demo_api_dotnet_5.Data
                 options.UseNpgsql("Host=localhost; Port=5432; Database=postgres; UserName=postgres; Password=root"));
 
             services.AddScoped<IApplicationContext>(provider => provider.GetService<ApplicationContext>());
-            services.AddScoped<IProductRepository<T>, ProductRepository>();
+            
+            services.AddScoped<IProductRepository<Product>, ProductRepository>();
+
+            services.AddSingleton<ProductMapper>();
 
             return services;
         }

@@ -2,9 +2,9 @@
 
 namespace amir_apparel_demo_api_dotnet_5.Data.Models
 {
-    public class T : Entity
+    public class Product : Entity
     {
-        public T() { }
+        public Product() { }
 
         public string Name { get; set; }
 
