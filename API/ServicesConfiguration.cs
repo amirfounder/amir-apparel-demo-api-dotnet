@@ -35,6 +35,7 @@ namespace amir_apparel_demo_api_dotnet_5.Controllers
                 {
                     var result = new BadRequestObjectResult(context.ModelState);
                     result.ContentTypes.Add(MediaTypeNames.Application.Json);
+                    result.ContentTypes.Add(MediaTypeNames.Application.Xml);
                     return result;
                 };
             });

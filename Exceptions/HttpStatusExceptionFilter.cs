@@ -10,7 +10,7 @@ namespace amir_apparel_demo_api_dotnet_5.Exceptions
 
         public void OnActionExecuted(ActionExecutedContext context)
         {
-            if (context.Exception is IHttpResponseException exception)
+            if (context.Exception is IHttpStatusException exception)
             {
                 context.Result = new ObjectResult(exception.ErrorObject)
                 {

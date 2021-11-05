@@ -2,17 +2,11 @@
 
 namespace amir_apparel_demo_api_dotnet_5.Exceptions
 {
-    public class ServiceUnavailableException : Exception, IHttpResponseException
+    public class ServiceUnavailableException : Exception, IHttpStatusException
     {
         public ServiceUnavailableException(string errorMessage)
         {
-            ErrorObject = new()
-            {
-                Status = 503,
-                Error = "Service Unavailable",
-                ErrorMessage = errorMessage,
-                Timestamp = DateTime.UtcNow
-            };
+            ErrorObject = new(503, "Internal Server Error", errorMessage);            
         }
         public HttpStatusExceptionErrorObject ErrorObject { get; set; }
     }

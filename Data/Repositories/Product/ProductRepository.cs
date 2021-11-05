@@ -30,7 +30,7 @@ namespace amir_apparel_demo_api_dotnet_5.Data.Repositories
                 return await _ctx.Products.FindAsync(id);
             }
 
-            // How come we don't just catch all 500 / 503 exception in our filter? SRP?
+            // How come we don't just catch all 500 / 503 exception in our filter? SRP? Extensible Impl? Logging?
 
             catch (Exception e)
             {

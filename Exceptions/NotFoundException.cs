@@ -2,11 +2,11 @@
 
 namespace amir_apparel_demo_api_dotnet_5.Exceptions
 {
-    public class NotFoundException : Exception, IHttpResponseException
+    public class NotFoundException : Exception, IHttpStatusException
     {
         public NotFoundException(string errorMessage)
         {
-            ErrorObject = new(status: 404, error: "Not Found", errorMessage: errorMessage);
+            ErrorObject = new(404, "Not Found", errorMessage);
         }
 
         public HttpStatusExceptionErrorObject ErrorObject { get; set; }
