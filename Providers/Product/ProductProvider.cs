@@ -2,6 +2,7 @@
 using amir_apparel_demo_api_dotnet_5.Data.Repositories;
 using System.Collections.Generic;
 using System.Net;
+using System.Net.Http;
 using System.Threading.Tasks;
 using System.Web.Http;
 
@@ -32,12 +33,18 @@ namespace amir_apparel_demo_api_dotnet_5.Providers
             }
             catch
             {
-                throw new HttpResponseException(HttpStatusCode.InternalServerError);
+                HttpResponseMessage response = new();
+                response.ReasonPhrase = "Internal server error";
+                response.StatusCode = HttpStatusCode.InternalServerError;
+                throw new HttpResponseException(response);
             }
 
             if (product == null)
             {
-                throw new HttpResponseException(HttpStatusCode.NotFound);
+                HttpResponseMessage response = new();
+                response.ReasonPhrase = "Not found";
+                response.StatusCode = HttpStatusCode.NotFound;
+                throw new HttpResponseException(response);
             }
 
             return product;
