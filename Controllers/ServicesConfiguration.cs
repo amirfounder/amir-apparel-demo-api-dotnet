@@ -1,4 +1,5 @@
 ﻿using amir_apparel_demo_api_dotnet_5.Utilities;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace amir_apparel_demo_api_dotnet_5.Controllers
@@ -16,6 +17,10 @@ namespace amir_apparel_demo_api_dotnet_5.Controllers
                         .AllowAnyOrigin()
                         .AllowAnyMethod();
                 });
+            });
+            services.AddMvc(options =>
+            {
+                options.Filters.Add(new ProducesAttribute("application/json"));
             });
 
             return services;

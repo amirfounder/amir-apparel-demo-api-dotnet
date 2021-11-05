@@ -41,10 +41,7 @@ namespace amir_apparel_demo_api_dotnet_5.Providers
 
             if (product == null)
             {
-                HttpResponseMessage response = new();
-                response.ReasonPhrase = "Not found";
-                response.StatusCode = HttpStatusCode.NotFound;
-                throw new HttpResponseException(response);
+                return null;
             }
 
             return product;
