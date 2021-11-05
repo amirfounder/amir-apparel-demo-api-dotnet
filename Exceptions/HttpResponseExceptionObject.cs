@@ -2,7 +2,7 @@
 
 namespace amir_apparel_demo_api_dotnet_5.Exceptions
 {
-    public class HttpExceptionResponseObject
+    public class HttpResponseExceptionObject
     {
         public DateTime Timestamp { get; set; }
         public int Status { get; set; }

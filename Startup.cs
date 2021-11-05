@@ -1,16 +1,13 @@
 using amir_apparel_demo_api_dotnet_5.Controllers;
 using amir_apparel_demo_api_dotnet_5.Data;
-using amir_apparel_demo_api_dotnet_5.Exceptions;
 using amir_apparel_demo_api_dotnet_5.Providers;
 using amir_apparel_demo_api_dotnet_5.Utilities;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.OpenApi.Models;
-using System.Net.Mime;
 
 namespace amir_apparel_demo_api_dotnet_5
 {
