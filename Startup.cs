@@ -25,7 +25,8 @@ namespace amir_apparel_demo_api_dotnet_5
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddCorsServices();
-            services.AddControllers();
+            services.AddCustomControllers();
+
             services.AddProviderServices();
             services.AddDataServices();
 
