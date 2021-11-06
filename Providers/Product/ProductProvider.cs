@@ -2,7 +2,6 @@
 using amir_apparel_demo_api_dotnet_5.Data.Models;
 using amir_apparel_demo_api_dotnet_5.Data.Repositories;
 using amir_apparel_demo_api_dotnet_5.HttpStatusExceptions;
-using System.Collections.Generic;
 using System.Threading.Tasks;
 
 namespace amir_apparel_demo_api_dotnet_5.Providers

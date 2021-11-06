@@ -1,5 +1,6 @@
 using amir_apparel_demo_api_dotnet_5.Controllers;
 using amir_apparel_demo_api_dotnet_5.Data;
+using amir_apparel_demo_api_dotnet_5.DTOs.MapperProfiles;
 using amir_apparel_demo_api_dotnet_5.Providers;
 using amir_apparel_demo_api_dotnet_5.Utilities;
 using Microsoft.AspNetCore.Builder;
@@ -8,8 +9,6 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.OpenApi.Models;
-using AutoMapper;
-using amir_apparel_demo_api_dotnet_5.DTOs.MapperProfiles;
 
 namespace amir_apparel_demo_api_dotnet_5
 {

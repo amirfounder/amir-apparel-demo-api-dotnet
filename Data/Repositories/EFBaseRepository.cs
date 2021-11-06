@@ -39,13 +39,11 @@ namespace amir_apparel_demo_api_dotnet_5.Data.Repositories
             };
 
             page.TotalElements = await context.Set<TEntity>().CountAsync();
-            page.TotalPages = (int) Math.Ceiling(page.TotalElements / (double) page.Size);
-            
-            int offset = page.Number * page.Size;
+            page.TotalPages = (int)Math.Ceiling(page.TotalElements / (double)page.Size);
 
             page.Content = await context.Set<TEntity>()
                 .OrderBy(x => x.Id)
-                .Skip(offset)
+                .Skip(page.Number * page.Size)
                 .Take(page.Size)
                 .ToListAsync();
 

@@ -2,7 +2,7 @@
 {
     public class PaginationOptions
     {
-        private const int maxSize = 50;
+        private const int maxSize = 100;
 
         public int Page { get; set; } = 0;
 
