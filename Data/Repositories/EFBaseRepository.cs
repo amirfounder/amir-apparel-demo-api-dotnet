@@ -12,21 +12,23 @@ namespace amir_apparel_demo_api_dotnet_5.Data.Repositories
         where TEntity : class, IEntity
         where TContext : DbContext
     {
-        private readonly TContext context;
+        private readonly TContext _context;
+        private readonly Type _model;
 
-        public EFBaseRepository(TContext context)
+        public EFBaseRepository(Type model, TContext context)
         {
-            this.context = context;
+            _model = model;
+            _context = context;
         }
 
         public async Task<TEntity> Get(int id)
         {
-            return await context.Set<TEntity>().FindAsync(id);
+            return await _context.Set<TEntity>().FindAsync(id);
         }
 
         public async Task<IEnumerable<TEntity>> GetAll()
         {
-            return await context.Set<TEntity>().ToListAsync();
+            return await _context.Set<TEntity>().ToListAsync();
         }
 
         public async Task<Page<TEntity>> GetAll(PaginationOptions paginationOptions)
@@ -38,10 +40,14 @@ namespace amir_apparel_demo_api_dotnet_5.Data.Repositories
                 NumberOfElements = paginationOptions.Size
             };
 
-            page.TotalElements = await context.Set<TEntity>().CountAsync();
+            page.TotalElements = await _context.Set<TEntity>().CountAsync();
             page.TotalPages = (int)Math.Ceiling(page.TotalElements / (double)page.Size);
 
-            page.Content = await context.Set<TEntity>()
+            DbSet<TEntity> dbSet = _context.Set<TEntity>();
+
+            var sortableMap = paginationOptions.Sort.Clean(_model);
+
+            page.Content = await dbSet
                 .OrderBy(x => x.Id)
                 .Skip(page.Number * page.Size)
                 .Take(page.Size)

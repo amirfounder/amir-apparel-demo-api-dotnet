@@ -1,4 +1,6 @@
-﻿namespace amir_apparel_demo_api_dotnet_5.API.QueryParams
+﻿using System.Collections;
+
+namespace amir_apparel_demo_api_dotnet_5.API.QueryParams
 {
     public class PaginationOptions
     {
@@ -24,15 +26,14 @@
             }
         }
 
-        private string _sort;
+        private string[] _sort = { "id,asc" };
 
-        public string Sort
+        public string[] Sort
         {
             get => _sort;
             set
             {
-                // custom logic here
-                _sort = "int,asc";
+                _sort = value;
             }
         }
     }
