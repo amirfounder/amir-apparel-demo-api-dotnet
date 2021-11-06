@@ -17,9 +17,9 @@ namespace amir_apparel_demo_api_dotnet_5.Providers
         }
 
 
-        public async Task<IEnumerable<Product>> GetProductsAsync(PaginationQueryParams productParameters)
+        public async Task<Page<Product>> GetProductsAsync(PaginationOptions paginationOptions)
         {
-            return await _repository.GetAll(productParameters);
+            return await _repository.GetAll(paginationOptions);
         }
 
         public async Task<Product> getProductByIdAsync(int id)

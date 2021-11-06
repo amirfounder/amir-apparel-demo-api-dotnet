@@ -1,10 +1,10 @@
 ﻿using amir_apparel_demo_api_dotnet_5.API;
 using amir_apparel_demo_api_dotnet_5.API.QueryParams;
+using amir_apparel_demo_api_dotnet_5.Data.Models;
 using amir_apparel_demo_api_dotnet_5.Providers;
 using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 
 namespace amir_apparel_demo_api_dotnet_5.Controllers
@@ -25,12 +25,12 @@ namespace amir_apparel_demo_api_dotnet_5.Controllers
         }
 
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<ProductDTO>>> GetProductsAsync(
-            [FromQuery] PaginationQueryParams productParameters
+        public async Task<ActionResult<Page<ProductDTO>>> GetProductsAsync(
+            [FromQuery] PaginationOptions paginationOptions
         )
         {
-            var products = await _provider.GetProductsAsync(productParameters);
-            return Ok(_mapper.Map<List<ProductDTO>>(products.ToList()));
+            var page = await _provider.GetProductsAsync(paginationOptions);
+            return Ok(page);
         }
 
         [HttpGet("{id}")]

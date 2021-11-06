@@ -9,6 +9,6 @@ namespace amir_apparel_demo_api_dotnet_5.Data.Repositories
     {
         Task<T> Get(int id);
         Task<IEnumerable<T>> GetAll();
-        Task<IEnumerable<T>> GetAll(PaginationQueryParams paginationQueryParams);
+        Task<Page<T>> GetAll(PaginationOptions paginationOptions);
     }
 }
