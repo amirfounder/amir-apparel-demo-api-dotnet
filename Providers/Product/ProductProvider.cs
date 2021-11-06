@@ -1,4 +1,4 @@
-﻿using amir_apparel_demo_api_dotnet_5.API.QueryParams;
+﻿using amir_apparel_demo_api_dotnet_5.API.CustomQueries;
 using amir_apparel_demo_api_dotnet_5.Data.Models;
 using amir_apparel_demo_api_dotnet_5.Data.Repositories;
 using amir_apparel_demo_api_dotnet_5.HttpStatusExceptions;
@@ -16,7 +16,7 @@ namespace amir_apparel_demo_api_dotnet_5.Providers
         }
 
 
-        public async Task<Page<Product>> GetProductsAsync(PaginationOptions paginationOptions)
+        public async Task<Page<Product>> GetProductsAsync(IPaginationOptions paginationOptions)
         {
             return await _repository.GetAll(paginationOptions);
         }

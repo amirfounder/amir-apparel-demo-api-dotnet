@@ -1,5 +1,6 @@
-﻿using amir_apparel_demo_api_dotnet_5.API.QueryParams;
+﻿using amir_apparel_demo_api_dotnet_5.API.CustomQueries;
 using amir_apparel_demo_api_dotnet_5.Data.Models;
+using amir_apparel_demo_api_dotnet_5.Data.Repositories.Extensions;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -31,7 +32,7 @@ namespace amir_apparel_demo_api_dotnet_5.Data.Repositories
             return await _context.Set<TEntity>().ToListAsync();
         }
 
-        public async Task<Page<TEntity>> GetAll(PaginationOptions paginationOptions)
+        public async Task<Page<TEntity>> GetAll(IPaginationOptions paginationOptions)
         {
             Page<TEntity> page = new()
             {
@@ -41,14 +42,13 @@ namespace amir_apparel_demo_api_dotnet_5.Data.Repositories
             };
 
             page.TotalElements = await _context.Set<TEntity>().CountAsync();
-            page.TotalPages = (int)Math.Ceiling(page.TotalElements / (double)page.Size);
+            page.TotalPages = (int) Math.Ceiling(page.TotalElements / (double) page.Size);
 
-            DbSet<TEntity> dbSet = _context.Set<TEntity>();
-
-            var sortableMap = paginationOptions.Sort.Clean(_model);
-
-            page.Content = await dbSet
-                .OrderBy(x => x.Id)
+            var query = _context
+                .Set<TEntity>()
+                .BuildSortedQuery(paginationOptions, _model);
+            
+            page.Content = await query
                 .Skip(page.Number * page.Size)
                 .Take(page.Size)
                 .ToListAsync();

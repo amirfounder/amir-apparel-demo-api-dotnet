@@ -1,5 +1,5 @@
 ﻿using amir_apparel_demo_api_dotnet_5.API;
-using amir_apparel_demo_api_dotnet_5.API.QueryParams;
+using amir_apparel_demo_api_dotnet_5.API.CustomQueries;
 using amir_apparel_demo_api_dotnet_5.Data.Models;
 using amir_apparel_demo_api_dotnet_5.Providers;
 using AutoMapper;
@@ -23,7 +23,7 @@ namespace amir_apparel_demo_api_dotnet_5.Controllers
             _mapper = mapper;
         }
 
-        [HttpGet]
+        [HttpGet("filter")]
         public async Task<ActionResult<Page<ProductDTO>>> GetProductsAsync(
             [FromQuery] PaginationOptions paginationOptions
         )

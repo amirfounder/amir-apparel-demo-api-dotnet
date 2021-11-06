@@ -15,5 +15,10 @@ namespace amir_apparel_demo_api_dotnet_5.Utilities
         {
             return datetime;
         }
+
+        public static string Capitalize(this string value)
+        {
+            return value.Substring(0, 1).ToUpper() + value.Substring(1).ToLower();
+        }
     }
 }
