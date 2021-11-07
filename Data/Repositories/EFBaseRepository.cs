@@ -46,7 +46,9 @@ namespace amir_apparel_demo_api_dotnet_5.Data.Repositories
 
             var query = _context
                 .Set<TEntity>()
-                .BuildSortedQuery(paginationOptions, _model);
+                .AsQueryable<TEntity>();
+
+            query.ApplySorting(paginationOptions, _model);
 
             page.Content = await query
                 .Skip(page.Number * page.Size)

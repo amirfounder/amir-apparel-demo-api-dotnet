@@ -10,43 +10,15 @@ namespace amir_apparel_demo_api_dotnet_5.Data.Repositories.Extensions
 {
     public static class PaginationExtensions
     {
-        public static IQueryable<T> BuildSortedQuery<T>(this DbSet<T> set, IPaginationOptions paginationOptions, Type model)
+        public static IQueryable<T> ApplySorting<T>(this IQueryable<T> query, string[] paginationSortables, Type model)
             where T : class, IEntity
         {
-            var sortables = FilterInvalidPaginationSortables(paginationOptions, model);
-            var query = ApplyOrderingUsingSortables<T>(set, sortables);
-
-            return query;
-        }
-
-        private static IQueryable<T> OrderByField<T>(this IQueryable<T> query, string field, bool ascending, bool firstOrdering)
-        {
-            var param = Expression.Parameter(typeof(T), "entity");
-            var property = Expression.Property(param, field);
-            var expression = Expression.Lambda(property, param);
-
-            string method = firstOrdering
-                ? (ascending) ? "OrderBy" : "OrderByDescending"
-                : (ascending) ? "ThenBy" : "ThenByDescending";
-
-            Type[] types = new Type[] { query.ElementType, expression.Body.Type };
-            var call = Expression.Call(
-                typeof(Queryable),
-                method,
-                types,
-                query.Expression,
-                expression
-            );
-            return query.Provider.CreateQuery<T>(call);
-        }
-
-        private static IQueryable<T> ApplyOrderingUsingSortables<T>(DbSet<T> set, List<string[]> sortables) where T : class, IEntity
-        {
-            IQueryable<T> query;
+            
+            var sortables = FilterInvalidPaginationSortables(paginationSortables, model);
 
             if (sortables.Count == 0)
             {
-                query = set.OrderBy(x => x.Id);
+                query = query.OrderBy(x => x.Id);
             }
             else
             {
@@ -54,7 +26,7 @@ namespace amir_apparel_demo_api_dotnet_5.Data.Repositories.Extensions
                 var sortableProp = sortable[0];
                 var isAscending = sortable[1] == "asc";
 
-                query = set.OrderByField(sortableProp, isAscending, true);
+                query = query.OrderByField(sortableProp, isAscending, true);
 
                 for (int i = 0; i < sortables.Count; i++)
                 {
@@ -74,11 +46,33 @@ namespace amir_apparel_demo_api_dotnet_5.Data.Repositories.Extensions
             return query;
         }
 
-        private static List<string[]> FilterInvalidPaginationSortables(IPaginationOptions paginationOptions, Type model)
+        private static IQueryable<T> OrderByField<T>(this IQueryable<T> query, string field, bool isAscending, bool isFirstOrdering)
+        {
+            var param = Expression.Parameter(typeof(T), "entity");
+            var property = Expression.Property(param, field);
+            var expression = Expression.Lambda(property, param);
+
+            string method = isFirstOrdering
+                ? (isAscending) ? "OrderBy" : "OrderByDescending"
+                : (isAscending) ? "ThenBy" : "ThenByDescending";
+
+            Type[] types = new Type[] { query.ElementType, expression.Body.Type };
+            var call = Expression.Call(
+                typeof(Queryable),
+                method,
+                types,
+                query.Expression,
+                expression
+            );
+
+            return query.Provider.CreateQuery<T>(call);
+        }
+
+        private static List<string[]> FilterInvalidPaginationSortables(string[] paginationSortables, Type model)
         {
             var filteredSortables = new List<string[]>();
 
-            if (paginationOptions.Sort == default)
+            if (paginationSortables == default)
             {
                 return filteredSortables;
             }
@@ -88,7 +82,7 @@ namespace amir_apparel_demo_api_dotnet_5.Data.Repositories.Extensions
                 .Select(x => x.Name.ToUpper())
                 .ToList();
 
-            foreach (string sortable in paginationOptions.Sort)
+            foreach (string sortable in paginationSortables)
             {
                 if (sortable == null)
                 {
@@ -103,7 +97,7 @@ namespace amir_apparel_demo_api_dotnet_5.Data.Repositories.Extensions
                 }
                 else
                 {
-                    if (item[0] != "asc" || item[0] != "desc")
+                    if (item[0] != "asc" && item[0] != "desc")
                     {
                         item[1] = "asc";
                     }
