@@ -1,7 +1,8 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using amir_apparel_demo_api_dotnet_5.HttpStatusExceptions;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Filters;
 
-namespace amir_apparel_demo_api_dotnet_5.Exceptions
+namespace amir_apparel_demo_api_dotnet_5.API.Filters
 {
     public class HttpStatusExceptionFilter : IActionFilter, IOrderedFilter
     {
@@ -12,9 +13,9 @@ namespace amir_apparel_demo_api_dotnet_5.Exceptions
         {
             if (context.Exception is IHttpStatusException exception)
             {
-                context.Result = new ObjectResult(exception.ErrorObject)
+                context.Result = new ObjectResult(exception.Value)
                 {
-                    StatusCode = exception.ErrorObject.Status
+                    StatusCode = exception.Value.Status
                 };
                 context.ExceptionHandled = true;
             }

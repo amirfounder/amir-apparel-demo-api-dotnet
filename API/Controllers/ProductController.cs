@@ -1,10 +1,9 @@
-﻿using amir_apparel_demo_api_dotnet_5.Data.Models;
-using amir_apparel_demo_api_dotnet_5.DTOs;
+﻿using amir_apparel_demo_api_dotnet_5.API;
+using amir_apparel_demo_api_dotnet_5.API.CustomQueries;
+using amir_apparel_demo_api_dotnet_5.Data.Models;
 using amir_apparel_demo_api_dotnet_5.Providers;
 using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
-using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 
 namespace amir_apparel_demo_api_dotnet_5.Controllers
@@ -16,17 +15,21 @@ namespace amir_apparel_demo_api_dotnet_5.Controllers
         private readonly IProductProvider _provider;
         private readonly IMapper _mapper;
 
-        public ProductController(IProductProvider provider)
+        public int FromQuery { get; private set; }
+
+        public ProductController(IProductProvider provider, IMapper mapper)
         {
             _provider = provider;
-            _mapper = InitializeMapper();
+            _mapper = mapper;
         }
 
-        [HttpGet]
-        public async Task<ActionResult<IEnumerable<ProductDTO>>> GetProductsAsync()
+        [HttpGet("filter")]
+        public async Task<ActionResult<Page<ProductDTO>>> GetProductsAsync(
+            [FromQuery] PaginationOptions paginationOptions
+        )
         {
-            var products = await _provider.GetProductsAsync();
-            return Ok(_mapper.Map<List<ProductDTO>>(products.ToList()));
+            var page = await _provider.GetProductsAsync(paginationOptions);
+            return Ok(page);
         }
 
         [HttpGet("{id}")]
@@ -34,14 +37,6 @@ namespace amir_apparel_demo_api_dotnet_5.Controllers
         {
             var product = await _provider.getProductByIdAsync(id);
             return Ok(_mapper.Map<ProductDTO>(product));
-        }
-
-        private IMapper InitializeMapper()
-        {
-            var config = new MapperConfiguration(config =>
-                config.CreateMap<Product, ProductDTO>().ReverseMap());
-
-            return config.CreateMapper();
         }
     }
 }

@@ -8,7 +8,7 @@ using amir_apparel_demo_api_dotnet_5.Data.Context;
 
 namespace amir_apparel_demo_api_dotnet_5.Migrations
 {
-    [DbContext(typeof(AppCtx))]
+    [DbContext(typeof(ApplicationContext))]
     partial class AppCtxModelSnapshot : ModelSnapshot
     {
         protected override void BuildModel(ModelBuilder modelBuilder)

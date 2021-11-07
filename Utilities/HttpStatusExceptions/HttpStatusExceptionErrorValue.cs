@@ -1,11 +1,11 @@
 ﻿using System;
 
-namespace amir_apparel_demo_api_dotnet_5.Exceptions
+namespace amir_apparel_demo_api_dotnet_5.HttpStatusExceptions
 {
-    public class HttpStatusExceptionErrorObject
+    public class HttpStatusExceptionErrorValue
     {
-        public HttpStatusExceptionErrorObject() { Timestamp = DateTime.UtcNow; }
-        public HttpStatusExceptionErrorObject(int status, string error, string errorMessage)
+        public HttpStatusExceptionErrorValue() { Timestamp = DateTime.UtcNow; }
+        public HttpStatusExceptionErrorValue(int status, string error, string errorMessage)
         {
             Timestamp = DateTime.UtcNow;
             Status = status;
