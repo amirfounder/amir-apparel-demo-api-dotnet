@@ -1,6 +1,5 @@
 ﻿using amir_apparel_demo_api_dotnet_5.API.CustomQueries;
 using amir_apparel_demo_api_dotnet_5.Data.Models;
-using amir_apparel_demo_api_dotnet_5.Data.Models.Extensions;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -16,7 +15,7 @@ namespace amir_apparel_demo_api_dotnet_5.Data.Repositories.Extensions
         {
             var sortables = FilterInvalidPaginationSortables(paginationOptions, model);
             var query = ApplyOrderingUsingSortables<T>(set, sortables);
-            
+
             return query;
         }
 
@@ -25,7 +24,7 @@ namespace amir_apparel_demo_api_dotnet_5.Data.Repositories.Extensions
             var param = Expression.Parameter(typeof(T), "entity");
             var property = Expression.Property(param, field);
             var expression = Expression.Lambda(property, param);
-            
+
             string method = firstOrdering
                 ? (ascending) ? "OrderBy" : "OrderByDescending"
                 : (ascending) ? "ThenBy" : "ThenByDescending";

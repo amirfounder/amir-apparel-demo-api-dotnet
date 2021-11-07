@@ -42,12 +42,12 @@ namespace amir_apparel_demo_api_dotnet_5.Data.Repositories
             };
 
             page.TotalElements = await _context.Set<TEntity>().CountAsync();
-            page.TotalPages = (int) Math.Ceiling(page.TotalElements / (double) page.Size);
+            page.TotalPages = (int)Math.Ceiling(page.TotalElements / (double)page.Size);
 
             var query = _context
                 .Set<TEntity>()
                 .BuildSortedQuery(paginationOptions, _model);
-            
+
             page.Content = await query
                 .Skip(page.Number * page.Size)
                 .Take(page.Size)
