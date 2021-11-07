@@ -26,7 +26,7 @@ namespace amir_apparel_demo_api_dotnet_5.API.CustomQueries
             }
         }
 
-        private string[] _sort = { "id,asc" };
+        private string[] _sort;
 
         public string[] Sort
         {
