@@ -4,6 +4,7 @@ using amir_apparel_demo_api_dotnet_5.Data.Models;
 using amir_apparel_demo_api_dotnet_5.Providers;
 using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 
 namespace amir_apparel_demo_api_dotnet_5.Controllers
@@ -31,7 +32,14 @@ namespace amir_apparel_demo_api_dotnet_5.Controllers
         {
             var page = await _provider.GetProductsWithFilterAsync(paginationOptions, productFilter);
             return Ok(page);
-        } 
+        }
+
+        [HttpGet("unique/{property}")]
+        public async Task<ActionResult<IEnumerable<object>>> GetDistinctAsync(string property)
+        {
+            var distinct = await _provider.GetDistinctAsync(property);
+            return Ok(distinct);
+        }
 
         [HttpGet]
         public async Task<ActionResult<Page<ProductDTO>>> GetProductsAsync(

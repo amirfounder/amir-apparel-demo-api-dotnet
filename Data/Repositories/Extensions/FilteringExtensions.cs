@@ -7,6 +7,7 @@ namespace amir_apparel_demo_api_dotnet_5.Data.Repositories.Extensions
     public static class FilteringExtensions
     {
         public static IQueryable<T> ApplyFiltering<T>(this IQueryable<T> query, IFilterable<T> filterable)
+            where T : class
         {
             var filters = filterable.GetFilters();
 
@@ -25,7 +26,7 @@ namespace amir_apparel_demo_api_dotnet_5.Data.Repositories.Extensions
             var firstProperty = Expression.Property(model, firstFilterProperty);
             var firstValuesFilters = firstProperty.BuildValuesFilters(firstFilterValues);
 
-            var lambdaBody = firstValuesFilters;
+            var lambdaExpression = firstValuesFilters;
             
             if (filters.Count > 1)
             {
@@ -42,11 +43,11 @@ namespace amir_apparel_demo_api_dotnet_5.Data.Repositories.Extensions
                     firstProperty = Expression.Property(model, filterProperty);
                     firstValuesFilters = firstProperty.BuildValuesFilters(filterValues);
 
-                    lambdaBody = Expression.Or(lambdaBody, firstValuesFilters);
+                    lambdaExpression = Expression.Or(lambdaExpression, firstValuesFilters);
                 }
             }           
 
-            var expression = Expression.Lambda(lambdaBody, model);
+            var expression = Expression.Lambda(lambdaExpression, model);
 
             return query.ApplyCustomWhereExpression(expression);
         }
@@ -70,9 +71,18 @@ namespace amir_apparel_demo_api_dotnet_5.Data.Repositories.Extensions
             return expression;
         }
 
-        public static IQueryable<T> ApplyFilter<T>(this IQueryable<T> query, string field, string[] values)
+        public static IQueryable<T> ApplyDistinctSelection<T>(this IQueryable<T> query, string propertyName)
         {
-            return query;
+            //var properties = typeof(T)
+            //    .GetType()
+            //    .GetProperties(Binding...);
+
+            var model = Expression.Parameter(typeof(T), "e");
+            var property = Expression.Property(model, propertyName);
+            var lambdaExpression = Expression.Lambda(property, model);
+
+            return query.ApplyCustomSelectExpression(lambdaExpression);
         }
+
     }
 }

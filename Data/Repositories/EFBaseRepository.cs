@@ -67,5 +67,15 @@ namespace amir_apparel_demo_api_dotnet_5.Data.Repositories
             return page;
 
         }
+
+        public async Task<IEnumerable<object>> GetDistinct(string property)
+        {
+            var query = _context
+                .Set<TEntity>()
+                .ApplyDistinctSelection(property)
+                .Distinct();
+
+            return await query.ToListAsync();
+        }
     }
 }

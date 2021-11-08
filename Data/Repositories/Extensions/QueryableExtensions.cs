@@ -28,7 +28,7 @@ namespace amir_apparel_demo_api_dotnet_5.Data.Repositories.Extensions
                 query.Expression,
                 expression
             );
-
+            
             return query.Provider.CreateQuery<T>(call);
         }
 
@@ -48,6 +48,27 @@ namespace amir_apparel_demo_api_dotnet_5.Data.Repositories.Extensions
                 expression);
 
             return query.Provider.CreateQuery<T>(call);
-        } 
+        }
+
+        public static IQueryable<T> ApplyCustomSelectExpression<T>(
+            this IQueryable<T> query,
+            LambdaExpression expression
+        )
+        {
+            var method = "Select";
+            var types = new Type[] { query.ElementType, expression.Body.Type };
+            var args = new[] { query.Expression, Expression.Quote(expression) };
+
+            var call = Expression.Call(
+                typeof(Queryable),
+                method,
+                types,
+                args
+                //expression
+            );
+
+
+            return query.Provider.CreateQuery<T>(call);
+        }
     }
 }

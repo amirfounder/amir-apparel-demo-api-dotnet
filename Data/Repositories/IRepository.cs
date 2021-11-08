@@ -11,5 +11,6 @@ namespace amir_apparel_demo_api_dotnet_5.Data.Repositories
         Task<IEnumerable<T>> GetAll();
         Task<Page<T>> GetAll(IPaginationOptions paginationOptions);
         Task<Page<T>> GetAll(IPaginationOptions paginationOptions, IFilterable<T> filterable);
+        Task<IEnumerable<object>> GetDistinct(string property);
     }
 }

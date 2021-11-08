@@ -6,7 +6,7 @@ using System.Reflection;
 
 namespace amir_apparel_demo_api_dotnet_5.API.CustomRequestQueries
 {
-    public abstract class Filterable<T> : IFilterable<T>
+    public abstract class Filterable<T> : IFilterable<T> where T : class
     {
         public Dictionary<string, string[]> GetFilters()
         {

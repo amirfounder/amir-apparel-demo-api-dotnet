@@ -56,7 +56,7 @@ namespace amir_apparel_demo_api_dotnet_5.Data.Repositories.Extensions
             var propertyAccessor = Expression.Property(modelParameter, field);
             var expression = Expression.Lambda(propertyAccessor, modelParameter);
 
-            return query.ApplyCustomOrderExpression(expression, isFirstOrdering, isAscending);
+            return query.ApplyCustomOrderExpression<T>(expression, isFirstOrdering, isAscending);
         }
 
         private static List<string[]> CleanPaginationSortables(string[] paginationSortables, Type model)
