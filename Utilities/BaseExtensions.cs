@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Collections;
+using System.Linq;
 
 namespace amir_apparel_demo_api_dotnet_5.Utilities
 {
@@ -19,6 +21,14 @@ namespace amir_apparel_demo_api_dotnet_5.Utilities
         public static string Capitalize(this string value)
         {
             return value.Substring(0, 1).ToUpper() + value.Substring(1).ToLower();
+        }
+
+        public static string[] ToStringArray(this object obj)
+        {
+            return ((IEnumerable)obj).Cast<object>()
+                .Where(x => x != null)
+                .Select(x => x.ToString())
+                .ToArray();
         }
     }
 }

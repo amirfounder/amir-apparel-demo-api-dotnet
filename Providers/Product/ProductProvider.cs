@@ -1,4 +1,4 @@
-﻿using amir_apparel_demo_api_dotnet_5.API.CustomQueries;
+﻿using amir_apparel_demo_api_dotnet_5.API.CustomRequestQueries;
 using amir_apparel_demo_api_dotnet_5.Data.Models;
 using amir_apparel_demo_api_dotnet_5.Data.Repositories;
 using amir_apparel_demo_api_dotnet_5.HttpStatusExceptions;
@@ -18,7 +18,8 @@ namespace amir_apparel_demo_api_dotnet_5.Providers
 
         public async Task<Page<Product>> GetProductsAsync(IPaginationOptions paginationOptions)
         {
-            return await _repository.GetAll(paginationOptions);
+            var page = await _repository.GetAll(paginationOptions);
+            return page;
         }
 
         public async Task<Product> getProductByIdAsync(int id)
@@ -33,6 +34,12 @@ namespace amir_apparel_demo_api_dotnet_5.Providers
             }
 
             return product;
+        }
+
+        public async Task<Page<Product>> GetProductsWithFilterAsync(PaginationOptions paginationOptions, ProductFilter productFilter)
+        {
+            var page = await _repository.GetAll(paginationOptions, productFilter);
+            return page;
         }
     }
 }

@@ -1,4 +1,4 @@
-﻿using amir_apparel_demo_api_dotnet_5.API.CustomQueries;
+﻿using amir_apparel_demo_api_dotnet_5.API.CustomRequestQueries;
 using amir_apparel_demo_api_dotnet_5.Data.Models;
 using amir_apparel_demo_api_dotnet_5.Data.Repositories.Extensions;
 using Microsoft.EntityFrameworkCore;
@@ -33,31 +33,39 @@ namespace amir_apparel_demo_api_dotnet_5.Data.Repositories
         }
 
         public async Task<Page<TEntity>> GetAll(IPaginationOptions paginationOptions)
-        {
-            Page<TEntity> page = new()
-            {
-                Number = paginationOptions.Page,
-                Size = paginationOptions.Size,
-                NumberOfElements = paginationOptions.Size
-            };
-
-            page.TotalElements = await _context.Set<TEntity>().CountAsync();
-            page.TotalPages = (int)Math.Ceiling(page.TotalElements / (double)page.Size);
-
+        { 
             var query = _context
                 .Set<TEntity>()
-                .AsQueryable<TEntity>();
+                .ApplySorting(paginationOptions.Sort, _model);
 
-            query.ApplySorting(paginationOptions.Sort, _model);
+            Page<TEntity> page = new(paginationOptions);
 
+            page.TotalElements = await query.CountAsync();
             page.Content = await query
                 .Skip(page.Number * page.Size)
                 .Take(page.Size)
                 .ToListAsync();
 
-            page.Empty = !page.Content.Any();
+            return page;
+        }
+
+        public async Task<Page<TEntity>> GetAll(IPaginationOptions paginationOptions, IFilterable<TEntity> filterable)
+        {
+            var query = _context
+                .Set<TEntity>()
+                .ApplyFiltering(filterable)
+                .ApplySorting(paginationOptions.Sort, _model);
+
+            Page<TEntity> page = new(paginationOptions);
+
+            page.TotalElements = await query.CountAsync();
+            page.Content = await query
+                .Skip(page.Number * page.Size)
+                .Take(page.Size)
+                .ToListAsync();
 
             return page;
+
         }
     }
 }
