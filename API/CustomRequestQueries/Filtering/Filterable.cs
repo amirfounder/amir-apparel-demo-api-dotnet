@@ -1,6 +1,4 @@
-﻿using amir_apparel_demo_api_dotnet_5.Utilities;
-using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 
@@ -16,7 +14,7 @@ namespace amir_apparel_demo_api_dotnet_5.API.CustomRequestQueries
             foreach (var property in properties)
             {
                 var name = property.Name;
-                var value = (string) property.GetValue(this, null);
+                var value = (string)property.GetValue(this, null);
 
                 if (value == null)
                 {

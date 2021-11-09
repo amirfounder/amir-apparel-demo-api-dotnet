@@ -11,7 +11,7 @@ namespace amir_apparel_demo_api_dotnet_5.Data.Repositories.Extensions
             var method = isFirstOrdering
                 ? (isAscending) ? "OrderBy" : "OrderByDescending"
                 : (isAscending) ? "ThenBy" : "ThenByDescending";
-            
+
             var types = new Type[] { query.ElementType, expression.Body.Type };
             var call = Expression.Call(
                 typeof(Queryable),
@@ -19,7 +19,7 @@ namespace amir_apparel_demo_api_dotnet_5.Data.Repositories.Extensions
                 types,
                 query.Expression,
                 expression);
-            
+
             return query.Provider.CreateQuery<T>(call);
         }
 

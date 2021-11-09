@@ -1,5 +1,4 @@
-﻿using amir_apparel_demo_api_dotnet_5.API.CustomRequestQueries;
-using amir_apparel_demo_api_dotnet_5.Data.Models;
+﻿using amir_apparel_demo_api_dotnet_5.Data.Models;
 
 namespace amir_apparel_demo_api_dotnet_5.Data.Repositories
 {

@@ -3,12 +3,11 @@ using amir_apparel_demo_api_dotnet_5.Data.Models;
 using amir_apparel_demo_api_dotnet_5.Data.Repositories.Extensions;
 using Microsoft.EntityFrameworkCore;
 using System;
-using System.Collections.Generic;
 using System.Collections;
+using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
 using System.Reflection;
-using System.Linq.Expressions;
+using System.Threading.Tasks;
 
 namespace amir_apparel_demo_api_dotnet_5.Data.Repositories
 {
@@ -36,7 +35,7 @@ namespace amir_apparel_demo_api_dotnet_5.Data.Repositories
         }
 
         public async Task<Page<TEntity>> GetAll(IPaginationOptions paginationOptions)
-        { 
+        {
             var query = _context
                 .Set<TEntity>()
                 .ApplySorting(paginationOptions.Sort, _model);

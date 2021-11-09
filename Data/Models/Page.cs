@@ -33,12 +33,13 @@ namespace amir_apparel_demo_api_dotnet_5.Data.Models
                 _empty = value.Any();
             }
         }
-        public int TotalElements {
+        public int TotalElements
+        {
             get => _totalElements;
             set
             {
                 _totalElements = value;
-                _totalPages = (int) Math.Ceiling(_totalElements/ (double) _size);
+                _totalPages = (int)Math.Ceiling(_totalElements / (double)_size);
             }
         }
         public int TotalPages { get => _totalPages; }

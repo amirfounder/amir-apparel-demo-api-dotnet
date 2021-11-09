@@ -1,6 +1,4 @@
-﻿using amir_apparel_demo_api_dotnet_5.API.CustomRequestQueries;
-using amir_apparel_demo_api_dotnet_5.Data.Models;
-using Microsoft.EntityFrameworkCore;
+﻿using amir_apparel_demo_api_dotnet_5.Data.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -13,7 +11,7 @@ namespace amir_apparel_demo_api_dotnet_5.Data.Repositories.Extensions
         public static IQueryable<T> ApplySorting<T>(this IQueryable<T> query, string[] paginationSortables, Type model)
             where T : class, IEntity
         {
-            
+
             var sortables = CleanPaginationSortables(paginationSortables, model);
 
             if (sortables.Count == 0)

@@ -27,7 +27,7 @@ namespace amir_apparel_demo_api_dotnet_5.Data.Repositories.Extensions
             var valuesFilter = property.BuildOrPredicateFilter(firstFilterValues);
 
             var body = valuesFilter;
-            
+
             if (filters.Count > 1)
             {
                 foreach (var filter in filters)
@@ -46,7 +46,7 @@ namespace amir_apparel_demo_api_dotnet_5.Data.Repositories.Extensions
                     body = Expression.And(body, valuesFilter);
                     // todo --> should this be an "AND"? AND i love reyna
                 }
-            }           
+            }
 
             var expression = Expression.Lambda(body, model);
 
@@ -59,7 +59,7 @@ namespace amir_apparel_demo_api_dotnet_5.Data.Repositories.Extensions
             var equals = Expression.Equal(property, constant);
             var expression = equals;
 
-            for (int i = 0; i < values.Length; i ++)
+            for (int i = 0; i < values.Length; i++)
             {
                 if (i == 0)
                 {
