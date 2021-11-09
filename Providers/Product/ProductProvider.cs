@@ -2,16 +2,19 @@
 using amir_apparel_demo_api_dotnet_5.Data.Models;
 using amir_apparel_demo_api_dotnet_5.Data.Repositories;
 using amir_apparel_demo_api_dotnet_5.HttpStatusExceptions;
+using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
+using System.Reflection;
 using System.Threading.Tasks;
 
 namespace amir_apparel_demo_api_dotnet_5.Providers
 {
     public class ProductProvider : IProductProvider
     {
-        private readonly IProductRepository<Product> _repository;
+        private readonly IProductRepository _repository;
 
-        public ProductProvider(IProductRepository<Product> repository)
+        public ProductProvider(IProductRepository repository)
         {
             _repository = repository;
         }
@@ -19,8 +22,7 @@ namespace amir_apparel_demo_api_dotnet_5.Providers
 
         public async Task<Page<Product>> GetProductsAsync(IPaginationOptions paginationOptions)
         {
-            var page = await _repository.GetAll(paginationOptions);
-            return page;
+            return await _repository.GetAll(paginationOptions);
         }
 
         public async Task<Product> getProductByIdAsync(int id)
@@ -29,7 +31,7 @@ namespace amir_apparel_demo_api_dotnet_5.Providers
 
             product = await _repository.Get(id);
 
-            if (product == null)
+            if (product == default)
             {
                 throw new NotFoundException("Could not find product with id: " + id);
             }
@@ -39,14 +41,12 @@ namespace amir_apparel_demo_api_dotnet_5.Providers
 
         public async Task<Page<Product>> GetProductsWithFilterAsync(PaginationOptions paginationOptions, ProductFilter productFilter)
         {
-            var page = await _repository.GetAll(paginationOptions, productFilter);
-            return page;
+            return await _repository.GetAll(paginationOptions, productFilter);
         }
 
-        public async Task<IEnumerable<object>> GetDistinctAsync(string property)
+        public async Task<IEnumerable> GetDistinctAsync(string property)
         {
-            var distinct = await _repository.GetDistinct(property);
-            return distinct;
+            return await _repository.GetDistinct(property);
         }
     }
 }

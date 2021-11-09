@@ -23,10 +23,10 @@ namespace amir_apparel_demo_api_dotnet_5.Data.Repositories.Extensions
 
             var model = Expression.Parameter(typeof(T), "e");
 
-            var firstProperty = Expression.Property(model, firstFilterProperty);
-            var firstValuesFilters = firstProperty.BuildValuesFilters(firstFilterValues);
+            var property = Expression.Property(model, firstFilterProperty);
+            var valuesFilter = property.BuildOrPredicateFilter(firstFilterValues);
 
-            var lambdaExpression = firstValuesFilters;
+            var body = valuesFilter;
             
             if (filters.Count > 1)
             {
@@ -40,22 +40,24 @@ namespace amir_apparel_demo_api_dotnet_5.Data.Repositories.Extensions
                         continue;
                     }
 
-                    firstProperty = Expression.Property(model, filterProperty);
-                    firstValuesFilters = firstProperty.BuildValuesFilters(filterValues);
+                    property = Expression.Property(model, filterProperty);
+                    valuesFilter = property.BuildOrPredicateFilter(filterValues);
 
-                    lambdaExpression = Expression.Or(lambdaExpression, firstValuesFilters);
+                    body = Expression.And(body, valuesFilter);
+                    // todo --> should this be an "AND"? AND i love reyna
                 }
             }           
 
-            var expression = Expression.Lambda(lambdaExpression, model);
+            var expression = Expression.Lambda(body, model);
 
-            return query.ApplyCustomWhereExpression(expression);
+            return query.ApplyCustomWhere(expression);
         }
 
-        public static Expression BuildValuesFilters(this Expression property, string[] values)
+        public static Expression BuildOrPredicateFilter(this Expression property, string[] values)
         {
-            var firstConstant = Expression.Constant(values[0], typeof(string));
-            var expression = Expression.Equal(property, firstConstant);
+            var constant = Expression.Constant(values[0]);
+            var equals = Expression.Equal(property, constant);
+            var expression = equals;
 
             for (int i = 0; i < values.Length; i ++)
             {
@@ -64,25 +66,22 @@ namespace amir_apparel_demo_api_dotnet_5.Data.Repositories.Extensions
                     continue;
                 }
 
-                var constant = Expression.Constant(values[i], typeof(string));
-                expression = Expression.Or(property, constant);
+                constant = Expression.Constant(values[i], typeof(string));
+                equals = Expression.Equal(property, constant);
+
+                expression = Expression.Or(expression, equals);
             }
 
             return expression;
         }
 
-        public static IQueryable<T> ApplyDistinctSelection<T>(this IQueryable<T> query, string propertyName)
+        public static IQueryable<TResult> ApplySelection<T, TResult>(this IQueryable<T> query, string propertyName)
         {
-            //var properties = typeof(T)
-            //    .GetType()
-            //    .GetProperties(Binding...);
+            var parameterExp = Expression.Parameter(typeof(T), "e");
+            var propertyExp = Expression.Property(parameterExp, propertyName);
+            var lambdaExp = Expression.Lambda(propertyExp, parameterExp);
 
-            var model = Expression.Parameter(typeof(T), "e");
-            var property = Expression.Property(model, propertyName);
-            var lambdaExpression = Expression.Lambda(property, model);
-
-            return query.ApplyCustomSelectExpression(lambdaExpression);
+            return query.ApplyCustomSelect<T, TResult>(lambdaExp);
         }
-
     }
 }

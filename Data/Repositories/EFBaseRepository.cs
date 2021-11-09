@@ -4,8 +4,11 @@ using amir_apparel_demo_api_dotnet_5.Data.Repositories.Extensions;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
+using System.Collections;
 using System.Linq;
 using System.Threading.Tasks;
+using System.Reflection;
+using System.Linq.Expressions;
 
 namespace amir_apparel_demo_api_dotnet_5.Data.Repositories
 {
@@ -65,17 +68,34 @@ namespace amir_apparel_demo_api_dotnet_5.Data.Repositories
                 .ToListAsync();
 
             return page;
-
         }
 
-        public async Task<IEnumerable<object>> GetDistinct(string property)
+        public async Task<IEnumerable> GetDistinct(string property)
         {
             var query = _context
                 .Set<TEntity>()
-                .ApplyDistinctSelection(property)
-                .Distinct();
+                .AsQueryable();
 
-            return await query.ToListAsync();
+            var returnType = typeof(TEntity)
+                .GetRuntimeProperties()
+                .Where(x => x.Name.ToUpper() == property.ToUpper())
+                .ElementAt(0)
+                .PropertyType;
+
+            if (returnType == typeof(bool))
+            {
+                return await query.ApplySelection<TEntity, bool>(property).Distinct().ToListAsync();
+            }
+            else if (returnType == typeof(decimal))
+            {
+                return await query.ApplySelection<TEntity, decimal>(property).Distinct().ToListAsync();
+            }
+            else if (returnType == typeof(int))
+            {
+                return await query.ApplySelection<TEntity, int>(property).Distinct().ToListAsync();
+            }
+
+            return await query.ApplySelection<TEntity, object>(property).Distinct().ToListAsync();
         }
     }
 }

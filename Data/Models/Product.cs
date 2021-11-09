@@ -2,7 +2,7 @@
 
 namespace amir_apparel_demo_api_dotnet_5.Data.Models
 {
-    public class Product : Entity
+    public class Product : Entity, IEntity
     {
         public Product() { }
 

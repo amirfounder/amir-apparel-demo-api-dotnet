@@ -15,7 +15,7 @@ namespace amir_apparel_demo_api_dotnet_5.Data
 
             services.AddScoped<IApplicationContext>(provider => provider.GetService<ApplicationContext>());
 
-            services.AddScoped<IProductRepository<Product>, ProductRepository>();
+            services.AddScoped<IProductRepository, ProductRepository>();
 
             return services;
         }

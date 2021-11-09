@@ -1,41 +1,29 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace amir_apparel_demo_api_dotnet_5.Data.Repositories.Extensions
 {
-    public static class QueryableExtensions
+    public static class IQueryableExtensions
     {
-        public static IQueryable<T> ApplyCustomOrderExpression<T>(
-            this IQueryable<T> query,
-            LambdaExpression expression,
-            bool isFirstOrdering,
-            bool isAscending
-        )
+        public static IQueryable<T> ApplyCustomOrder<T>(this IQueryable<T> query, LambdaExpression expression, bool isFirstOrdering, bool isAscending)
         {
             var method = isFirstOrdering
                 ? (isAscending) ? "OrderBy" : "OrderByDescending"
                 : (isAscending) ? "ThenBy" : "ThenByDescending";
-
+            
             var types = new Type[] { query.ElementType, expression.Body.Type };
             var call = Expression.Call(
                 typeof(Queryable),
                 method,
                 types,
                 query.Expression,
-                expression
-            );
+                expression);
             
             return query.Provider.CreateQuery<T>(call);
         }
 
-        public static IQueryable<T> ApplyCustomWhereExpression<T>(
-            this IQueryable<T> query,
-            LambdaExpression expression
-        )
+        public static IQueryable<T> ApplyCustomWhere<T>(this IQueryable<T> query, LambdaExpression expression)
         {
             var method = "Where";
             var types = new Type[] { query.ElementType };
@@ -50,25 +38,20 @@ namespace amir_apparel_demo_api_dotnet_5.Data.Repositories.Extensions
             return query.Provider.CreateQuery<T>(call);
         }
 
-        public static IQueryable<T> ApplyCustomSelectExpression<T>(
-            this IQueryable<T> query,
-            LambdaExpression expression
-        )
+        public static IQueryable<TResult> ApplyCustomSelect<T, TResult>(this IQueryable query, LambdaExpression expression)
         {
             var method = "Select";
-            var types = new Type[] { query.ElementType, expression.Body.Type };
-            var args = new[] { query.Expression, Expression.Quote(expression) };
+            var expBodyType = expression.Body.Type;
+            var types = new Type[] { query.ElementType, expBodyType };
 
             var call = Expression.Call(
                 typeof(Queryable),
                 method,
                 types,
-                args
-                //expression
-            );
+                query.Expression,
+                expression);
 
-
-            return query.Provider.CreateQuery<T>(call);
+            return query.Provider.CreateQuery<TResult>(call);
         }
     }
 }

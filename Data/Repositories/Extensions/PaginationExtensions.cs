@@ -25,7 +25,6 @@ namespace amir_apparel_demo_api_dotnet_5.Data.Repositories.Extensions
                 var sortable = sortables[0];
                 var sortableProp = sortable[0];
                 var isAscending = sortable[1] == "asc";
-
                 query = query.OrderByField(sortableProp, isAscending, true);
 
                 for (int i = 0; i < sortables.Count; i++)
@@ -46,17 +45,13 @@ namespace amir_apparel_demo_api_dotnet_5.Data.Repositories.Extensions
             return query;
         }
 
-        private static IQueryable<T> OrderByField<T>(
-            this IQueryable<T> query,
-            string field,
-            bool isAscending,
-            bool isFirstOrdering)
+        private static IQueryable<T> OrderByField<T>(this IQueryable<T> query, string field, bool isAscending, bool isFirstOrdering)
         {
-            var modelParameter = Expression.Parameter(typeof(T), "e");
-            var propertyAccessor = Expression.Property(modelParameter, field);
-            var expression = Expression.Lambda(propertyAccessor, modelParameter);
+            var model = Expression.Parameter(typeof(T), "e");
+            var property = Expression.Property(model, field);
+            var expression = Expression.Lambda(property, model);
 
-            return query.ApplyCustomOrderExpression<T>(expression, isFirstOrdering, isAscending);
+            return query.ApplyCustomOrder<T>(expression, isFirstOrdering, isAscending);
         }
 
         private static List<string[]> CleanPaginationSortables(string[] paginationSortables, Type model)
