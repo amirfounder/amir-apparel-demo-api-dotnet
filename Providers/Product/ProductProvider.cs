@@ -1,16 +1,17 @@
-﻿using amir_apparel_demo_api_dotnet_5.API.CustomQueries;
+﻿using amir_apparel_demo_api_dotnet_5.API.CustomRequestQueries;
 using amir_apparel_demo_api_dotnet_5.Data.Models;
 using amir_apparel_demo_api_dotnet_5.Data.Repositories;
 using amir_apparel_demo_api_dotnet_5.HttpStatusExceptions;
+using System.Collections;
 using System.Threading.Tasks;
 
 namespace amir_apparel_demo_api_dotnet_5.Providers
 {
     public class ProductProvider : IProductProvider
     {
-        private readonly IProductRepository<Product> _repository;
+        private readonly IProductRepository _repository;
 
-        public ProductProvider(IProductRepository<Product> repository)
+        public ProductProvider(IProductRepository repository)
         {
             _repository = repository;
         }
@@ -27,12 +28,22 @@ namespace amir_apparel_demo_api_dotnet_5.Providers
 
             product = await _repository.Get(id);
 
-            if (product == null)
+            if (product == default)
             {
                 throw new NotFoundException("Could not find product with id: " + id);
             }
 
             return product;
+        }
+
+        public async Task<Page<Product>> GetProductsWithFilterAsync(PaginationOptions paginationOptions, ProductFilter productFilter)
+        {
+            return await _repository.GetAll(paginationOptions, productFilter);
+        }
+
+        public async Task<IEnumerable> GetDistinctAsync(string property)
+        {
+            return await _repository.GetDistinct(property);
         }
     }
 }

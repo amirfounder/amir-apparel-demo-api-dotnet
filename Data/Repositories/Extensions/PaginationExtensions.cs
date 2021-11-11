@@ -1,6 +1,4 @@
-﻿using amir_apparel_demo_api_dotnet_5.API.CustomQueries;
-using amir_apparel_demo_api_dotnet_5.Data.Models;
-using Microsoft.EntityFrameworkCore;
+﻿using amir_apparel_demo_api_dotnet_5.Data.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -13,8 +11,8 @@ namespace amir_apparel_demo_api_dotnet_5.Data.Repositories.Extensions
         public static IQueryable<T> ApplySorting<T>(this IQueryable<T> query, string[] paginationSortables, Type model)
             where T : class, IEntity
         {
-            
-            var sortables = FilterInvalidPaginationSortables(paginationSortables, model);
+
+            var sortables = CleanPaginationSortables(paginationSortables, model);
 
             if (sortables.Count == 0)
             {
@@ -25,7 +23,6 @@ namespace amir_apparel_demo_api_dotnet_5.Data.Repositories.Extensions
                 var sortable = sortables[0];
                 var sortableProp = sortable[0];
                 var isAscending = sortable[1] == "asc";
-
                 query = query.OrderByField(sortableProp, isAscending, true);
 
                 for (int i = 0; i < sortables.Count; i++)
@@ -48,27 +45,14 @@ namespace amir_apparel_demo_api_dotnet_5.Data.Repositories.Extensions
 
         private static IQueryable<T> OrderByField<T>(this IQueryable<T> query, string field, bool isAscending, bool isFirstOrdering)
         {
-            var param = Expression.Parameter(typeof(T), "entity");
-            var property = Expression.Property(param, field);
-            var expression = Expression.Lambda(property, param);
+            var model = Expression.Parameter(typeof(T), "e");
+            var property = Expression.Property(model, field);
+            var expression = Expression.Lambda(property, model);
 
-            string method = isFirstOrdering
-                ? (isAscending) ? "OrderBy" : "OrderByDescending"
-                : (isAscending) ? "ThenBy" : "ThenByDescending";
-
-            Type[] types = new Type[] { query.ElementType, expression.Body.Type };
-            var call = Expression.Call(
-                typeof(Queryable),
-                method,
-                types,
-                query.Expression,
-                expression
-            );
-
-            return query.Provider.CreateQuery<T>(call);
+            return query.ApplyCustomOrder<T>(expression, isFirstOrdering, isAscending);
         }
 
-        private static List<string[]> FilterInvalidPaginationSortables(string[] paginationSortables, Type model)
+        private static List<string[]> CleanPaginationSortables(string[] paginationSortables, Type model)
         {
             var filteredSortables = new List<string[]>();
 
