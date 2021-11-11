@@ -1,4 +1,5 @@
 ﻿using amir_apparel_demo_api_dotnet_5.API.CustomRequestQueries;
+using System;
 using System.Linq;
 using System.Linq.Expressions;
 
@@ -21,12 +22,12 @@ namespace amir_apparel_demo_api_dotnet_5.Data.Repositories.Extensions
             var firstFilterProperty = firstFilter.Key;
             var firstFilterValues = firstFilter.Value;
 
-            var model = Expression.Parameter(typeof(T), "e");
+            var parameterExp = Expression.Parameter(typeof(T), "e");
 
-            var property = Expression.Property(model, firstFilterProperty);
-            var valuesFilter = property.BuildOrPredicateFilter(firstFilterValues);
+            var propertyExp = Expression.Property(parameterExp, firstFilterProperty);
+            var orPredicateExp = propertyExp.BuildOrPredicateFilter(firstFilterValues);
 
-            var body = valuesFilter;
+            var bodyExp = orPredicateExp;
 
             if (filters.Count > 1)
             {
@@ -40,24 +41,28 @@ namespace amir_apparel_demo_api_dotnet_5.Data.Repositories.Extensions
                         continue;
                     }
 
-                    property = Expression.Property(model, filterProperty);
-                    valuesFilter = property.BuildOrPredicateFilter(filterValues);
+                    propertyExp = Expression.Property(parameterExp, filterProperty);
+                    orPredicateExp = propertyExp.BuildOrPredicateFilter(filterValues);
 
-                    body = Expression.And(body, valuesFilter);
-                    // todo --> should this be an "AND"? AND i love reyna
+                    bodyExp = Expression.And(bodyExp, orPredicateExp);
                 }
             }
 
-            var expression = Expression.Lambda(body, model);
+            var lambdaExp = Expression.Lambda(bodyExp, parameterExp);
 
-            return query.ApplyCustomWhere(expression);
+            return query.ApplyCustomWhere(lambdaExp);
         }
 
-        public static Expression BuildOrPredicateFilter(this Expression property, string[] values)
+        public static Expression BuildOrPredicateFilter(this Expression propertyExp, string[] values)
         {
+            var upperCaseMethod = typeof(string).GetMethod("ToUpper", Array.Empty<Type>());
+
             var constant = Expression.Constant(values[0]);
-            var equals = Expression.Equal(property, constant);
-            var expression = equals;
+
+            var left = Expression.Call(propertyExp, upperCaseMethod);
+            var right = Expression.Call(constant, upperCaseMethod);
+
+            var expression = Expression.Equal(left, right);
 
             for (int i = 0; i < values.Length; i++)
             {
@@ -67,9 +72,9 @@ namespace amir_apparel_demo_api_dotnet_5.Data.Repositories.Extensions
                 }
 
                 constant = Expression.Constant(values[i], typeof(string));
-                equals = Expression.Equal(property, constant);
+                right = Expression.Call(constant, upperCaseMethod);
 
-                expression = Expression.Or(expression, equals);
+                expression = Expression.Or(expression, Expression.Equal(left, right));
             }
 
             return expression;

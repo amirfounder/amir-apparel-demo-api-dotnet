@@ -41,8 +41,7 @@ namespace amir_apparel_demo_api_dotnet_5.Data.Repositories.Extensions
         public static IQueryable<TResult> ApplyCustomSelect<T, TResult>(this IQueryable query, LambdaExpression expression)
         {
             var method = "Select";
-            var expBodyType = expression.Body.Type;
-            var types = new Type[] { query.ElementType, expBodyType };
+            var types = new Type[] { query.ElementType, expression.Body.Type };
 
             var call = Expression.Call(
                 typeof(Queryable),
