@@ -1,18 +1,18 @@
 ﻿using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Threading.Tasks;
 using amir_apparel_demo_api_dotnet_5;
 using amir_apparel_demo_api_dotnet_5.API;
 using amir_apparel_demo_api_dotnet_5.Data.Context;
+using amir_apparel_demo_api_dotnet_5.Data.Models;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc.Testing;
-using Microsoft.AspNetCore.TestHost;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection.Extensions;
-using Newtonsoft.Json.Linq;
 using Xunit;
 
 namespace Amir.Apparel.Demo.Api.Dotnet.Tests.IntegrationTests
@@ -41,23 +41,30 @@ namespace Amir.Apparel.Demo.Api.Dotnet.Tests.IntegrationTests
         }
 
         [Fact]
-        public async Task GetProducts_Returns200WithCollection()
+        public async Task GetProducts_Returns200WithExpectedPageValues()
         {
             var response = await _client.GetAsync("/products");
             Assert.Equal(HttpStatusCode.OK, response.StatusCode);
+
+            var content = await response.Content.ReadAsAsync<Page<ProductDTO>>();
+            Assert.Equal(25, content.Content.Count());
+            Assert.False(content.Empty);
+            Assert.Equal(25, content.Size);
+            Assert.Equal(0, content.Number);
         }
-        
-        [Fact]
-        public async Task GetProductById_GivenNonExistantId_Returns404()
-        {
-            var respnose = await _client.GetAsync("/products/9999");
-            Assert.Equal(HttpStatusCode.NotFound, respnose.StatusCode);
-        }
+
         [Fact]
         public async Task GetProductById_GivenByExistingId_Returns200()
         {
             var response = await _client.GetAsync("/products/1");
             Assert.Equal(HttpStatusCode.OK, response.StatusCode);
+        }
+
+        [Fact]
+        public async Task GetProductById_GivenNonExistantId_Returns404()
+        {
+            var response = await _client.GetAsync("/products/9999");
+            Assert.Equal(HttpStatusCode.NotFound, response.StatusCode);
         }
 
         [Fact]

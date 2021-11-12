@@ -30,7 +30,7 @@ namespace amir_apparel_demo_api_dotnet_5.Data.Models
             set
             {
                 _content = value;
-                _empty = value.Any();
+                _empty = !value.Any();
             }
         }
         public int TotalElements
