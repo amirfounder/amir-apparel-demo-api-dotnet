@@ -45,8 +45,55 @@ namespace Amir.Apparel.Demo.Api.Dotnet.Tests.IntegrationTests
         {
             var response = await _client.GetAsync("/products");
             Assert.Equal(HttpStatusCode.OK, response.StatusCode);
+        }
+        
+        [Fact]
+        public async Task GetProductById_GivenNonExistantId_Returns404()
+        {
+            var respnose = await _client.GetAsync("/products/9999");
+            Assert.Equal(HttpStatusCode.NotFound, respnose.StatusCode);
+        }
+        [Fact]
+        public async Task GetProductById_GivenByExistingId_Returns200()
+        {
+            var response = await _client.GetAsync("/products/1");
+            Assert.Equal(HttpStatusCode.OK, response.StatusCode);
+        }
 
-            var content = await response.Content.ReadAsAsync<List<ProductDTO>>();
+        [Fact]
+        public async Task GetProducts_GivenFilterOneAttributeOneValue_Returns200()
+        {
+            var response = await _client.GetAsync("/products?demographic=men");
+            Assert.Equal(HttpStatusCode.OK, response.StatusCode);
+        }
+
+        [Fact]
+        public async Task GetProducts_GivenFilterOneAttributeMultipleValues_Returns200()
+        {
+            var response = await _client.GetAsync("/products?demographic=men,women");
+            Assert.Equal(HttpStatusCode.OK, response.StatusCode);
+        }
+
+        [Fact]
+        public async Task GetProducts_GivenFilterMultipleAttributesOneValuePerAttribute_Returns200()
+        {
+            var response = await _client.GetAsync("/products?demographic=men&material=cotton");
+            Assert.Equal(HttpStatusCode.OK, response.StatusCode);
+        }
+
+        [Fact]
+        public async Task GetProducts_GivenFilterMultipleAttributesMultipleValuePerAttribute_Returns200()
+        {
+            var response = await _client.GetAsync("/products?demographic=men,women&material=cotton,silk");
+            Assert.Equal(HttpStatusCode.OK, response.StatusCode);
+        }
+
+        [Fact]
+        public async Task GetProducts_GivenFilterOneAttributeInvalidValue_Returns200()
+        {
+            var response = await _client.GetAsync("/products?demographic=foo");
+            Assert.Equal(HttpStatusCode.OK, response.StatusCode);
         }
     }
+
 }
