@@ -6,6 +6,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Reflection;
 using System.Threading.Tasks;
 
@@ -80,6 +81,8 @@ namespace amir_apparel_demo_api_dotnet_5.Data.Repositories
                 .Where(x => x.Name.ToUpper() == property.ToUpper())
                 .ElementAt(0)
                 .PropertyType;
+
+            /// TODO: Refactor using Linq Expressions
 
             if (returnType == typeof(bool))
             {
