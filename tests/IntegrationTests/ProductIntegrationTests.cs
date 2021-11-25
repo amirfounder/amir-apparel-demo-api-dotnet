@@ -105,40 +105,55 @@ namespace Amir.Apparel.Demo.Api.Dotnet.Tests.IntegrationTests
         [Fact]
         public async Task GetProducts_GivenFilterOneAttributeOneValue_Returns200()
         {
-            var response = await _client.GetAsync("/products?demographic=men");
+            var response = await _client.GetAsync("/products/filter?demographic=men");
             Assert.Equal(HttpStatusCode.OK, response.StatusCode);
 
             var content = await response.Content.ReadAsAsync<Page<ProductDTO>>();
-            var products = content.Content;
-            Assert.Empty(products.Where(x => x.Demographic.ToLower() != "men").ToList());
+            Assert.Empty(content.Content.Where(x => x.Demographic != "Men").ToList());
         }
 
         [Fact]
         public async Task GetProducts_GivenFilterOneAttributeMultipleValues_Returns200()
         {
-            var response = await _client.GetAsync("/products?demographic=men,women");
+            var response = await _client.GetAsync("/products/filter?demographic=men,women");
             Assert.Equal(HttpStatusCode.OK, response.StatusCode);
+
+            var content = await response.Content.ReadAsAsync<Page<ProductDTO>>();
+            Assert.Empty(content.Content.Where(x => x.Demographic != "Men" & x.Demographic != "Women").ToList());
         }
 
         [Fact]
         public async Task GetProducts_GivenFilterMultipleAttributesOneValuePerAttribute_Returns200()
         {
-            var response = await _client.GetAsync("/products?demographic=men&material=cotton");
+            var response = await _client.GetAsync("/products/filter?demographic=men&material=cotton");
             Assert.Equal(HttpStatusCode.OK, response.StatusCode);
+
+            var content = await response.Content.ReadAsAsync<Page<ProductDTO>>();
+            Assert.Empty(content.Content.Where(x => x.Demographic != "Men").ToList());
+            Assert.Empty(content.Content.Where(x => x.Material != "Cotton").ToList());
         }
 
         [Fact]
         public async Task GetProducts_GivenFilterMultipleAttributesMultipleValuePerAttribute_Returns200()
         {
-            var response = await _client.GetAsync("/products?demographic=men,women&material=cotton,silk");
+            var response = await _client.GetAsync("/products/filter?demographic=men,women&material=cotton,silk");
             Assert.Equal(HttpStatusCode.OK, response.StatusCode);
+
+            var content = await response.Content.ReadAsAsync<Page<ProductDTO>>();
+            Assert.Empty(content.Content.Where(x => x.Demographic != "Men" & x.Demographic != "Women").ToList());
+            Assert.Empty(content.Content.Where(x => x.Material != "Cotton" & x.Material != "Silk").ToList());
         }
 
         [Fact]
         public async Task GetProducts_GivenFilterOneAttributeInvalidValue_Returns200()
         {
-            var response = await _client.GetAsync("/products?demographic=foo");
+            var response = await _client.GetAsync("/products/filter?demographic=foo");
             Assert.Equal(HttpStatusCode.OK, response.StatusCode);
+
+            var content = await response.Content.ReadAsAsync<Page<ProductDTO>>();
+            Assert.Equal(0, content.TotalElements);
+            Assert.True(content.Empty);
+            Assert.Empty(content.Content);
         }
     }
 }
