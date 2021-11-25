@@ -53,7 +53,7 @@ namespace amir_apparel_demo_api_dotnet_5.Controllers
         [HttpGet("{id}")]
         public async Task<ActionResult<ProductDTO>> GetProductByIdAsync(int id)
         {
-            var product = await _provider.getProductByIdAsync(id);
+            var product = await _provider.GetProductByIdAsync(id);
             return Ok(_mapper.Map<ProductDTO>(product));
         }
     }

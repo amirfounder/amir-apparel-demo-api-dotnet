@@ -27,7 +27,7 @@ namespace amir_apparel_demo_api_dotnet_5.Data.Seed
 
             return products;
         }
-        private Product BuildRandomProduct(int id)
+        public Product BuildRandomProduct(int id)
         {
             var material = GetRandomMaterial();
             var type = BuildRandomType();

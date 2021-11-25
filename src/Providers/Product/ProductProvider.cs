@@ -22,7 +22,7 @@ namespace amir_apparel_demo_api_dotnet_5.Providers
             return await _repository.GetAll(paginationOptions);
         }
 
-        public async Task<Product> getProductByIdAsync(int id)
+        public async Task<Product> GetProductByIdAsync(int id)
         {
             Product product;
 
