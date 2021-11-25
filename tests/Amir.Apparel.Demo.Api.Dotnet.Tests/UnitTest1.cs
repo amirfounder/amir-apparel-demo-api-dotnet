@@ -1,4 +1,3 @@
-using System;
 using Xunit;
 
 namespace Amir.Apparel.Demo.Api.Dotnet.Tests

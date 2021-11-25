@@ -1,10 +1,4 @@
-﻿using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Net;
-using System.Net.Http;
-using System.Threading.Tasks;
-using amir_apparel_demo_api_dotnet_5;
+﻿using amir_apparel_demo_api_dotnet_5;
 using amir_apparel_demo_api_dotnet_5.API;
 using amir_apparel_demo_api_dotnet_5.Data.Context;
 using amir_apparel_demo_api_dotnet_5.Data.Models;
@@ -13,6 +7,11 @@ using Microsoft.AspNetCore.Mvc.Testing;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection.Extensions;
+using System.IO;
+using System.Linq;
+using System.Net;
+using System.Net.Http;
+using System.Threading.Tasks;
 using Xunit;
 
 namespace Amir.Apparel.Demo.Api.Dotnet.Tests.IntegrationTests
@@ -102,5 +101,4 @@ namespace Amir.Apparel.Demo.Api.Dotnet.Tests.IntegrationTests
             Assert.Equal(HttpStatusCode.OK, response.StatusCode);
         }
     }
-
 }
