@@ -2,6 +2,6 @@
 {
     public interface IHttpStatusException
     {
-        HttpStatusExceptionErrorValue Value { get; set; }
+        HttpStatusExceptionValue Value { get; set; }
     }
 }

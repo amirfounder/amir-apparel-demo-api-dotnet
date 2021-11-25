@@ -11,18 +11,13 @@ namespace amir_apparel_demo_api_dotnet_5.Data.Models
         { }
         public Page(IPaginationOptions paginationOptions)
         {
-            _number = paginationOptions.Page;
-            _size = paginationOptions.Size;
-            _numberOfElements = paginationOptions.Size;
+            Number = paginationOptions.Page;
+            Size = paginationOptions.Size;
+            NumberOfElements = paginationOptions.Size;
         }
 
+        private int _totalElemenets;
         private IEnumerable<T> _content;
-        private int _totalPages;
-        private bool _empty;
-        private int _size;
-        private int _number;
-        private int _numberOfElements;
-        private int _totalElements;
 
         public IEnumerable<T> Content
         {
@@ -30,22 +25,22 @@ namespace amir_apparel_demo_api_dotnet_5.Data.Models
             set
             {
                 _content = value;
-                _empty = !value.Any();
+                Empty = !value.Any();
             }
         }
         public int TotalElements
         {
-            get => _totalElements;
+            get => _totalElemenets;
             set
             {
-                _totalElements = value;
-                _totalPages = (int)Math.Ceiling(_totalElements / (double)_size);
+                _totalElemenets = value;
+                TotalPages = (int) Math.Ceiling(value / (double) Size);
             }
         }
-        public int TotalPages { get => _totalPages; }
-        public bool Empty { get => _empty; }
-        public int Size { get => _size; }
-        public int Number { get => _number; }
-        public int NumberOfElements { get => _numberOfElements; }
+        public int TotalPages { get; set; }
+        public bool Empty { get; set; }
+        public int Size { get; set; }
+        public int Number { get; set; }
+        public int NumberOfElements { get; set; }
     }
 }

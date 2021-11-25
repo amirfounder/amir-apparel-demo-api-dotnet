@@ -2,10 +2,10 @@
 
 namespace amir_apparel_demo_api_dotnet_5.HttpStatusExceptions
 {
-    public class HttpStatusExceptionErrorValue
+    public class HttpStatusExceptionValue
     {
-        public HttpStatusExceptionErrorValue() { Timestamp = DateTime.UtcNow; }
-        public HttpStatusExceptionErrorValue(int status, string error, string errorMessage)
+        public HttpStatusExceptionValue() { Timestamp = DateTime.UtcNow; }
+        public HttpStatusExceptionValue(int status, string error, string errorMessage)
         {
             Timestamp = DateTime.UtcNow;
             Status = status;

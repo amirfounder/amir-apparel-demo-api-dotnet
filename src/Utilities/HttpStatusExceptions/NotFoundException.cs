@@ -9,6 +9,6 @@ namespace amir_apparel_demo_api_dotnet_5.HttpStatusExceptions
             Value = new(404, "Not Found", errorMessage);
         }
 
-        public HttpStatusExceptionErrorValue Value { get; set; }
+        public HttpStatusExceptionValue Value { get; set; }
     }
 }

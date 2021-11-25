@@ -1,13 +1,24 @@
-﻿namespace amir_apparel_demo_api_dotnet_5.API
+﻿using System;
+
+namespace amir_apparel_demo_api_dotnet_5.API
 {
     public class ProductDTO
     {
         public int Id { get; set; }
+
         public string Name { get; set; }
+
+        public string HexCode { get; set; }
+
+        public string Color { get; set; }
+
+        public string Demographic { get; set; }
 
         public string Type { get; set; }
 
         public string Description { get; set; }
+
+        public DateTime LaunchDate { get; set; }
 
         public string Material { get; set; }
 

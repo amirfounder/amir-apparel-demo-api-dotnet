@@ -1,4 +1,5 @@
-﻿using amir_apparel_demo_api_dotnet_5;
+﻿using Amir.Apparel.Demo.Api.Dotnet.Tests.Utilities;
+using amir_apparel_demo_api_dotnet_5;
 using amir_apparel_demo_api_dotnet_5.API;
 using amir_apparel_demo_api_dotnet_5.Data.Context;
 using amir_apparel_demo_api_dotnet_5.Data.Models;
@@ -7,12 +8,16 @@ using Microsoft.AspNetCore.Mvc.Testing;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection.Extensions;
+using Microsoft.Extensions.Logging;
+using System;
 using System.IO;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Threading.Tasks;
 using Xunit;
+using System.Text.Json;
+using amir_apparel_demo_api_dotnet_5.HttpStatusExceptions;
 
 namespace Amir.Apparel.Demo.Api.Dotnet.Tests.IntegrationTests
 {
@@ -29,10 +34,30 @@ namespace Amir.Apparel.Demo.Api.Dotnet.Tests.IntegrationTests
                     builder.ConfigureServices(services =>
                     {
                         services.RemoveAll(typeof(ApplicationContext));
-                        services.AddDbContext<ApplicationContext>(options =>
+                        services.AddDbContext<ApplicationContext>((options, context) =>
                         {
-                            options.UseInMemoryDatabase("testdb");
+                            context.UseNpgsql("Host=localhost; Port=5432; Database=postgres_tests; UserName=postgres; Password=root");
                         });
+
+                        var serviceProvider = services.BuildServiceProvider();
+
+                        using (var scope = serviceProvider.CreateScope())
+                        {
+                            var scopedServices = scope.ServiceProvider;
+                            var context = scopedServices.GetRequiredService<ApplicationContext>();
+                            var logger = scopedServices.GetRequiredService<ILogger<WebApplicationFactory<Startup>>>();
+
+                            context.Database.EnsureCreated();
+
+                            try
+                            {
+                                context.ReinitializeDatabaseForTests();
+                            }
+                            catch (Exception ex)
+                            {
+                                logger.LogError(ex, "An error occured seeding the database with the message: " + ex.Message);
+                            }
+                        }
                     });
                     builder.UseContentRoot(Directory.GetCurrentDirectory());
                 });
@@ -42,14 +67,17 @@ namespace Amir.Apparel.Demo.Api.Dotnet.Tests.IntegrationTests
         [Fact]
         public async Task GetProducts_Returns200WithExpectedPageValues()
         {
-            var response = await _client.GetAsync("/products");
+            var response = await _client.GetAsync("/products/filter");
             Assert.Equal(HttpStatusCode.OK, response.StatusCode);
 
             var content = await response.Content.ReadAsAsync<Page<ProductDTO>>();
             Assert.Equal(25, content.Content.Count());
             Assert.False(content.Empty);
             Assert.Equal(25, content.Size);
+            Assert.Equal(25, content.NumberOfElements);
             Assert.Equal(0, content.Number);
+            Assert.Equal(250, content.TotalElements);
+            Assert.Equal(10, content.TotalPages);
         }
 
         [Fact]
@@ -57,6 +85,9 @@ namespace Amir.Apparel.Demo.Api.Dotnet.Tests.IntegrationTests
         {
             var response = await _client.GetAsync("/products/1");
             Assert.Equal(HttpStatusCode.OK, response.StatusCode);
+
+            var content = await response.Content.ReadAsAsync<ProductDTO>();
+            Assert.Equal(1, content.Id);
         }
 
         [Fact]
@@ -64,6 +95,11 @@ namespace Amir.Apparel.Demo.Api.Dotnet.Tests.IntegrationTests
         {
             var response = await _client.GetAsync("/products/9999");
             Assert.Equal(HttpStatusCode.NotFound, response.StatusCode);
+
+            var content = await response.Content.ReadAsAsync<HttpStatusExceptionValue>();
+            Assert.Equal(404, content.Status);
+            Assert.Equal("Not Found", content.Error);
+            Assert.Equal("Could not find product with id: 9999", content.ErrorMessage);
         }
 
         [Fact]
@@ -71,6 +107,10 @@ namespace Amir.Apparel.Demo.Api.Dotnet.Tests.IntegrationTests
         {
             var response = await _client.GetAsync("/products?demographic=men");
             Assert.Equal(HttpStatusCode.OK, response.StatusCode);
+
+            var content = await response.Content.ReadAsAsync<Page<ProductDTO>>();
+            var products = content.Content;
+            Assert.Empty(products.Where(x => x.Demographic.ToLower() != "men").ToList());
         }
 
         [Fact]

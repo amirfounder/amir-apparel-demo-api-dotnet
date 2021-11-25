@@ -8,6 +8,6 @@ namespace amir_apparel_demo_api_dotnet_5.HttpStatusExceptions
         {
             Value = new(503, "Internal Server Error", errorMessage);
         }
-        public HttpStatusExceptionErrorValue Value { get; set; }
+        public HttpStatusExceptionValue Value { get; set; }
     }
 }
