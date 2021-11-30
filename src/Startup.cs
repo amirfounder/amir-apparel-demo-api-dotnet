@@ -1,5 +1,6 @@
 using amir_apparel_demo_api_dotnet_5.Controllers;
 using amir_apparel_demo_api_dotnet_5.Data;
+using amir_apparel_demo_api_dotnet_5.Data.Context;
 using amir_apparel_demo_api_dotnet_5.DTOs.MapperProfiles;
 using amir_apparel_demo_api_dotnet_5.Providers;
 using amir_apparel_demo_api_dotnet_5.Utilities;
@@ -45,7 +46,7 @@ namespace amir_apparel_demo_api_dotnet_5
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
+        public void Configure(IApplicationBuilder app, IWebHostEnvironment env, ApplicationContext context)
         {
             if (env.IsDevelopment())
             {
@@ -53,6 +54,8 @@ namespace amir_apparel_demo_api_dotnet_5
                 app.UseSwagger();
                 app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "amir_apparel_demo_api_dotnet_5 v1"));
             }
+
+            context.Database.EnsureCreated();
 
             app.UseHttpsRedirection();
 
