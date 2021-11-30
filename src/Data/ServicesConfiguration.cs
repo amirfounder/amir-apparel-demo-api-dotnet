@@ -1,16 +1,17 @@
 ﻿using amir_apparel_demo_api_dotnet_5.Data.Context;
 using amir_apparel_demo_api_dotnet_5.Data.Repositories;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace amir_apparel_demo_api_dotnet_5.Data
 {
     public static class ServicesConfiguration
     {
-        public static IServiceCollection AddDataServices(this IServiceCollection services)
+        public static IServiceCollection AddDataServices(this IServiceCollection services, IConfiguration config)
         {
             services.AddDbContext<ApplicationContext>(options =>
-                options.UseNpgsql("Host=localhost; Port=5432; Database=postgres; UserName=postgres; Password=root"));
+                options.UseNpgsql(config.GetConnectionString("AmirApparel")));
 
             services.AddScoped<IApplicationContext>(provider => provider.GetService<ApplicationContext>());
 
