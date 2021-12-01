@@ -35,7 +35,7 @@ namespace Amir.Apparel.Demo.Api.Dotnet.Tests.UnitTests.Repository.Utilities
         }
 
         [Fact]
-        public async Task ApplyFilteringTest()
+        public void ApplyFilteringTest()
         {
             _mockSet.LoadMockDbSetWithData(_products);
             _mockContext.Setup(x => x.Products).Returns(_mockSet.Object);
