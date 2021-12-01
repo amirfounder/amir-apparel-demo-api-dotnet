@@ -6,10 +6,12 @@ using amir_apparel_demo_api_dotnet_5.Providers;
 using amir_apparel_demo_api_dotnet_5.Utilities;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.OpenApi.Models;
+using System;
 
 namespace amir_apparel_demo_api_dotnet_5
 {
@@ -55,9 +57,7 @@ namespace amir_apparel_demo_api_dotnet_5
                 app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "amir_apparel_demo_api_dotnet_5 v1"));
             }
 
-            context.Database.EnsureCreated();
-
-            app.UseHttpsRedirection();
+            context.Database.Migrate();
 
             app.UseRouting();
 

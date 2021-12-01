@@ -18,9 +18,8 @@ namespace amir_apparel_demo_api_dotnet_5
                     webBuilder.UseStartup<Startup>();
                     webBuilder.UseKestrel(options =>
                     {
-                        int port;
-                        var parsed = Int32.TryParse(System.Environment.GetEnvironmentVariable("PORT"), out port);
-                        options.ListenAnyIP(parsed ? port : 8085);
+                        var successfullyParsed = int.TryParse(System.Environment.GetEnvironmentVariable("PORT"), out int port);
+                        options.ListenAnyIP(successfullyParsed ? port : 5000);
                     });
                 });
     }
