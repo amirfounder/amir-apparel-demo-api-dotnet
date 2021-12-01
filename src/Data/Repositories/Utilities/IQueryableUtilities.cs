@@ -2,9 +2,9 @@
 using System.Linq;
 using System.Linq.Expressions;
 
-namespace amir_apparel_demo_api_dotnet_5.Data.Repositories.Extensions
+namespace amir_apparel_demo_api_dotnet_5.Data.Repositories.Utilities
 {
-    public static class IQueryableExtensions
+    public static class IQueryableUtilities
     {
         public static IQueryable<T> ApplyCustomOrder<T>(this IQueryable<T> query, LambdaExpression expression, bool isFirstOrdering, bool isAscending)
         {

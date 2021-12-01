@@ -9,7 +9,7 @@ using Xunit;
 
 namespace Amir.Apparel.Demo.Api.Dotnet.Tests
 {
-    public class ProductUnitTests
+    public class ProductProviderUnitTests
     {
 
         private IProductProvider _productProvider;
@@ -18,7 +18,7 @@ namespace Amir.Apparel.Demo.Api.Dotnet.Tests
 
         private Product testProduct;
 
-        public ProductUnitTests()
+        public ProductProviderUnitTests()
         {
             _productFactory = new ProductFactory();
             testProduct = _productFactory.BuildRandomProduct(1);

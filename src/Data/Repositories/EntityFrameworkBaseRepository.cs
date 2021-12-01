@@ -1,6 +1,6 @@
 ﻿using amir_apparel_demo_api_dotnet_5.API.CustomRequestQueries;
 using amir_apparel_demo_api_dotnet_5.Data.Models;
-using amir_apparel_demo_api_dotnet_5.Data.Repositories.Extensions;
+using amir_apparel_demo_api_dotnet_5.Data.Repositories.Utilities;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections;
@@ -11,14 +11,14 @@ using System.Threading.Tasks;
 
 namespace amir_apparel_demo_api_dotnet_5.Data.Repositories
 {
-    public abstract class EFBaseRepository<TEntity, TContext> : IRepository<TEntity>
+    public abstract class EntityFrameworkBaseRepository<TEntity, TContext> : IRepository<TEntity>
         where TEntity : class, IEntity
         where TContext : DbContext
     {
         private readonly TContext _context;
         private readonly Type _model;
 
-        public EFBaseRepository(Type model, TContext context)
+        public EntityFrameworkBaseRepository(Type model, TContext context)
         {
             _model = model;
             _context = context;

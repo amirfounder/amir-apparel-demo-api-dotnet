@@ -4,9 +4,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
 
-namespace amir_apparel_demo_api_dotnet_5.Data.Repositories.Extensions
+namespace amir_apparel_demo_api_dotnet_5.Data.Repositories.Utilities
 {
-    public static class PaginationExtensions
+    public static class PaginationUtilities
     {
         public static IQueryable<T> ApplySorting<T>(this IQueryable<T> query, string[] paginationSortables, Type model)
             where T : class, IEntity

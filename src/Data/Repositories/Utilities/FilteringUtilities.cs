@@ -3,9 +3,9 @@ using System;
 using System.Linq;
 using System.Linq.Expressions;
 
-namespace amir_apparel_demo_api_dotnet_5.Data.Repositories.Extensions
+namespace amir_apparel_demo_api_dotnet_5.Data.Repositories.Utilities
 {
-    public static class FilteringExtensions
+    public static class FilteringUtilities
     {
         public static IQueryable<T> ApplyFiltering<T>(this IQueryable<T> query, IFilterable<T> filterable)
             where T : class
