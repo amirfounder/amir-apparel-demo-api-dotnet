@@ -57,7 +57,7 @@ namespace amir_apparel_demo_api_dotnet_5
                 app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "amir_apparel_demo_api_dotnet_5 v1"));
             }
 
-            context.Database.Migrate();
+            context.Database.EnsureCreated();
 
             app.UseRouting();
 
