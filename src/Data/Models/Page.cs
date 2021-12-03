@@ -34,7 +34,7 @@ namespace amir_apparel_demo_api_dotnet_5.Data.Models
             set
             {
                 _totalElemenets = value;
-                TotalPages = (int) Math.Ceiling(value / (double) Size);
+                TotalPages = (int)Math.Ceiling(value / (double)Size);
             }
         }
         public int TotalPages { get; set; }

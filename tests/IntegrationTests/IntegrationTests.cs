@@ -44,6 +44,7 @@ namespace Amir.Apparel.Demo.Api.Dotnet.Tests.IntegrationTests
                             try
                             {
                                 context.ReinitializeDatabaseForTests();
+                                logger.LogInformation("Successfully reinitialized database for tests");
                             }
                             catch (Exception ex)
                             {

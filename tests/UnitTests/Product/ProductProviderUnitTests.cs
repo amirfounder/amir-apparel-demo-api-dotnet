@@ -51,7 +51,7 @@ namespace Amir.Apparel.Demo.Api.Dotnet.Tests
         {
             _mockRepository
                 .Setup(repository => repository.Get(It.IsAny<int>()))
-                .ReturnsAsync((Product) null);
+                .ReturnsAsync((Product)null);
 
             _productProvider = new ProductProvider(_mockRepository.Object);
 

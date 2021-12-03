@@ -1,13 +1,12 @@
-﻿using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using amir_apparel_demo_api_dotnet_5.API.CustomRequestQueries;
+﻿using amir_apparel_demo_api_dotnet_5.API.CustomRequestQueries;
 using amir_apparel_demo_api_dotnet_5.Data.Context;
 using amir_apparel_demo_api_dotnet_5.Data.Models;
 using amir_apparel_demo_api_dotnet_5.Data.Repositories.Utilities;
 using amir_apparel_demo_api_dotnet_5.Data.Seed;
 using Microsoft.EntityFrameworkCore;
 using Moq;
+using System.Collections.Generic;
+using System.Linq;
 using Xunit;
 
 namespace Amir.Apparel.Demo.Api.Dotnet.Tests.UnitTests.Repository.Utilities
@@ -50,7 +49,7 @@ namespace Amir.Apparel.Demo.Api.Dotnet.Tests.UnitTests.Repository.Utilities
             var actual = actualQuery
                 .ApplyFiltering(filterable)
                 .ToList();
-            
+
             var expected = expectedQuery
                 .Where(x => x.Demographic == "Men" & x.Material == "Leather")
                 .ToList();

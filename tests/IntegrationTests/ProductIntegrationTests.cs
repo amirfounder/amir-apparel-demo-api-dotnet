@@ -1,11 +1,11 @@
 ﻿using amir_apparel_demo_api_dotnet_5.API;
 using amir_apparel_demo_api_dotnet_5.Data.Models;
+using amir_apparel_demo_api_dotnet_5.HttpStatusExceptions;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Threading.Tasks;
 using Xunit;
-using amir_apparel_demo_api_dotnet_5.HttpStatusExceptions;
 
 namespace Amir.Apparel.Demo.Api.Dotnet.Tests.IntegrationTests
 {
