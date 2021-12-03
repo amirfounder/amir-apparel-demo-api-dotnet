@@ -1,10 +1,10 @@
-﻿using amir_apparel_demo_api_dotnet_5.Data.Models;
+﻿using Amir.Apparel.Demo.Api.Dotnet.Data.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
 
-namespace amir_apparel_demo_api_dotnet_5.Data.Repositories.Utilities
+namespace Amir.Apparel.Demo.Api.Dotnet.Data.Repositories.Utilities
 {
     public static class PaginationUtilities
     {

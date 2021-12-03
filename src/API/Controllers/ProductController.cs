@@ -1,13 +1,13 @@
-﻿using amir_apparel_demo_api_dotnet_5.API;
-using amir_apparel_demo_api_dotnet_5.API.CustomRequestQueries;
-using amir_apparel_demo_api_dotnet_5.Data.Models;
-using amir_apparel_demo_api_dotnet_5.Providers;
+﻿using Amir.Apparel.Demo.Api.Dotnet.API.CustomQueries;
+using Amir.Apparel.Demo.Api.Dotnet.API.DTOs;
+using Amir.Apparel.Demo.Api.Dotnet.Data.Models;
+using Amir.Apparel.Demo.Api.Dotnet.Providers;
 using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
 using System.Collections;
 using System.Threading.Tasks;
 
-namespace amir_apparel_demo_api_dotnet_5.Controllers
+namespace Amir.Apparel.Demo.Api.Dotnet.Controllers
 {
     [Route("products")]
     [ApiController]

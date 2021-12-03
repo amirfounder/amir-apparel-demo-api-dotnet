@@ -1,7 +1,7 @@
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Hosting;
 
-namespace amir_apparel_demo_api_dotnet_5
+namespace Amir.Apparel.Demo.Api.Dotnet
 {
     public class Programs
     {

@@ -1,8 +1,8 @@
-using amir_apparel_demo_api_dotnet_5.Controllers;
-using amir_apparel_demo_api_dotnet_5.Data;
-using amir_apparel_demo_api_dotnet_5.DTOs.MapperProfiles;
-using amir_apparel_demo_api_dotnet_5.Providers;
-using amir_apparel_demo_api_dotnet_5.Utilities;
+using Amir.Apparel.Demo.Api.Dotnet.API;
+using Amir.Apparel.Demo.Api.Dotnet.API.MapperProfiles;
+using Amir.Apparel.Demo.Api.Dotnet.Data;
+using Amir.Apparel.Demo.Api.Dotnet.Providers;
+using Amir.Apparel.Demo.Api.Dotnet.Utilities;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
@@ -10,7 +10,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.OpenApi.Models;
 
-namespace amir_apparel_demo_api_dotnet_5
+namespace Amir.Apparel.Demo.Api.Dotnet
 {
     public class Startup
     {
@@ -35,7 +35,7 @@ namespace amir_apparel_demo_api_dotnet_5
 
             services.AddSwaggerGen(c =>
             {
-                c.SwaggerDoc("v1", new OpenApiInfo { Title = "amir_apparel_demo_api_dotnet_5", Version = "v1" });
+                c.SwaggerDoc("v1", new OpenApiInfo { Title = "Amir.Apparel.Demo.Api.Dotnet", Version = "v1" });
             });
         }
 
@@ -46,7 +46,7 @@ namespace amir_apparel_demo_api_dotnet_5
             {
                 app.UseDeveloperExceptionPage();
                 app.UseSwagger();
-                app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "amir_apparel_demo_api_dotnet_5 v1"));
+                app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "Amir.Apparel.Demo.Api.Dotnet v1"));
             }
 
             app.UseHttpsRedirection();

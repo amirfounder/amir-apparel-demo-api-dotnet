@@ -1,10 +1,10 @@
-﻿using amir_apparel_demo_api_dotnet_5.API.Filters;
-using amir_apparel_demo_api_dotnet_5.Utilities;
+﻿using Amir.Apparel.Demo.Api.Dotnet.API.Filters;
+using Amir.Apparel.Demo.Api.Dotnet.Utilities;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.DependencyInjection;
 using System.Net.Mime;
 
-namespace amir_apparel_demo_api_dotnet_5.Controllers
+namespace Amir.Apparel.Demo.Api.Dotnet.API
 {
     public static class ServicesConfiguration
     {

@@ -1,10 +1,10 @@
-﻿using amir_apparel_demo_api_dotnet_5.API.CustomRequestQueries;
-using amir_apparel_demo_api_dotnet_5.Data.Models;
+﻿using Amir.Apparel.Demo.Api.Dotnet.API.CustomQueries;
+using Amir.Apparel.Demo.Api.Dotnet.Data.Models;
 using System.Collections;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
-namespace amir_apparel_demo_api_dotnet_5.Data.Repositories
+namespace Amir.Apparel.Demo.Api.Dotnet.Data.Repositories
 {
     public interface IRepository<T> where T : class
     {

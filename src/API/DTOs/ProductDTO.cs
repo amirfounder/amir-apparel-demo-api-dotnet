@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace amir_apparel_demo_api_dotnet_5.API
+namespace Amir.Apparel.Demo.Api.Dotnet.API.DTOs
 {
     public class ProductDTO
     {

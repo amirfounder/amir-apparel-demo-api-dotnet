@@ -1,4 +1,4 @@
-﻿namespace amir_apparel_demo_api_dotnet_5.HttpStatusExceptions
+﻿namespace Amir.Apparel.Demo.Api.Dotnet.UtilitiesHttpStatusExceptions
 {
     public interface IHttpStatusException
     {

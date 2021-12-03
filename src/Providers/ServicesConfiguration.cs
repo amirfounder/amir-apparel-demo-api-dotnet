@@ -1,6 +1,6 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
 
-namespace amir_apparel_demo_api_dotnet_5.Providers
+namespace Amir.Apparel.Demo.Api.Dotnet.Providers
 {
     public static class ServicesConfiguration
     {

@@ -1,9 +1,9 @@
-﻿using amir_apparel_demo_api_dotnet_5.Data.Context;
-using amir_apparel_demo_api_dotnet_5.Data.Repositories;
+﻿using Amir.Apparel.Demo.Api.Dotnet.Data.Context;
+using Amir.Apparel.Demo.Api.Dotnet.Data.Repositories;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 
-namespace amir_apparel_demo_api_dotnet_5.Data
+namespace Amir.Apparel.Demo.Api.Dotnet.Data
 {
     public static class ServicesConfiguration
     {

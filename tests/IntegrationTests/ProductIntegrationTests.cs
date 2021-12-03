@@ -1,6 +1,5 @@
-﻿using amir_apparel_demo_api_dotnet_5.API;
-using amir_apparel_demo_api_dotnet_5.Data.Models;
-using amir_apparel_demo_api_dotnet_5.HttpStatusExceptions;
+﻿using Amir.Apparel.Demo.Api.Dotnet.API.DTOs;
+using Amir.Apparel.Demo.Api.Dotnet.Data.Models;
 using System.Linq;
 using System.Net;
 using System.Net.Http;

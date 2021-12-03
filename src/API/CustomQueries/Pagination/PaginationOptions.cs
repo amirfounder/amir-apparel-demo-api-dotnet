@@ -1,4 +1,4 @@
-﻿namespace amir_apparel_demo_api_dotnet_5.API.CustomRequestQueries
+﻿namespace Amir.Apparel.Demo.Api.Dotnet.API.CustomQueries
 {
     public class PaginationOptions : IPaginationOptions
     {

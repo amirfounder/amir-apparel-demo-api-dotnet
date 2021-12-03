@@ -1,13 +1,13 @@
-using amir_apparel_demo_api_dotnet_5.Data.Models;
-using amir_apparel_demo_api_dotnet_5.Data.Repositories;
-using amir_apparel_demo_api_dotnet_5.Data.Seed;
-using amir_apparel_demo_api_dotnet_5.HttpStatusExceptions;
-using amir_apparel_demo_api_dotnet_5.Providers;
+using Amir.Apparel.Demo.Api.Dotnet.Data.Models;
+using Amir.Apparel.Demo.Api.Dotnet.Data.Repositories;
+using Amir.Apparel.Demo.Api.Dotnet.Data.Seed;
+using Amir.Apparel.Demo.Api.Dotnet.Providers;
+using Amir.Apparel.Demo.Api.Dotnet.UtilitiesHttpStatusExceptions;
 using Moq;
 using System.Threading.Tasks;
 using Xunit;
 
-namespace Amir.Apparel.Demo.Api.Dotnet.Tests
+namespace Amir.Apparel.Demo.Api.Dotnet.Tests.UnitTests
 {
     public class ProductProviderUnitTests
     {

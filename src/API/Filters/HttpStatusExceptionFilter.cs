@@ -1,8 +1,8 @@
-﻿using amir_apparel_demo_api_dotnet_5.HttpStatusExceptions;
+﻿using Amir.Apparel.Demo.Api.Dotnet.UtilitiesHttpStatusExceptions;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Filters;
 
-namespace amir_apparel_demo_api_dotnet_5.API.Filters
+namespace Amir.Apparel.Demo.Api.Dotnet.API.Filters
 {
     public class HttpStatusExceptionFilter : IActionFilter, IOrderedFilter
     {

@@ -1,6 +1,6 @@
-﻿using amir_apparel_demo_api_dotnet_5.Data.Models;
+﻿using Amir.Apparel.Demo.Api.Dotnet.Data.Models;
 
-namespace amir_apparel_demo_api_dotnet_5.Data.Repositories
+namespace Amir.Apparel.Demo.Api.Dotnet.Data.Repositories
 {
     public interface IProductRepository : IRepository<Product>
     { }

@@ -1,7 +1,7 @@
-﻿using amir_apparel_demo_api_dotnet_5.Data.Models;
+﻿using Amir.Apparel.Demo.Api.Dotnet.Data.Models;
 using Microsoft.EntityFrameworkCore;
 
-namespace amir_apparel_demo_api_dotnet_5.Data.Context
+namespace Amir.Apparel.Demo.Api.Dotnet.Data.Context
 {
     public interface IApplicationContext
     {

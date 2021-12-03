@@ -1,6 +1,5 @@
-﻿using Amir.Apparel.Demo.Api.Dotnet.Tests.Utilities;
-using amir_apparel_demo_api_dotnet_5;
-using amir_apparel_demo_api_dotnet_5.Data.Context;
+﻿using Amir.Apparel.Demo.Api.Dotnet.Data.Context;
+using Amir.Apparel.Demo.Api.Dotnet.Tests.Utilities;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc.Testing;
 using Microsoft.EntityFrameworkCore;

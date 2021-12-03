@@ -1,9 +1,9 @@
-﻿using amir_apparel_demo_api_dotnet_5.API.CustomRequestQueries;
+﻿using Amir.Apparel.Demo.Api.Dotnet.API.CustomQueries;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace amir_apparel_demo_api_dotnet_5.Data.Models
+namespace Amir.Apparel.Demo.Api.Dotnet.Data.Models
 {
     public class Page<T>
     {

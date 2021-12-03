@@ -1,7 +1,7 @@
-﻿using amir_apparel_demo_api_dotnet_5.Data.Context;
-using amir_apparel_demo_api_dotnet_5.Data.Models;
+﻿using Amir.Apparel.Demo.Api.Dotnet.Data.Context;
+using Amir.Apparel.Demo.Api.Dotnet.Data.Models;
 
-namespace amir_apparel_demo_api_dotnet_5.Data.Repositories
+namespace Amir.Apparel.Demo.Api.Dotnet.Data.Repositories
 {
     public class ProductRepository : EntityFrameworkBaseRepository<Product, ApplicationContext>, IProductRepository
     {

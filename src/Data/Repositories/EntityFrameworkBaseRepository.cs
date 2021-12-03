@@ -1,6 +1,6 @@
-﻿using amir_apparel_demo_api_dotnet_5.API.CustomRequestQueries;
-using amir_apparel_demo_api_dotnet_5.Data.Models;
-using amir_apparel_demo_api_dotnet_5.Data.Repositories.Utilities;
+﻿using Amir.Apparel.Demo.Api.Dotnet.API.CustomQueries;
+using Amir.Apparel.Demo.Api.Dotnet.Data.Models;
+using Amir.Apparel.Demo.Api.Dotnet.Data.Repositories.Utilities;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections;
@@ -9,7 +9,7 @@ using System.Linq;
 using System.Reflection;
 using System.Threading.Tasks;
 
-namespace amir_apparel_demo_api_dotnet_5.Data.Repositories
+namespace Amir.Apparel.Demo.Api.Dotnet.Data.Repositories
 {
     public abstract class EntityFrameworkBaseRepository<TEntity, TContext> : IRepository<TEntity>
         where TEntity : class, IEntity

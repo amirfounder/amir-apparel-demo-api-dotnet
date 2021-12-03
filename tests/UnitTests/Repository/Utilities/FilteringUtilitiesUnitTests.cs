@@ -1,8 +1,8 @@
-﻿using amir_apparel_demo_api_dotnet_5.API.CustomRequestQueries;
-using amir_apparel_demo_api_dotnet_5.Data.Context;
-using amir_apparel_demo_api_dotnet_5.Data.Models;
-using amir_apparel_demo_api_dotnet_5.Data.Repositories.Utilities;
-using amir_apparel_demo_api_dotnet_5.Data.Seed;
+﻿using Amir.Apparel.Demo.Api.Dotnet.API.CustomQueries;
+using Amir.Apparel.Demo.Api.Dotnet.Data.Context;
+using Amir.Apparel.Demo.Api.Dotnet.Data.Models;
+using Amir.Apparel.Demo.Api.Dotnet.Data.Repositories.Utilities;
+using Amir.Apparel.Demo.Api.Dotnet.Data.Seed;
 using Microsoft.EntityFrameworkCore;
 using Moq;
 using System.Collections.Generic;

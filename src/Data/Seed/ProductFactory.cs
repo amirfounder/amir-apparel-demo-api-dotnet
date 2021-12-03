@@ -1,9 +1,9 @@
-﻿using amir_apparel_demo_api_dotnet_5.Data.Models;
-using amir_apparel_demo_api_dotnet_5.Utilities;
+﻿using Amir.Apparel.Demo.Api.Dotnet.Data.Models;
+using Amir.Apparel.Demo.Api.Dotnet.Utilities;
 using System;
 using System.Collections.Generic;
 
-namespace amir_apparel_demo_api_dotnet_5.Data.Seed
+namespace Amir.Apparel.Demo.Api.Dotnet.Data.Seed
 {
     public class ProductFactory
     {

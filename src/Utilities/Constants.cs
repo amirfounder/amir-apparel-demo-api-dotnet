@@ -1,4 +1,4 @@
-﻿namespace amir_apparel_demo_api_dotnet_5.Utilities
+﻿namespace Amir.Apparel.Demo.Api.Dotnet.Utilities
 {
     public static class Constants
     {

@@ -1,8 +1,8 @@
-﻿using amir_apparel_demo_api_dotnet_5.API;
-using amir_apparel_demo_api_dotnet_5.Data.Models;
+﻿using Amir.Apparel.Demo.Api.Dotnet.API.DTOs;
+using Amir.Apparel.Demo.Api.Dotnet.Data.Models;
 using AutoMapper;
 
-namespace amir_apparel_demo_api_dotnet_5.DTOs.MapperProfiles
+namespace Amir.Apparel.Demo.Api.Dotnet.API.MapperProfiles
 {
     public class MapperProfile : Profile
     {
