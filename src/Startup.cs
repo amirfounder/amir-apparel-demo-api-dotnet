@@ -16,7 +16,7 @@ namespace Amir.Apparel.Demo.Api.Dotnet
 {
     public class Startup
     {
-        public Startup(IConfiguration configuration, IWebHostEnvironment env)
+        public Startup(IWebHostEnvironment env)
         {
             var builder = new ConfigurationBuilder()
                 .SetBasePath(env.ContentRootPath)
@@ -39,7 +39,7 @@ namespace Amir.Apparel.Demo.Api.Dotnet
             services.AddCustomControllers();
 
             services.AddProviderServices();
-            services.AddDataServices(Environment);
+            services.AddDataServices(Configuration, Environment);
 
             services.AddSwaggerGen(c =>
             {
@@ -48,7 +48,7 @@ namespace Amir.Apparel.Demo.Api.Dotnet
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IWebHostEnvironment env, ApplicationContext context)
+        public void Configure(IApplicationBuilder app, IWebHostEnvironment env, IServiceProvider provider)
         {
             if (env.IsDevelopment())
             {
@@ -57,6 +57,7 @@ namespace Amir.Apparel.Demo.Api.Dotnet
                 app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "Amir.Apparel.Demo.Api.Dotnet v1"));
             }
 
+            var context = provider.GetService<ApplicationContext>();
             context.Database.EnsureCreated();
 
             app.UseRouting();

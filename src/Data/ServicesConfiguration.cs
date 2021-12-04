@@ -14,26 +14,29 @@ namespace Amir.Apparel.Demo.Api.Dotnet.Data
     {
         public static IServiceCollection AddDataServices(this IServiceCollection services, IConfiguration config, IWebHostEnvironment env)
         {
-            services.AddDbContext<ApplicationContext>(options =>
-            {
-                if (env.IsProduction())
-                {
-                    var databaseUrl = Environment.GetEnvironmentVariable("DATABASE_URL");
-                    var databaseUri = new Uri(databaseUrl);
-                    var connectionString = databaseUri.BuildHerokuConnectionString();
-
-                    options.UseNpgsql(connectionString);
-                }
-                else if (env.IsDevelopment())
-                {
-                    options.UseNpgsql(config.GetConnectionString("Local"));
-                }
-            });
+            services.AddDbContext<ApplicationContext>(options => options.ConfigureNpgsql(config, env));
 
             services.AddScoped<IApplicationContext>(provider => provider.GetService<ApplicationContext>());
             services.AddScoped<IProductRepository, ProductRepository>();
 
             return services;
+        }
+
+        public static DbContextOptionsBuilder ConfigureNpgsql(this DbContextOptionsBuilder options, IConfiguration config, IWebHostEnvironment env)
+        {
+            if (env.IsDevelopment()) {
+                var connectionString = config.GetConnectionString("Local");
+                options.UseNpgsql(connectionString);
+            }
+            else if (env.IsProduction())
+            {
+                var url = Environment.GetEnvironmentVariable("DATABASE_URL");
+                var uri = new Uri(url);
+                var connectionString = uri.BuildHerokuConnectionString();
+                options.UseNpgsql(connectionString);
+            }
+
+            return options;
         }
 
         private static string BuildHerokuConnectionString(this Uri uri)
