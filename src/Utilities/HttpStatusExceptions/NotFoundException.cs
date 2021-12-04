@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Amir.Apparel.Demo.Api.Dotnet.UtilitiesHttpStatusExceptions
+namespace Amir.Apparel.Demo.Api.Dotnet.Utilities.HttpStatusExceptions
 {
     public class NotFoundException : Exception, IHttpStatusException
     {

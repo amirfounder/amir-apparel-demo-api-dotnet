@@ -17,7 +17,7 @@
         "ASPNETCORE_ENVIRONMENT": "Development"
       }
     },
-    "amir_apparel_demo_api_dotnet_5": {
+    "Amir.Apparel.Demo.Api.Dotnet": {
       "commandName": "Project",
       "dotnetRunMessages": "true",
       "launchBrowser": false,

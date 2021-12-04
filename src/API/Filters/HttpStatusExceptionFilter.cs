@@ -1,4 +1,4 @@
-﻿using Amir.Apparel.Demo.Api.Dotnet.UtilitiesHttpStatusExceptions;
+﻿using Amir.Apparel.Demo.Api.Dotnet.Utilities.HttpStatusExceptions;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Filters;
 
