@@ -3,13 +3,14 @@ using Amir.Apparel.Demo.Api.Dotnet.Data.Context;
 using Amir.Apparel.Demo.Api.Dotnet.Data.Models;
 using Amir.Apparel.Demo.Api.Dotnet.Data.Repositories.Utilities;
 using Amir.Apparel.Demo.Api.Dotnet.Data.Seed;
+using Amir.Apparel.Demo.Api.Dotnet.Tests.Utilities;
 using Microsoft.EntityFrameworkCore;
 using Moq;
 using System.Collections.Generic;
 using System.Linq;
 using Xunit;
 
-namespace Amir.Apparel.Demo.Api.Dotnet.Tests.UnitTests.Repository.Utilities
+namespace Amir.Apparel.Demo.Api.Dotnet.Tests.UnitTests
 {
     public class FilteringUtilitiesUnitTests
     {
@@ -55,7 +56,6 @@ namespace Amir.Apparel.Demo.Api.Dotnet.Tests.UnitTests.Repository.Utilities
                 .ToList();
 
             Assert.Equal(expected, actual);
-
             ResetMocks();
         }
 
