@@ -1,6 +1,7 @@
 using Amir.Apparel.Demo.Api.Dotnet.API;
 using Amir.Apparel.Demo.Api.Dotnet.API.MapperProfiles;
 using Amir.Apparel.Demo.Api.Dotnet.Data;
+using Amir.Apparel.Demo.Api.Dotnet.Data.Context;
 using Amir.Apparel.Demo.Api.Dotnet.Providers;
 using Amir.Apparel.Demo.Api.Dotnet.Utilities;
 using Microsoft.AspNetCore.Builder;
@@ -9,16 +10,21 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.OpenApi.Models;
+using System;
 
 namespace Amir.Apparel.Demo.Api.Dotnet
 {
     public class Startup
     {
-
-        public Startup(IConfiguration configuration, IWebHostEnvironment environment)
+        public Startup(IConfiguration configuration, IWebHostEnvironment env)
         {
-            Configuration = configuration;
-            Environment = environment;
+            var builder = new ConfigurationBuilder()
+                .SetBasePath(env.ContentRootPath)
+                .AddJsonFile("appsettings.json", optional: true, reloadOnChange: true)
+                .AddJsonFile($"appsettings.{env.EnvironmentName}.json", optional: true)
+                .AddEnvironmentVariables();
+            Configuration = builder.Build();
+            Environment = env;
         }
 
         public IWebHostEnvironment Environment { get; }
@@ -42,7 +48,7 @@ namespace Amir.Apparel.Demo.Api.Dotnet
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
+        public void Configure(IApplicationBuilder app, IWebHostEnvironment env, ApplicationContext context)
         {
             if (env.IsDevelopment())
             {
@@ -51,7 +57,7 @@ namespace Amir.Apparel.Demo.Api.Dotnet
                 app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "Amir.Apparel.Demo.Api.Dotnet v1"));
             }
 
-            app.UseHttpsRedirection();
+            context.Database.EnsureCreated();
 
             app.UseRouting();
 

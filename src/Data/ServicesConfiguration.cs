@@ -2,6 +2,7 @@
 using Amir.Apparel.Demo.Api.Dotnet.Data.Repositories;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Npgsql;
@@ -11,8 +12,7 @@ namespace Amir.Apparel.Demo.Api.Dotnet.Data
 {
     public static class ServicesConfiguration
     {
-        private static string localConnectionString = "Host=localhost; Port=5432; Database=postgres; UserName=postgres; Password=root";
-        public static IServiceCollection AddDataServices(this IServiceCollection services, IWebHostEnvironment env)
+        public static IServiceCollection AddDataServices(this IServiceCollection services, IConfiguration config, IWebHostEnvironment env)
         {
             services.AddDbContext<ApplicationContext>(options =>
             {
@@ -24,9 +24,9 @@ namespace Amir.Apparel.Demo.Api.Dotnet.Data
 
                     options.UseNpgsql(connectionString);
                 }
-                else
+                else if (env.IsDevelopment())
                 {
-                    options.UseNpgsql(localConnectionString);
+                    options.UseNpgsql(config.GetConnectionString("Local"));
                 }
             });
 
@@ -38,7 +38,6 @@ namespace Amir.Apparel.Demo.Api.Dotnet.Data
 
         private static string BuildHerokuConnectionString(this Uri uri)
         {
-            var databaseUrl = Environment.GetEnvironmentVariable("DATABASE_URL");
             var userInfo = uri.UserInfo.Split(':');
 
             var builder = new NpgsqlConnectionStringBuilder
