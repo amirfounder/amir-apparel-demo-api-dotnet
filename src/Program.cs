@@ -15,6 +15,7 @@ namespace Amir.Apparel.Demo.Api.Dotnet
                 .ConfigureWebHostDefaults(webBuilder =>
                 {
                     webBuilder.UseStartup<Startup>();
+                    webBuilder.ConfigureKestrel();
                 });
     }
 }
