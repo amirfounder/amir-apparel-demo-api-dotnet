@@ -15,11 +15,13 @@ namespace Amir.Apparel.Demo.Api.Dotnet
     public class Startup
     {
 
-        public Startup(IConfiguration configuration)
+        public Startup(IConfiguration configuration, IWebHostEnvironment environment)
         {
             Configuration = configuration;
+            Environment = environment;
         }
 
+        public IWebHostEnvironment Environment { get; }
         public IConfiguration Configuration { get; }
 
         // This method gets called by the runtime. Use this method to add services to the container.
@@ -31,7 +33,7 @@ namespace Amir.Apparel.Demo.Api.Dotnet
             services.AddCustomControllers();
 
             services.AddProviderServices();
-            services.AddDataServices();
+            services.AddDataServices(Environment);
 
             services.AddSwaggerGen(c =>
             {
