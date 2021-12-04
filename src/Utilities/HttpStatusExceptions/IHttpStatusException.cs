@@ -1,4 +1,4 @@
-﻿namespace Amir.Apparel.Demo.Api.Dotnet.UtilitiesHttpStatusExceptions
+﻿namespace Amir.Apparel.Demo.Api.Dotnet.Utilities.HttpStatusExceptions
 {
     public interface IHttpStatusException
     {

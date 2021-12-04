@@ -2,7 +2,7 @@ using Amir.Apparel.Demo.Api.Dotnet.Data.Models;
 using Amir.Apparel.Demo.Api.Dotnet.Data.Repositories;
 using Amir.Apparel.Demo.Api.Dotnet.Data.Seed;
 using Amir.Apparel.Demo.Api.Dotnet.Providers;
-using Amir.Apparel.Demo.Api.Dotnet.UtilitiesHttpStatusExceptions;
+using Amir.Apparel.Demo.Api.Dotnet.Utilities.HttpStatusExceptions;
 using Moq;
 using System.Threading.Tasks;
 using Xunit;

@@ -1,5 +1,6 @@
 ﻿using Amir.Apparel.Demo.Api.Dotnet.API.DTOs;
 using Amir.Apparel.Demo.Api.Dotnet.Data.Models;
+using Amir.Apparel.Demo.Api.Dotnet.Utilities.HttpStatusExceptions;
 using System.Linq;
 using System.Net;
 using System.Net.Http;

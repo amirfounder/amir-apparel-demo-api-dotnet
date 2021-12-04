@@ -1,7 +1,7 @@
 ﻿using Amir.Apparel.Demo.Api.Dotnet.API.CustomQueries;
 using Amir.Apparel.Demo.Api.Dotnet.Data.Models;
 using Amir.Apparel.Demo.Api.Dotnet.Data.Repositories;
-using Amir.Apparel.Demo.Api.Dotnet.UtilitiesHttpStatusExceptions;
+using Amir.Apparel.Demo.Api.Dotnet.Utilities.HttpStatusExceptions;
 using System.Collections;
 using System.Threading.Tasks;
 
