@@ -24,18 +24,20 @@ namespace Amir.Apparel.Demo.Api.Dotnet.Data
 
         public static DbContextOptionsBuilder ConfigureNpgsql(this DbContextOptionsBuilder options, IConfiguration config, IWebHostEnvironment env)
         {
-            if (env.IsDevelopment()) {
-                var connectionString = config.GetConnectionString("Local");
-                options.UseNpgsql(connectionString);
+            string connectionString = "";
+
+            if (env.IsDevelopment())
+            {
+                connectionString = config.GetConnectionString("Local");
             }
             else if (env.IsProduction())
             {
                 var url = Environment.GetEnvironmentVariable("DATABASE_URL");
                 var uri = new Uri(url);
-                var connectionString = uri.BuildHerokuConnectionString();
-                options.UseNpgsql(connectionString);
+                connectionString = uri.BuildHerokuConnectionString();
             }
 
+            options.UseNpgsql(connectionString);
             return options;
         }
 
