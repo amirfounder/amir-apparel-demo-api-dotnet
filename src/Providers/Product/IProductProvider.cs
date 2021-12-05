@@ -7,9 +7,9 @@ namespace Amir.Apparel.Demo.Api.Dotnet.Providers
 {
     public interface IProductProvider
     {
-        Task<Page<Product>> GetProductsAsync(IPaginationOptions paginationOptions);
         Task<Product> GetProductByIdAsync(int id);
-        Task<Page<Product>> GetProductsWithFilterAsync(PaginationOptions paginationOptions, ProductFilter productFilter);
+        Task<IPage<Product>> GetProductsAsync(IPaginationOptions paginationOptions);
+        Task<IPage<Product>> GetProductsWithFilterAsync(PaginationOptions paginationOptions, ProductFilter productFilter);
         Task<IEnumerable> GetDistinctAsync(string property);
     }
 }

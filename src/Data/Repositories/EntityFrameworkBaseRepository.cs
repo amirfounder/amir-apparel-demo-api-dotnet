@@ -34,7 +34,7 @@ namespace Amir.Apparel.Demo.Api.Dotnet.Data.Repositories
             return await _context.Set<TEntity>().ToListAsync();
         }
 
-        public async Task<Page<TEntity>> GetAll(IPaginationOptions paginationOptions)
+        public async Task<IPage<TEntity>> GetAll(IPaginationOptions paginationOptions)
         {
             var query = _context
                 .Set<TEntity>()
@@ -51,7 +51,7 @@ namespace Amir.Apparel.Demo.Api.Dotnet.Data.Repositories
             return page;
         }
 
-        public async Task<Page<TEntity>> GetAll(IPaginationOptions paginationOptions, IFilterable<TEntity> filterable)
+        public async Task<IPage<TEntity>> GetAll(IPaginationOptions paginationOptions, IFilterable<TEntity> filterable)
         {
             var query = _context
                 .Set<TEntity>()
@@ -69,7 +69,7 @@ namespace Amir.Apparel.Demo.Api.Dotnet.Data.Repositories
             return page;
         }
 
-        public async Task<Page<TEntity>> GetAllByProperty(IPaginationOptions paginationOptions, string property, string value)
+        public async Task<IPage<TEntity>> GetAllByProperty(IPaginationOptions paginationOptions, string property, string value)
         {
             property = typeof(TEntity).GetPropertyName(property);
 

@@ -5,20 +5,28 @@ using System.Linq;
 
 namespace Amir.Apparel.Demo.Api.Dotnet.Data.Models
 {
-    public class Page<T>
+    public class Page<T> : IPage<T>
     {
-        public Page()
-        { }
+        public Page() { }
         public Page(IPaginationOptions paginationOptions)
         {
             Number = paginationOptions.Page;
             Size = paginationOptions.Size;
             NumberOfElements = paginationOptions.Size;
         }
+        public Page(IPage<T> page)
+        {
+            Content = page.Content;
+            Empty = page.Empty;
+            TotalElements = page.TotalElements;
+            TotalPages = page.TotalPages;
+            Size = page.Size;
+            Number = page.Number;
+            NumberOfElements = page.NumberOfElements;
+        }
 
         private int _totalElemenets;
         private IEnumerable<T> _content;
-
         public IEnumerable<T> Content
         {
             get => _content;

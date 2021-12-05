@@ -8,9 +8,9 @@ namespace Amir.Apparel.Demo.Api.Dotnet.Data.Seed
         public static ModelBuilder SeedDatabase(this ModelBuilder modelBuilder)
         {
             var productFactory = new ProductFactory();
-            var purchaseFactory = new PurchaseFactory();
-
             var products = productFactory.BuildEntities(500);
+
+            var purchaseFactory = new PurchaseFactory(products);
             var purchases = purchaseFactory.BuildEntities(500);
 
             modelBuilder.Entity<Product>().HasData(products);

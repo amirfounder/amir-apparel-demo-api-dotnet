@@ -16,11 +16,6 @@ namespace Amir.Apparel.Demo.Api.Dotnet.Providers
             _repository = repository;
         }
 
-        public async Task<Page<Product>> GetProductsAsync(IPaginationOptions paginationOptions)
-        {
-            return await _repository.GetAll(paginationOptions);
-        }
-
         public async Task<Product> GetProductByIdAsync(int id)
         {
             Product product;
@@ -35,7 +30,12 @@ namespace Amir.Apparel.Demo.Api.Dotnet.Providers
             return product;
         }
 
-        public async Task<Page<Product>> GetProductsWithFilterAsync(PaginationOptions paginationOptions, ProductFilter productFilter)
+        public async Task<IPage<Product>> GetProductsAsync(IPaginationOptions paginationOptions)
+        {
+            return await _repository.GetAll(paginationOptions);
+        }
+
+        public async Task<IPage<Product>> GetProductsWithFilterAsync(PaginationOptions paginationOptions, ProductFilter productFilter)
         {
             return await _repository.GetAll(paginationOptions, productFilter);
         }

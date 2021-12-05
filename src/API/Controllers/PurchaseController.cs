@@ -4,11 +4,12 @@ using Amir.Apparel.Demo.Api.Dotnet.Data.Models;
 using Amir.Apparel.Demo.Api.Dotnet.Providers;
 using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 
 namespace Amir.Apparel.Demo.Api.Dotnet.API.Controllers
 {
-    [Route("products")]
+    [Route("purchases")]
     [ApiController]
     public class PurchaseController : ControllerBase
     {
@@ -30,7 +31,10 @@ namespace Amir.Apparel.Demo.Api.Dotnet.API.Controllers
         )
         {
             var page = await _provider.GetPurchasesByEmailAsync(paginationOptions, email);
-            return Ok(page);
+            var contentDTO = _mapper.Map<IEnumerable<PurchaseResponseDTO>>(page.Content);
+            var pageDTO = new Page<PurchaseResponseDTO>();
+            
+            return Ok(pageDTO);
         }
     }
 }

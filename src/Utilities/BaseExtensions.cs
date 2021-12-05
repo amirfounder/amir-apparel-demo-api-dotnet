@@ -8,18 +8,11 @@ namespace Amir.Apparel.Demo.Api.Dotnet.Utilities
 {
     public static class BaseExtensions
     {
-        public static object Random(this object[] list)
+        public static T Random<T>(this T[] list)
         {
             var rand = new Random();
             var randomIndex = rand.Next(0, list.Length);
             return list[randomIndex];
-        }
-
-        public static object Random(this IEnumerable<object> list)
-        {
-            var rand = new Random();
-            var randomIndex = rand.Next(list.Count());
-            return list.ElementAt(randomIndex);
         }
 
         public static T Random<T>(this IEnumerable<T> list)

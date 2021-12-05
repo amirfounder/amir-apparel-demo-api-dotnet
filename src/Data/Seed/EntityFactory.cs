@@ -13,7 +13,7 @@ namespace Amir.Apparel.Demo.Api.Dotnet.Data.Seed
         protected EntityFactory()
         {
             _rand = new();
-            _alphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZ".ToCharArray();
+            _alphabet = "abcdefghijklmnopqrstuvwxyz".ToCharArray();
         }
         public IEnumerable<T> BuildEntities(int count) => Enumerable.Range(1, count).Select(i => BuildEntity(i));
         public abstract T BuildEntity(int id);

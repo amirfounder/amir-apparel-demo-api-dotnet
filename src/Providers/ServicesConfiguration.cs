@@ -7,6 +7,7 @@ namespace Amir.Apparel.Demo.Api.Dotnet.Providers
         public static IServiceCollection AddProviderServices(this IServiceCollection services)
         {
             services.AddScoped<IProductProvider, ProductProvider>();
+            services.AddScoped<IPurchaseProvider, PurchaseProvider>();
 
             return services;
         }

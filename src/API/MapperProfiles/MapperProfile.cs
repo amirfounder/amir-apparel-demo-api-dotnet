@@ -9,6 +9,7 @@ namespace Amir.Apparel.Demo.Api.Dotnet.API.MapperProfiles
         public MapperProfile()
         {
             CreateMap<Product, ProductDTO>().ReverseMap();
+            CreateMap<Purchase, PurchaseResponseDTO>().ReverseMap();
         }
     }
 }

@@ -15,7 +15,7 @@ namespace Amir.Apparel.Demo.Api.Dotnet.Tests.UnitTests
     public class FilteringUtilitiesUnitTests
     {
         private ProductFactory _productFactory;
-        private ICollection<Product> _products;
+        private IEnumerable<Product> _products;
 
         private Mock<DbSet<Product>> _mockSet;
         private Mock<IApplicationContext> _mockContext;
@@ -23,7 +23,7 @@ namespace Amir.Apparel.Demo.Api.Dotnet.Tests.UnitTests
         public FilteringUtilitiesUnitTests()
         {
             _productFactory = new();
-            _products = _productFactory.BuildRandomProducts(500);
+            _products = _productFactory.BuildEntities(500);
             _mockSet = new();
             _mockContext = new();
         }
