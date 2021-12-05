@@ -18,6 +18,8 @@ namespace Amir.Apparel.Demo.Api.Dotnet.Data
 
             services.AddScoped<IApplicationContext>(provider => provider.GetService<ApplicationContext>());
             services.AddScoped<IProductRepository, ProductRepository>();
+            services.AddScoped<IPurchaseRepository, PurchaseRepository>();
+            services.AddScoped<ILineItemRepository, LineItemRepository>();
 
             return services;
         }

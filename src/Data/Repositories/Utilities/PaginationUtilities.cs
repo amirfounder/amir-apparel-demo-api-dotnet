@@ -1,5 +1,4 @@
 ﻿using Amir.Apparel.Demo.Api.Dotnet.Data.Models;
-using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
@@ -8,11 +7,11 @@ namespace Amir.Apparel.Demo.Api.Dotnet.Data.Repositories.Utilities
 {
     public static class PaginationUtilities
     {
-        public static IQueryable<T> ApplySorting<T>(this IQueryable<T> query, string[] paginationSortables, Type model)
+        public static IQueryable<T> ApplyPaging<T>(this IQueryable<T> query, Page<T> page) => query.Skip(page.Number * page.Size).Take(page.Size);
+        public static IQueryable<T> ApplySorting<T>(this IQueryable<T> query, string[] paginationSortables)
             where T : class, IEntity
         {
-
-            var sortables = CleanPaginationSortables(paginationSortables, model);
+            var sortables = CleanPaginationSortables<T>(paginationSortables);
 
             if (sortables.Count == 0)
             {
@@ -23,7 +22,7 @@ namespace Amir.Apparel.Demo.Api.Dotnet.Data.Repositories.Utilities
                 var sortable = sortables[0];
                 var sortableProp = sortable[0];
                 var isAscending = sortable[1] == "asc";
-                query = query.OrderByField(sortableProp, isAscending, true);
+                query = query.OrderByProperty(sortableProp, isAscending, true);
 
                 for (int i = 0; i < sortables.Count; i++)
                 {
@@ -36,24 +35,16 @@ namespace Amir.Apparel.Demo.Api.Dotnet.Data.Repositories.Utilities
                     sortableProp = sortable[0];
                     isAscending = sortable[1] == "asc";
 
-                    query = query.OrderByField(sortableProp, isAscending, false);
+                    query = query.OrderByProperty(sortableProp, isAscending, false);
                 }
             }
 
             return query;
         }
 
-        private static IQueryable<T> OrderByField<T>(this IQueryable<T> query, string field, bool isAscending, bool isFirstOrdering)
+        private static List<string[]> CleanPaginationSortables<T>(string[] paginationSortables)
         {
-            var model = Expression.Parameter(typeof(T), "e");
-            var property = Expression.Property(model, field);
-            var expression = Expression.Lambda(property, model);
-
-            return query.ApplyCustomOrder<T>(expression, isFirstOrdering, isAscending);
-        }
-
-        private static List<string[]> CleanPaginationSortables(string[] paginationSortables, Type model)
-        {
+            var model = typeof(T);
             var filteredSortables = new List<string[]>();
 
             if (paginationSortables == default)
@@ -61,7 +52,7 @@ namespace Amir.Apparel.Demo.Api.Dotnet.Data.Repositories.Utilities
                 return filteredSortables;
             }
 
-            var modelProperties = model
+            var properties = model
                 .GetProperties()
                 .Select(x => x.Name.ToUpper())
                 .ToList();
@@ -75,7 +66,7 @@ namespace Amir.Apparel.Demo.Api.Dotnet.Data.Repositories.Utilities
 
                 string[] item = sortable.Split(",");
 
-                if (item.Length != 2 || !modelProperties.Contains(item[0].ToUpper()))
+                if (item.Length != 2 || !properties.Contains(item[0].ToUpper()))
                 {
                     continue;
                 }

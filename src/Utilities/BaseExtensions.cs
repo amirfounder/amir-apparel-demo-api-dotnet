@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using System.Linq;
+using System.Reflection;
 
 namespace Amir.Apparel.Demo.Api.Dotnet.Utilities
 {
@@ -29,6 +30,16 @@ namespace Amir.Apparel.Demo.Api.Dotnet.Utilities
                 .Where(x => x != null)
                 .Select(x => x.ToString())
                 .ToArray();
+        }
+
+        public static Type GetPropertyType(this Type entity, string property)
+        {
+            return entity.GetProperty(
+                property,
+                BindingFlags.Public |
+                BindingFlags.Instance |
+                BindingFlags.IgnoreCase
+            )?.PropertyType;
         }
     }
 }

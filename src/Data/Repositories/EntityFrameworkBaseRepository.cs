@@ -1,11 +1,14 @@
 ﻿using Amir.Apparel.Demo.Api.Dotnet.API.CustomQueries;
 using Amir.Apparel.Demo.Api.Dotnet.Data.Models;
 using Amir.Apparel.Demo.Api.Dotnet.Data.Repositories.Utilities;
+using Amir.Apparel.Demo.Api.Dotnet.Utilities;
+using Amir.Apparel.Demo.Api.Dotnet.Utilities.HttpStatusExceptions;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Reflection;
 using System.Threading.Tasks;
 
@@ -16,11 +19,9 @@ namespace Amir.Apparel.Demo.Api.Dotnet.Data.Repositories
         where TContext : DbContext
     {
         private readonly TContext _context;
-        private readonly Type _model;
 
-        public EntityFrameworkBaseRepository(Type model, TContext context)
+        public EntityFrameworkBaseRepository(TContext context)
         {
-            _model = model;
             _context = context;
         }
 
@@ -34,11 +35,32 @@ namespace Amir.Apparel.Demo.Api.Dotnet.Data.Repositories
             return await _context.Set<TEntity>().ToListAsync();
         }
 
+        public async Task<Page<TEntity>> GetAllByProperty(IPaginationOptions paginationOptions, string property, string value)
+        {
+            Page<TEntity> page = new(paginationOptions);
+
+            var param = Expression.Parameter(typeof(TEntity));
+            var left = Expression.Property(param, property);
+            var right = Expression.Constant(value);
+            var equal = Expression.Equal(left, right);
+            var lambda = Expression.Lambda(equal, param);
+
+            var query = _context
+                .Set<TEntity>()
+                .ApplySorting(paginationOptions.Sort)
+                .ApplyCustomWhere(lambda);
+
+            page.TotalElements = await query.CountAsync();
+            page.Content = await query.ApplyPaging(page).ToListAsync();
+
+            return page;
+        }
+
         public async Task<Page<TEntity>> GetAll(IPaginationOptions paginationOptions)
         {
             var query = _context
                 .Set<TEntity>()
-                .ApplySorting(paginationOptions.Sort, _model);
+                .ApplySorting(paginationOptions.Sort);
 
             Page<TEntity> page = new(paginationOptions);
 
@@ -56,7 +78,7 @@ namespace Amir.Apparel.Demo.Api.Dotnet.Data.Repositories
             var query = _context
                 .Set<TEntity>()
                 .ApplyFiltering(filterable)
-                .ApplySorting(paginationOptions.Sort, _model);
+                .ApplySorting(paginationOptions.Sort);
 
             Page<TEntity> page = new(paginationOptions);
 
@@ -75,28 +97,26 @@ namespace Amir.Apparel.Demo.Api.Dotnet.Data.Repositories
                 .Set<TEntity>()
                 .AsQueryable();
 
-            var returnType = typeof(TEntity)
-                .GetRuntimeProperties()
-                .Where(x => x.Name.ToUpper() == property.ToUpper())
-                .ElementAt(0)
-                .PropertyType;
+            var propertyType = typeof(TEntity)
+                .GetPropertyType(property)
+                ?.Name
+                ?.ToLower();
 
-            /// TODO: Refactor using Linq Expressions
+            return propertyType switch
+            {
+                "bool" => await query.SelectByProperty<TEntity, bool>(property).Distinct().ToListAsync(),
+                "byte" => await query.SelectByProperty<TEntity, byte>(property).Distinct().ToListAsync(),
+                "char" => await query.SelectByProperty<TEntity, char>(property).Distinct().ToListAsync(),
+                "decimal" => await query.SelectByProperty<TEntity, decimal>(property).Distinct().ToListAsync(),
+                "double" => await query.SelectByProperty<TEntity, double>(property).Distinct().ToListAsync(),
+                "single" => await query.SelectByProperty<TEntity, float>(property).Distinct().ToListAsync(),
+                "int16" => await query.SelectByProperty<TEntity, short>(property).Distinct().ToListAsync(),
+                "int32" => await query.SelectByProperty<TEntity, int>(property).Distinct().ToListAsync(),
+                "uint16" => await query.SelectByProperty<TEntity, ushort>(property).Distinct().ToListAsync(),
+                "uint32" => await query.SelectByProperty<TEntity, uint>(property).Distinct().ToListAsync(),
+                _ => throw new BadRequestException($"Could not find property with name: {property}")
+            };
 
-            if (returnType == typeof(bool))
-            {
-                return await query.ApplySelection<TEntity, bool>(property).Distinct().ToListAsync();
-            }
-            else if (returnType == typeof(decimal))
-            {
-                return await query.ApplySelection<TEntity, decimal>(property).Distinct().ToListAsync();
-            }
-            else if (returnType == typeof(int))
-            {
-                return await query.ApplySelection<TEntity, int>(property).Distinct().ToListAsync();
-            }
-
-            return await query.ApplySelection<TEntity, object>(property).Distinct().ToListAsync();
         }
     }
 }

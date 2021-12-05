@@ -7,11 +7,11 @@ namespace Amir.Apparel.Demo.Api.Dotnet.Data.Context
     public class ApplicationContext : DbContext, IApplicationContext
     {
 
-        public ApplicationContext(DbContextOptions<ApplicationContext> options) : base(options)
-        {
-        }
+        public ApplicationContext(DbContextOptions<ApplicationContext> options) : base(options) { }
 
         public DbSet<Product> Products { get; set; }
+        public DbSet<Purchase> Purchases { get; set; }
+        public DbSet<LineItem> LineItems { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
