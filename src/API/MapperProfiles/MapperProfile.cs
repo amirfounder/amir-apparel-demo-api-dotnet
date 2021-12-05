@@ -8,8 +8,22 @@ namespace Amir.Apparel.Demo.Api.Dotnet.API.MapperProfiles
     {
         public MapperProfile()
         {
-            CreateMap<Product, ProductDTO>().ReverseMap();
-            CreateMap<Purchase, PurchaseResponseDTO>().ReverseMap();
+            CreateMap<Product, ProductResponseDTO>().ReverseMap();
+
+            CreateMap<Purchase, PurchaseResponseDTO>()
+                .ForMember(dest => dest.BillingAddress, opt => opt.MapFrom(src => src.BuildBillingAddress()))
+                .ForMember(dest => dest.ShippingAddress, opt => opt.MapFrom(src => src.BuildShippingAddress()))
+                .ReverseMap();
+            CreateMap<Purchase, PurchaseRequestDTO>()
+                .ForMember(dest => dest.BillingAddress, opt => opt.MapFrom(src => src.BuildBillingAddress()))
+                .ForMember(dest => dest.ShippingAddress, opt => opt.MapFrom(src => src.BuildShippingAddress()))
+                .ReverseMap();
+
+            CreateMap<Address, AddressResponseDTO>().ReverseMap();
+            CreateMap<Address, AddressRequestDTO>().ReverseMap();
+
+            CreateMap<LineItem, LineItemResponseDTO>().ReverseMap();
+            CreateMap<LineItem, LineItemRequestDTO>().ReverseMap();
         }
     }
 }

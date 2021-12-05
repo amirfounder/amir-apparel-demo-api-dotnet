@@ -14,9 +14,8 @@ namespace Amir.Apparel.Demo.Api.Dotnet.Data.Models
             Size = paginationOptions.Size;
             NumberOfElements = paginationOptions.Size;
         }
-        public Page(IPage<T> page)
+        public Page(IPage page)
         {
-            Content = page.Content;
             Empty = page.Empty;
             TotalElements = page.TotalElements;
             TotalPages = page.TotalPages;

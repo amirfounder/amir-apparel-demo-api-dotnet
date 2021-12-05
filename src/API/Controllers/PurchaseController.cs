@@ -31,10 +31,23 @@ namespace Amir.Apparel.Demo.Api.Dotnet.API.Controllers
         )
         {
             var page = await _provider.GetPurchasesByEmailAsync(paginationOptions, email);
-            var contentDTO = _mapper.Map<IEnumerable<PurchaseResponseDTO>>(page.Content);
-            var pageDTO = new Page<PurchaseResponseDTO>();
+            var purchaseDTOs = _mapper.Map<IEnumerable<PurchaseResponseDTO>>(page.Content);
+            var pageDTO = new Page<PurchaseResponseDTO>(page);
+            pageDTO.Content = purchaseDTOs;
             
             return Ok(pageDTO);
+        }
+
+        [HttpPost]
+        public async Task<ActionResult<PurchaseResponseDTO>> CreatePurchaseAsync(
+            [FromBody] PurchaseRequestDTO purchaseRequestDTO
+        )
+        {
+            var purchaseToSave = _mapper.Map<Purchase>(purchaseRequestDTO);
+            var savedPurchase = await _provider.CreatePurchaseAsync(purchaseToSave);
+            var purchaseResponseDto = _mapper.Map<PurchaseResponseDTO>(savedPurchase);
+
+            return Created($"/purchases", purchaseResponseDto);
         }
     }
 }

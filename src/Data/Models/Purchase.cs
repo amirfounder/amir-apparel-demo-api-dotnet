@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using Amir.Apparel.Demo.Api.Dotnet.API.MapperProfiles;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Amir.Apparel.Demo.Api.Dotnet.Data.Models
@@ -26,41 +27,27 @@ namespace Amir.Apparel.Demo.Api.Dotnet.Data.Models
         [NotMapped]
         public Address ShippingAddress
         {
-            get => new()
-            {
-                Street = ShippingAddressStreet,
-                StreetOptional = ShippingAddressStreetOptional,
-                City = ShippingAddressCity,
-                State = ShippingAddressState,
-                ZipCode = ShippingAddressZipCode
-            };
+            get => this.BuildShippingAddress();
             set
             {
-                ShippingAddressStreet = value.Street;
-                ShippingAddressStreetOptional = value.StreetOptional;
-                ShippingAddressCity = value.City;
-                ShippingAddressState = value.State;
-                ShippingAddressZipCode = value.ZipCode;
+                ShippingAddressStreet = value?.Street;
+                ShippingAddressStreetOptional = value?.StreetOptional;
+                ShippingAddressCity = value?.City;
+                ShippingAddressState = value?.State;
+                ShippingAddressZipCode = value?.ZipCode;
             }
         }
         [NotMapped]
         public Address BillingAddress
         {
-            get => new()
-            {
-                Street = BillingAddressStreet,
-                StreetOptional = BillingAddressStreetOptional,
-                City = BillingAddressCity,
-                State = BillingAddressState,
-                ZipCode = BillingAddressZipCode
-            };
+            get => this.BuildBillingAddress();
             set
             {
-                BillingAddressStreet = value.Street;
-                BillingAddressStreetOptional = value.StreetOptional;
-                BillingAddressCity = value.City;
-                BillingAddressState = value.State;
-                BillingAddressZipCode = value.ZipCode;
+                BillingAddressStreet = value?.Street;
+                BillingAddressStreetOptional = value?.StreetOptional;
+                BillingAddressCity = value?.City;
+                BillingAddressState = value?.State;
+                BillingAddressZipCode = value?.ZipCode;
             }
         }
     }
