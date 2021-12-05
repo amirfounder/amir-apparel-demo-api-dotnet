@@ -22,6 +22,11 @@ namespace Amir.Apparel.Demo.Api.Dotnet.Utilities
             return list.ElementAt(randomIndex);
         }
 
+        public static IEnumerable<char> BuildRandomSequence(this IEnumerable<char> sequenceSeed, int count)
+        {
+            return Enumerable.Range(1, count).Select(x => sequenceSeed.Random());
+        }
+
         public static DateTime Random(this DateTime datetime)
         {
             return datetime;

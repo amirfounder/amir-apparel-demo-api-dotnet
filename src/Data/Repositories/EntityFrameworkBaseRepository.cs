@@ -71,7 +71,7 @@ namespace Amir.Apparel.Demo.Api.Dotnet.Data.Repositories
 
         public async Task<IPage<TEntity>> GetAllByProperty(IPaginationOptions paginationOptions, string property, string value)
         {
-            property = typeof(TEntity).GetPropertyName(property);
+            var lamdbaExp = typeof(TEntity).GetPropertyName(property);
 
             var toUpperMethod = typeof(string).GetMethod("ToUpper", Array.Empty<Type>());
             var paramExp = Expression.Parameter(typeof(TEntity));
