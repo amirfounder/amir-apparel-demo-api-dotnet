@@ -1,5 +1,4 @@
-﻿using Amir.Apparel.Demo.Api.Dotnet.API.CustomQueries;
-using Amir.Apparel.Demo.Api.Dotnet.Data.Models;
+﻿using Amir.Apparel.Demo.Api.Dotnet.Data.Models;
 using System.Threading.Tasks;
 
 namespace Amir.Apparel.Demo.Api.Dotnet.Providers

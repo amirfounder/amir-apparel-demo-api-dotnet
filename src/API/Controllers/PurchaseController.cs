@@ -1,10 +1,8 @@
-﻿using Amir.Apparel.Demo.Api.Dotnet.API.CustomQueries;
-using Amir.Apparel.Demo.Api.Dotnet.API.DTOs;
+﻿using Amir.Apparel.Demo.Api.Dotnet.API.DTOs;
 using Amir.Apparel.Demo.Api.Dotnet.Data.Models;
 using Amir.Apparel.Demo.Api.Dotnet.Providers;
 using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
-using System.Collections.Generic;
 using System.Threading.Tasks;
 
 namespace Amir.Apparel.Demo.Api.Dotnet.API.Controllers

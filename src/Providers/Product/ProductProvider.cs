@@ -44,5 +44,10 @@ namespace Amir.Apparel.Demo.Api.Dotnet.Providers
         {
             return await _repository.GetDistinct(property);
         }
+
+        public async Task<bool> ExistsById(int id)
+        {
+            return await _repository.ExistsById(id);
+        }
     }
 }

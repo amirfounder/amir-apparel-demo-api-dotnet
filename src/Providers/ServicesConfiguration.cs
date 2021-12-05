@@ -8,6 +8,8 @@ namespace Amir.Apparel.Demo.Api.Dotnet.Providers
         {
             services.AddScoped<IProductProvider, ProductProvider>();
             services.AddScoped<IPurchaseProvider, PurchaseProvider>();
+            services.AddScoped<ILineItemProvider, LineItemProvider>();
+            services.AddScoped<ILineItemValidation, LineItemValidation>();
 
             return services;
         }

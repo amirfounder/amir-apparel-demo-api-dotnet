@@ -13,6 +13,8 @@ namespace Amir.Apparel.Demo.Api.Dotnet.Data.Repositories
         Task<IPage<T>> GetAll(IPaginationOptions paginationOptions);
         Task<IPage<T>> GetAll(IPaginationOptions paginationOptions, IFilterable<T> filterable);
         Task<IEnumerable> GetDistinct(string property);
+        Task<bool> ExistsById(int id);
         Task<T> Save(T entity);
+
     }
 }

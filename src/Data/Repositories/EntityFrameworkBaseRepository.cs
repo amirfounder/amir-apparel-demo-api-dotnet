@@ -94,6 +94,11 @@ namespace Amir.Apparel.Demo.Api.Dotnet.Data.Repositories
             };
 
         }
+        public async Task<bool> ExistsById(int id)
+        {
+            var entity = await _context.Set<TEntity>().FindAsync(id);
+            return entity != null;
+        }
 
         public async Task<TEntity> Save(TEntity entity)
         {
