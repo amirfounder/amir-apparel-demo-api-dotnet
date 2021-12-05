@@ -34,7 +34,7 @@ namespace Amir.Apparel.Demo.Api.Dotnet.API.Controllers
             var purchaseDTOs = _mapper.Map<IEnumerable<PurchaseResponseDTO>>(page.Content);
             var pageDTO = new Page<PurchaseResponseDTO>(page);
             pageDTO.Content = purchaseDTOs;
-            
+
             return Ok(pageDTO);
         }
 
