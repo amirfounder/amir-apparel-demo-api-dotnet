@@ -11,5 +11,6 @@ namespace Amir.Apparel.Demo.Api.Dotnet.API.DTOs
         public IEnumerable<LineItemResponseDTO> LineItems { get; set; }
         public AddressResponseDTO ShippingAddress { get; set; }
         public AddressResponseDTO BillingAddress { get; set; }
+        public CreditCardResponseDTO CreditCard { get; set; }
     }
 }

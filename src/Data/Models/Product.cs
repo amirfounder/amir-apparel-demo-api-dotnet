@@ -4,8 +4,6 @@ namespace Amir.Apparel.Demo.Api.Dotnet.Data.Models
 {
     public class Product : Entity, IEntity
     {
-        public Product() : base() { }
-
         public string Name { get; set; }
 
         public string HexCode { get; set; }

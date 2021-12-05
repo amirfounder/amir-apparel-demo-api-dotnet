@@ -1,4 +1,4 @@
-﻿using Amir.Apparel.Demo.Api.Dotnet.API.MapperProfiles;
+﻿using Amir.Apparel.Demo.Api.Dotnet.API.Mapper;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations.Schema;
 
@@ -6,7 +6,6 @@ namespace Amir.Apparel.Demo.Api.Dotnet.Data.Models
 {
     public class Purchase : Entity
     {
-        public Purchase() : base() { }
         public string FirstName { get; set; }
         public string LastName { get; set; }
         public string Email { get; set; }
@@ -23,6 +22,11 @@ namespace Amir.Apparel.Demo.Api.Dotnet.Data.Models
         public string BillingAddressCity { get; set; }
         public string BillingAddressState { get; set; }
         public string BillingAddressZipCode { get; set; }
+
+        public string CreditCardCardholderName { get; set; }
+        public string CreditCardCardNumber { get; set; }
+        public string CreditCardExpirationDate { get; set; }
+        public string CreditCardCvv { get; set; }
 
         [NotMapped]
         public Address ShippingAddress
@@ -48,6 +52,18 @@ namespace Amir.Apparel.Demo.Api.Dotnet.Data.Models
                 BillingAddressCity = value?.City;
                 BillingAddressState = value?.State;
                 BillingAddressZipCode = value?.ZipCode;
+            }
+        }
+        [NotMapped]
+        public CreditCard CreditCard
+        {
+            get => this.BuildCreditCard();
+            set
+            {
+                CreditCardCardholderName = value?.CardholderName;
+                CreditCardCardNumber = value?.CardNumber;
+                CreditCardExpirationDate = value?.ExpirationDate;
+                CreditCardCvv = value?.Cvv;
             }
         }
     }

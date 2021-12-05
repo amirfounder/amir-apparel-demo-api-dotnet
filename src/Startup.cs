@@ -1,5 +1,5 @@
 using Amir.Apparel.Demo.Api.Dotnet.API;
-using Amir.Apparel.Demo.Api.Dotnet.API.MapperProfiles;
+using Amir.Apparel.Demo.Api.Dotnet.API.Mapper;
 using Amir.Apparel.Demo.Api.Dotnet.Data;
 using Amir.Apparel.Demo.Api.Dotnet.Data.Context;
 using Amir.Apparel.Demo.Api.Dotnet.Providers;

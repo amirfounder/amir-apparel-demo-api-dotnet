@@ -2,7 +2,7 @@
 using Amir.Apparel.Demo.Api.Dotnet.Data.Models;
 using AutoMapper;
 
-namespace Amir.Apparel.Demo.Api.Dotnet.API.MapperProfiles
+namespace Amir.Apparel.Demo.Api.Dotnet.API.Mapper
 {
     public class MapperProfile : Profile
     {
@@ -13,10 +13,12 @@ namespace Amir.Apparel.Demo.Api.Dotnet.API.MapperProfiles
             CreateMap<Purchase, PurchaseResponseDTO>()
                 .ForMember(dest => dest.BillingAddress, opt => opt.MapFrom(src => src.BuildBillingAddress()))
                 .ForMember(dest => dest.ShippingAddress, opt => opt.MapFrom(src => src.BuildShippingAddress()))
+                .ForMember(dest => dest.CreditCard, opt => opt.MapFrom(src => src.BuildCreditCard()))
                 .ReverseMap();
             CreateMap<Purchase, PurchaseRequestDTO>()
                 .ForMember(dest => dest.BillingAddress, opt => opt.MapFrom(src => src.BuildBillingAddress()))
                 .ForMember(dest => dest.ShippingAddress, opt => opt.MapFrom(src => src.BuildShippingAddress()))
+                .ForMember(dest => dest.CreditCard, opt => opt.MapFrom(src => src.BuildCreditCard()))
                 .ReverseMap();
 
             CreateMap<Address, AddressResponseDTO>().ReverseMap();
@@ -24,6 +26,9 @@ namespace Amir.Apparel.Demo.Api.Dotnet.API.MapperProfiles
 
             CreateMap<LineItem, LineItemResponseDTO>().ReverseMap();
             CreateMap<LineItem, LineItemRequestDTO>().ReverseMap();
+
+            CreateMap<CreditCard, CreditCardResponseDTO>().ReverseMap();
+            CreateMap<CreditCard, CreditCardRequestDTO>().ReverseMap();
         }
     }
 }
