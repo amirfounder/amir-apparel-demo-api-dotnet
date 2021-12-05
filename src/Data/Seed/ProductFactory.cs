@@ -1,33 +1,17 @@
 ﻿using Amir.Apparel.Demo.Api.Dotnet.Data.Models;
 using Amir.Apparel.Demo.Api.Dotnet.Utilities;
 using System;
-using System.Collections.Generic;
 
 namespace Amir.Apparel.Demo.Api.Dotnet.Data.Seed
 {
-    public class ProductFactory
+    public class ProductFactory : EntityFactory<Product>
     {
-
-        private readonly Random rand = new();
-
         private readonly string[] Materials = new string[] { "Cotton", "Polyesters", "Silk", "Leather" };
         private readonly string[] Types = new string[] { "Gloves", "Shorts", "Pants", "Shoes", "Socks", "Boxers" };
         private readonly string[] Demographics = new string[] { "Men", "Women", "Kids" };
         private readonly string[] HexCodes = new string[] { "b0160b", "16f7d2", "870bb0", "0b81b0" };
 
-
-        public List<Product> BuildRandomProducts(int count)
-        {
-            var products = new List<Product>();
-
-            for (int i = 0; i < count; i++)
-            {
-                products.Add(BuildRandomProduct(i + 1));
-            }
-
-            return products;
-        }
-        public Product BuildRandomProduct(int id)
+        public override Product BuildEntity(int id)
         {
             var material = GetRandomMaterial();
             var type = BuildRandomType();
@@ -51,55 +35,32 @@ namespace Amir.Apparel.Demo.Api.Dotnet.Data.Seed
             };
         }
 
-        private string GetRandomMaterial()
-        {
-            return Materials.Random();
-        }
+        private string GetRandomMaterial() => Materials.Random();
+        private string BuildRandomType() => Types.Random();
+        private string BuildRandomDemographic() => Demographics.Random();
+        private string BuildRandomHexCode() => HexCodes.Random();
 
-        private string BuildRandomType()
+        private decimal BuildRandomPrice()
         {
-            return Types.Random();
-        }
-
-        private string BuildRandomDemographic()
-        {
-            return Demographics.Random();
+            var min = 10;
+            var max = 100;
+            var randomDouble = _rand.NextDouble();
+            var price = (decimal)(min + (randomDouble * (max - min)));
+            return decimal.Round(price, 2);
         }
 
         private DateTime BuildRandomLaunchDate()
         {
             DateTime start = new DateTime(1995, 1, 1);
             int range = (DateTime.Today - start).Days;
-            return start.AddDays(rand.Next(range));
+            return start.AddDays(_rand.Next(range));
         }
 
-        private string BuildRandomHexCode()
-        {
-            return HexCodes.Random();
-        }
-
-        private decimal BuildRandomPrice()
-        {
-            var min = 10;
-            var max = 100;
-            var randomDouble = rand.NextDouble();
-            var price = (decimal)(min + (randomDouble * (max - min)));
-            return decimal.Round(price, 2);
-        }
-
-        private int BuildRandomQuantity()
-        {
-            var min = 100;
-            var max = 500;
-            return rand.Next(min, max);
-        }
-
-        private bool BuildRandomStatus()
-        {
-            return rand.NextDouble() >= 0.5;
-        }
-
-        private string BuildColor(string hexCode) => hexCode switch
+        private int BuildRandomQuantity() => _rand.Next(100, 500);
+        private bool BuildRandomStatus() => _rand.NextDouble() >= 0.5;
+        private static string BuildName(string material, string type) => material + " " + type;
+        private static string BuildDescription(string name) => "These are some awesome " + name + "! These guys are definitely a steal!";
+        private static string BuildColor(string hexCode) => hexCode switch
         {
             "b0160b" => "Dark Red",
             "16f7d2" => "Purple",
@@ -107,16 +68,5 @@ namespace Amir.Apparel.Demo.Api.Dotnet.Data.Seed
             "0b81b0" => "Blue",
             _ => "Unkown"
         };
-
-        private static string BuildName(string material, string type)
-        {
-            return material + " " + type;
-        }
-
-        private static string BuildDescription(string name)
-        {
-            return "These are some awesome " + name + "! These guys are definitely a steal!";
-        }
-
     }
 }

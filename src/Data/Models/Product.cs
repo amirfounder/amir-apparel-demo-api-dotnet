@@ -4,7 +4,7 @@ namespace Amir.Apparel.Demo.Api.Dotnet.Data.Models
 {
     public class Product : Entity, IEntity
     {
-        public Product() { }
+        public Product() : base() { }
 
         public string Name { get; set; }
 

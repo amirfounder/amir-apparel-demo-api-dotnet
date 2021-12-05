@@ -1,7 +1,6 @@
 ﻿using Amir.Apparel.Demo.Api.Dotnet.Data.Models;
 using System.Collections.Generic;
 using System.Linq;
-using System.Linq.Expressions;
 
 namespace Amir.Apparel.Demo.Api.Dotnet.Data.Repositories.Utilities
 {

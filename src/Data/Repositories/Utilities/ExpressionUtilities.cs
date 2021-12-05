@@ -7,12 +7,12 @@ namespace Amir.Apparel.Demo.Api.Dotnet.Data.Repositories.Utilities
     {
         public static Expression BuildOrPredicateFilter(this Expression propertyExp, string[] values)
         {
-            var upperCaseMethod = typeof(string).GetMethod("ToUpper", Array.Empty<Type>());
+            var toUpperMethod = typeof(string).GetMethod("ToUpper", Array.Empty<Type>());
 
             var constant = Expression.Constant(values[0]);
 
-            var left = Expression.Call(propertyExp, upperCaseMethod);
-            var right = Expression.Call(constant, upperCaseMethod);
+            var left = Expression.Call(propertyExp, toUpperMethod);
+            var right = Expression.Call(constant, toUpperMethod);
 
             var expression = Expression.Equal(left, right);
 
@@ -24,7 +24,7 @@ namespace Amir.Apparel.Demo.Api.Dotnet.Data.Repositories.Utilities
                 }
 
                 constant = Expression.Constant(values[i], typeof(string));
-                right = Expression.Call(constant, upperCaseMethod);
+                right = Expression.Call(constant, toUpperMethod);
 
                 expression = Expression.Or(expression, Expression.Equal(left, right));
             }

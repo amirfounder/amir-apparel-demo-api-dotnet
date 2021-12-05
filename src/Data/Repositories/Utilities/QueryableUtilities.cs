@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Amir.Apparel.Demo.Api.Dotnet.Utilities;
+using System;
 using System.Linq;
 using System.Linq.Expressions;
 
@@ -8,14 +9,12 @@ namespace Amir.Apparel.Demo.Api.Dotnet.Data.Repositories.Utilities
     {
         public static IQueryable<T> WherePropertyEquals<T>(this IQueryable<T> query, string property, string value)
         {
-            var propertyInfo = typeof(T).GetProperty(property);
+            var propertyType = typeof(T).GetPropertyType(property);
 
-            if (propertyInfo == null)
+            if (propertyType == null)
             {
                 return query;
             }
-
-            var propertyType = propertyInfo.PropertyType;
 
             return query;
         }

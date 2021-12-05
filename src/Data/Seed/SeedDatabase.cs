@@ -5,13 +5,18 @@ namespace Amir.Apparel.Demo.Api.Dotnet.Data.Seed
 {
     public static class Extensions
     {
-        public static void SeedDatabase(this ModelBuilder modelBuilder)
+        public static ModelBuilder SeedDatabase(this ModelBuilder modelBuilder)
         {
             var productFactory = new ProductFactory();
+            var purchaseFactory = new PurchaseFactory();
 
-            var products = productFactory.BuildRandomProducts(500);
+            var products = productFactory.BuildEntities(500);
+            var purchases = purchaseFactory.BuildEntities(500);
 
             modelBuilder.Entity<Product>().HasData(products);
+            modelBuilder.Entity<Purchase>().HasData(purchases);
+
+            return modelBuilder;
         }
     }
 }

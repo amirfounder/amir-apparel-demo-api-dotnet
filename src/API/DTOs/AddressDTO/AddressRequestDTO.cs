@@ -1,6 +1,6 @@
-﻿namespace Amir.Apparel.Demo.Api.Dotnet.Data.Models
+﻿namespace Amir.Apparel.Demo.Api.Dotnet.API.DTOs
 {
-    public class Address
+    public class AddressRequestDTO
     {
         public string Street { get; set; }
         public string StreetOptional { get; set; }

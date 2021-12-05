@@ -16,7 +16,6 @@ namespace Amir.Apparel.Demo.Api.Dotnet.Providers
             _repository = repository;
         }
 
-
         public async Task<Page<Product>> GetProductsAsync(IPaginationOptions paginationOptions)
         {
             return await _repository.GetAll(paginationOptions);

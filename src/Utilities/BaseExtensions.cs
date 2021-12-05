@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections;
+using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 
@@ -7,11 +8,25 @@ namespace Amir.Apparel.Demo.Api.Dotnet.Utilities
 {
     public static class BaseExtensions
     {
-        public static string Random(this string[] list)
+        public static object Random(this object[] list)
         {
             var rand = new Random();
             var randomIndex = rand.Next(0, list.Length);
             return list[randomIndex];
+        }
+
+        public static object Random(this IEnumerable<object> list)
+        {
+            var rand = new Random();
+            var randomIndex = rand.Next(list.Count());
+            return list.ElementAt(randomIndex);
+        }
+
+        public static T Random<T>(this IEnumerable<T> list)
+        {
+            var rand = new Random();
+            var randomIndex = rand.Next(list.Count());
+            return list.ElementAt(randomIndex);
         }
 
         public static DateTime Random(this DateTime datetime)
@@ -30,6 +45,16 @@ namespace Amir.Apparel.Demo.Api.Dotnet.Utilities
                 .Where(x => x != null)
                 .Select(x => x.ToString())
                 .ToArray();
+        }
+
+        public static string GetPropertyName(this Type entity, string property)
+        {
+            return entity.GetProperty(
+                property,
+                BindingFlags.Public |
+                BindingFlags.Instance |
+                BindingFlags.IgnoreCase
+            )?.Name;
         }
 
         public static Type GetPropertyType(this Type entity, string property)

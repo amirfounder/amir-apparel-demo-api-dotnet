@@ -9,7 +9,6 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
-using System.Reflection;
 using System.Threading.Tasks;
 
 namespace Amir.Apparel.Demo.Api.Dotnet.Data.Repositories
@@ -33,27 +32,6 @@ namespace Amir.Apparel.Demo.Api.Dotnet.Data.Repositories
         public async Task<IEnumerable<TEntity>> GetAll()
         {
             return await _context.Set<TEntity>().ToListAsync();
-        }
-
-        public async Task<Page<TEntity>> GetAllByProperty(IPaginationOptions paginationOptions, string property, string value)
-        {
-            Page<TEntity> page = new(paginationOptions);
-
-            var param = Expression.Parameter(typeof(TEntity));
-            var left = Expression.Property(param, property);
-            var right = Expression.Constant(value);
-            var equal = Expression.Equal(left, right);
-            var lambda = Expression.Lambda(equal, param);
-
-            var query = _context
-                .Set<TEntity>()
-                .ApplySorting(paginationOptions.Sort)
-                .ApplyCustomWhere(lambda);
-
-            page.TotalElements = await query.CountAsync();
-            page.Content = await query.ApplyPaging(page).ToListAsync();
-
-            return page;
         }
 
         public async Task<Page<TEntity>> GetAll(IPaginationOptions paginationOptions)
@@ -91,6 +69,34 @@ namespace Amir.Apparel.Demo.Api.Dotnet.Data.Repositories
             return page;
         }
 
+        public async Task<Page<TEntity>> GetAllByProperty(IPaginationOptions paginationOptions, string property, string value)
+        {
+            property = typeof(TEntity).GetPropertyName(property);
+
+            var toUpperMethod = typeof(string).GetMethod("ToUpper", Array.Empty<Type>());
+            var paramExp = Expression.Parameter(typeof(TEntity));
+            var propExp = Expression.Property(paramExp, property);
+            var constExp = Expression.Constant(value, typeof(string));
+            var rightExp = Expression.Call(propExp, toUpperMethod);
+            var leftExp = Expression.Call(constExp, toUpperMethod);
+            var equalExp = Expression.Equal(leftExp, rightExp);
+            var lambdaExp = Expression.Lambda(equalExp, paramExp);
+
+            var query = _context
+                .Set<TEntity>()
+                .ApplySorting(paginationOptions.Sort)
+                .ApplyCustomWhere(lambdaExp);
+
+            Page<TEntity> page = new(paginationOptions);
+
+            page.TotalElements = await query.CountAsync();
+            page.Content = await query
+                .ApplyPaging(page)
+                .ToListAsync();
+
+            return page;
+        }
+
         public async Task<IEnumerable> GetDistinct(string property)
         {
             var query = _context
@@ -117,6 +123,14 @@ namespace Amir.Apparel.Demo.Api.Dotnet.Data.Repositories
                 _ => throw new BadRequestException($"Could not find property with name: {property}")
             };
 
+        }
+
+        public async Task<TEntity> Save(TEntity entity)
+        {
+            await _context.Set<TEntity>().AddAsync(entity);
+            await _context.SaveChangesAsync();
+
+            return entity;
         }
     }
 }
