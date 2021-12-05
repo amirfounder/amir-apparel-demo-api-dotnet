@@ -1,5 +1,4 @@
-﻿using Amir.Apparel.Demo.Api.Dotnet.API.CustomQueries;
-using Amir.Apparel.Demo.Api.Dotnet.Data.Models;
+﻿using Amir.Apparel.Demo.Api.Dotnet.Data.Models;
 using Amir.Apparel.Demo.Api.Dotnet.Data.Repositories;
 using System.Threading.Tasks;
 
@@ -16,11 +15,6 @@ namespace Amir.Apparel.Demo.Api.Dotnet.Providers
         public async Task<Purchase> CreatePurchaseAsync(Purchase purchase)
         {
             return await _repository.Save(purchase);
-        }
-
-        public async Task<IPage<Purchase>> GetPurchasesByEmailAsync(IPaginationOptions paginationOptions, string email)
-        {
-            return await _repository.GetAllByProperty(paginationOptions, "email", email);
         }
     }
 }

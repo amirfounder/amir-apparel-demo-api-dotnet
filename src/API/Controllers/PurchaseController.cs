@@ -24,20 +24,6 @@ namespace Amir.Apparel.Demo.Api.Dotnet.API.Controllers
             _mapper = mapper;
         }
 
-        [HttpGet]
-        public async Task<ActionResult<Page<PurchaseResponseDTO>>> GetPurchasesByEmailAsync(
-            [FromQuery] PaginationOptions paginationOptions,
-            [FromQuery] string email
-        )
-        {
-            var page = await _provider.GetPurchasesByEmailAsync(paginationOptions, email);
-            var purchaseDTOs = _mapper.Map<IEnumerable<PurchaseResponseDTO>>(page.Content);
-            var pageDTO = new Page<PurchaseResponseDTO>(page);
-            pageDTO.Content = purchaseDTOs;
-
-            return Ok(pageDTO);
-        }
-
         [HttpPost]
         public async Task<ActionResult<PurchaseResponseDTO>> CreatePurchaseAsync(
             [FromBody] PurchaseRequestDTO purchaseRequestDTO

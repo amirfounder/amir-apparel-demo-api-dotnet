@@ -7,6 +7,5 @@ namespace Amir.Apparel.Demo.Api.Dotnet.Providers
     public interface IPurchaseProvider
     {
         Task<Purchase> CreatePurchaseAsync(Purchase purchase);
-        Task<IPage<Purchase>> GetPurchasesByEmailAsync(IPaginationOptions paginationOptions, string email);
     }
 }

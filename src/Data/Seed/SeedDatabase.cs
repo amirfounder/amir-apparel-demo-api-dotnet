@@ -10,11 +10,7 @@ namespace Amir.Apparel.Demo.Api.Dotnet.Data.Seed
             var productFactory = new ProductFactory();
             var products = productFactory.BuildEntities(500);
 
-            var purchaseFactory = new PurchaseFactory(products);
-            var purchases = purchaseFactory.BuildEntities(500);
-
             modelBuilder.Entity<Product>().HasData(products);
-            modelBuilder.Entity<Purchase>().HasData(purchases);
 
             return modelBuilder;
         }

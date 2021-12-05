@@ -4,11 +4,9 @@ using Amir.Apparel.Demo.Api.Dotnet.Data.Repositories.Utilities;
 using Amir.Apparel.Demo.Api.Dotnet.Utilities;
 using Amir.Apparel.Demo.Api.Dotnet.Utilities.HttpStatusExceptions;
 using Microsoft.EntityFrameworkCore;
-using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
-using System.Linq.Expressions;
 using System.Threading.Tasks;
 
 namespace Amir.Apparel.Demo.Api.Dotnet.Data.Repositories
@@ -64,34 +62,6 @@ namespace Amir.Apparel.Demo.Api.Dotnet.Data.Repositories
             page.Content = await query
                 .Skip(page.Number * page.Size)
                 .Take(page.Size)
-                .ToListAsync();
-
-            return page;
-        }
-
-        public async Task<IPage<TEntity>> GetAllByProperty(IPaginationOptions paginationOptions, string property, string value)
-        {
-            var lamdbaExp = typeof(TEntity).GetPropertyName(property);
-
-            var toUpperMethod = typeof(string).GetMethod("ToUpper", Array.Empty<Type>());
-            var paramExp = Expression.Parameter(typeof(TEntity));
-            var propExp = Expression.Property(paramExp, property);
-            var constExp = Expression.Constant(value, typeof(string));
-            var rightExp = Expression.Call(propExp, toUpperMethod);
-            var leftExp = Expression.Call(constExp, toUpperMethod);
-            var equalExp = Expression.Equal(leftExp, rightExp);
-            var lambdaExp = Expression.Lambda(equalExp, paramExp);
-
-            var query = _context
-                .Set<TEntity>()
-                .ApplySorting(paginationOptions.Sort)
-                .ApplyCustomWhere(lambdaExp);
-
-            Page<TEntity> page = new(paginationOptions);
-
-            page.TotalElements = await query.CountAsync();
-            page.Content = await query
-                .ApplyPaging(page)
                 .ToListAsync();
 
             return page;
