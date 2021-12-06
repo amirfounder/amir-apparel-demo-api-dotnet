@@ -16,8 +16,6 @@ namespace Amir.Apparel.Demo.Api.Dotnet.Controllers
         private readonly IProductProvider _provider;
         private readonly IMapper _mapper;
 
-        public int FromQuery { get; private set; }
-
         public ProductController(IProductProvider provider, IMapper mapper)
         {
             _provider = provider;

@@ -29,6 +29,9 @@ namespace Amir.Apparel.Demo.Api.Dotnet.API.Mapper
 
             CreateMap<CreditCard, CreditCardResponseDTO>().ReverseMap();
             CreateMap<CreditCard, CreditCardRequestDTO>().ReverseMap();
+            
+            CreateMap<ApplicationUser, ApplicationUserResponseDTO>().ReverseMap();
+            CreateMap<ApplicationUser, ApplicationUserRequestDTO>().ReverseMap();
         }
     }
 }

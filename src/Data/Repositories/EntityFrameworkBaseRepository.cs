@@ -4,9 +4,11 @@ using Amir.Apparel.Demo.Api.Dotnet.Data.Repositories.Utilities;
 using Amir.Apparel.Demo.Api.Dotnet.Utilities;
 using Amir.Apparel.Demo.Api.Dotnet.Utilities.HttpStatusExceptions;
 using Microsoft.EntityFrameworkCore;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Threading.Tasks;
 
 namespace Amir.Apparel.Demo.Api.Dotnet.Data.Repositories
@@ -65,6 +67,43 @@ namespace Amir.Apparel.Demo.Api.Dotnet.Data.Repositories
                 .ToListAsync();
 
             return page;
+        }
+
+        public async Task<TEntity> GetByProperty(string property, string value)
+        {
+            var properProperty = typeof(TEntity).GetPropertyName(property);
+
+            if (properProperty == null)
+            {
+                return null;
+            }
+
+            var toUpperMethod = typeof(string).GetMethod("ToUpper", Array.Empty<Type>());
+            var paramExp = Expression.Parameter(typeof(TEntity));
+            var propExp = Expression.Property(paramExp, property);
+            var constExp = Expression.Constant(value, typeof(string));
+            var rightExp = Expression.Call(propExp, toUpperMethod);
+            var leftExp = Expression.Call(constExp, toUpperMethod);
+            var equalExp = Expression.Equal(leftExp, rightExp);
+            var lambdaExp = Expression.Lambda(equalExp, paramExp);
+
+            var query = _context
+                .Set<TEntity>()
+                .ApplyCustomWhere(lambdaExp);
+
+            var entities = await query.ToListAsync();
+
+            if (entities.Count == 0)
+            {
+                return null;
+            }
+
+            if (entities.Count > 1)
+            {
+                throw new ServerErrorException($"Something went wrong when accessing database to find entity by {property}");
+            }
+
+            return entities[0];
         }
 
         public async Task<IEnumerable> GetDistinct(string property)
