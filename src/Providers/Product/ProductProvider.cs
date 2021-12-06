@@ -42,7 +42,14 @@ namespace Amir.Apparel.Demo.Api.Dotnet.Providers
 
         public async Task<IEnumerable> GetDistinctAsync(string property)
         {
-            return await _repository.GetDistinct(property);
+            var distinct = await _repository.GetDistinct(property);
+
+            if (distinct == null)
+            {
+                throw new BadRequestException($"Could not find property with the name: {property}");
+            }
+
+            return distinct;
         }
 
         public async Task<bool> ExistsById(int id)

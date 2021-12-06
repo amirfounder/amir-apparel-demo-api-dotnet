@@ -90,7 +90,8 @@ namespace Amir.Apparel.Demo.Api.Dotnet.Data.Repositories
                 "int32" => await query.SelectByProperty<TEntity, int>(property).Distinct().ToListAsync(),
                 "uint16" => await query.SelectByProperty<TEntity, ushort>(property).Distinct().ToListAsync(),
                 "uint32" => await query.SelectByProperty<TEntity, uint>(property).Distinct().ToListAsync(),
-                _ => throw new BadRequestException($"Could not find property with name: {property}")
+                "string" => await query.SelectByProperty<TEntity, string>(property).Distinct().ToListAsync(),
+                _ => null
             };
 
         }

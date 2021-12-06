@@ -34,7 +34,7 @@ namespace Amir.Apparel.Demo.Api.Dotnet.Controllers
             return Ok(page);
         }
 
-        [HttpGet("attributes/{property}")]
+        [HttpGet("attribute/{property}")]
         public async Task<ActionResult<IEnumerable>> GetDistinctAsync(string property)
         {
             var distinct = await _provider.GetDistinctAsync(property);
