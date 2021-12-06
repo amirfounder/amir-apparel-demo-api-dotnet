@@ -12,6 +12,7 @@ namespace Amir.Apparel.Demo.Api.Dotnet.Data.Context
         public DbSet<Product> Products { get; set; }
         public DbSet<Purchase> Purchases { get; set; }
         public DbSet<LineItem> LineItems { get; set; }
+        public DbSet<ApplicationUser> ApplicationUsers { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {

@@ -20,6 +20,7 @@ namespace Amir.Apparel.Demo.Api.Dotnet.Data
             services.AddScoped<IProductRepository, ProductRepository>();
             services.AddScoped<IPurchaseRepository, PurchaseRepository>();
             services.AddScoped<ILineItemRepository, LineItemRepository>();
+            services.AddScoped<IApplicationUserRepository, ApplicationUserRepository>();
 
             return services;
         }

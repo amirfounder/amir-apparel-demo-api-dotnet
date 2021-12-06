@@ -9,9 +9,12 @@ namespace Amir.Apparel.Demo.Api.Dotnet.Providers
             services.AddScoped<IProductProvider, ProductProvider>();
             services.AddScoped<IPurchaseProvider, PurchaseProvider>();
             services.AddScoped<ILineItemProvider, LineItemProvider>();
-            services.AddScoped<ILineItemValidation, LineItemValidation>();
+            services.AddScoped<IApplicationUserProvider, ApplicationUserProvider>();
+
             services.AddScoped<IGoogleAuthenticator, GoogleAuthenticator>();
 
+            services.AddScoped<ILineItemValidation, LineItemValidation>();
+            
             return services;
         }
     }
