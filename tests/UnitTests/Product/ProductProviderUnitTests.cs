@@ -21,7 +21,7 @@ namespace Amir.Apparel.Demo.Api.Dotnet.Tests.UnitTests
         public ProductProviderUnitTests()
         {
             _productFactory = new ProductFactory();
-            testProduct = _productFactory.BuildRandomProduct(1);
+            testProduct = _productFactory.BuildEntity(1);
 
             _mockRepository = new Mock<IProductRepository>();
             _mockRepository

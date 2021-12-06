@@ -1,11 +1,12 @@
 using Amir.Apparel.Demo.Api.Dotnet.API;
-using Amir.Apparel.Demo.Api.Dotnet.API.MapperProfiles;
+using Amir.Apparel.Demo.Api.Dotnet.API.Mapper;
 using Amir.Apparel.Demo.Api.Dotnet.Data;
 using Amir.Apparel.Demo.Api.Dotnet.Data.Context;
 using Amir.Apparel.Demo.Api.Dotnet.Providers;
 using Amir.Apparel.Demo.Api.Dotnet.Utilities;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
@@ -58,6 +59,8 @@ namespace Amir.Apparel.Demo.Api.Dotnet
             }
 
             var context = provider.GetService<ApplicationContext>();
+
+            context.Database.ExecuteSqlRaw("DROP SCHEMA public CASCADE; CREATE SCHEMA public;");
             context.Database.EnsureCreated();
 
             app.UseRouting();

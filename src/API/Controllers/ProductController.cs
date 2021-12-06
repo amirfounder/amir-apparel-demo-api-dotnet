@@ -25,7 +25,7 @@ namespace Amir.Apparel.Demo.Api.Dotnet.Controllers
         }
 
         [HttpGet("filter")]
-        public async Task<ActionResult<Page<ProductDTO>>> GetProductsWithFilterAsync(
+        public async Task<ActionResult<Page<ProductResponseDTO>>> GetProductsWithFilterAsync(
             [FromQuery] PaginationOptions paginationOptions,
             [FromQuery] ProductFilter productFilter
         )
@@ -34,7 +34,7 @@ namespace Amir.Apparel.Demo.Api.Dotnet.Controllers
             return Ok(page);
         }
 
-        [HttpGet("attributes/{property}")]
+        [HttpGet("attribute/{property}")]
         public async Task<ActionResult<IEnumerable>> GetDistinctAsync(string property)
         {
             var distinct = await _provider.GetDistinctAsync(property);
@@ -42,7 +42,7 @@ namespace Amir.Apparel.Demo.Api.Dotnet.Controllers
         }
 
         [HttpGet]
-        public async Task<ActionResult<Page<ProductDTO>>> GetProductsAsync(
+        public async Task<ActionResult<Page<ProductResponseDTO>>> GetProductsAsync(
             [FromQuery] PaginationOptions paginationOptions
         )
         {
@@ -51,10 +51,10 @@ namespace Amir.Apparel.Demo.Api.Dotnet.Controllers
         }
 
         [HttpGet("{id}")]
-        public async Task<ActionResult<ProductDTO>> GetProductByIdAsync(int id)
+        public async Task<ActionResult<ProductResponseDTO>> GetProductByIdAsync(int id)
         {
             var product = await _provider.GetProductByIdAsync(id);
-            return Ok(_mapper.Map<ProductDTO>(product));
+            return Ok(_mapper.Map<ProductResponseDTO>(product));
         }
     }
 }

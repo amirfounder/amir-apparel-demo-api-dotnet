@@ -8,7 +8,7 @@ namespace Amir.Apparel.Demo.Api.Dotnet.Tests.Utilities
         public static void InitializeDatabaseForTests(this ApplicationContext context)
         {
             var productFactory = new ProductFactory();
-            var products = productFactory.BuildRandomProducts(250);
+            var products = productFactory.BuildEntities(250);
 
             context.Products.AddRange(products);
             context.SaveChanges();

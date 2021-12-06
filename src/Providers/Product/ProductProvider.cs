@@ -16,12 +16,6 @@ namespace Amir.Apparel.Demo.Api.Dotnet.Providers
             _repository = repository;
         }
 
-
-        public async Task<Page<Product>> GetProductsAsync(IPaginationOptions paginationOptions)
-        {
-            return await _repository.GetAll(paginationOptions);
-        }
-
         public async Task<Product> GetProductByIdAsync(int id)
         {
             Product product;
@@ -36,14 +30,31 @@ namespace Amir.Apparel.Demo.Api.Dotnet.Providers
             return product;
         }
 
-        public async Task<Page<Product>> GetProductsWithFilterAsync(PaginationOptions paginationOptions, ProductFilter productFilter)
+        public async Task<IPage<Product>> GetProductsAsync(IPaginationOptions paginationOptions)
+        {
+            return await _repository.GetAll(paginationOptions);
+        }
+
+        public async Task<IPage<Product>> GetProductsWithFilterAsync(PaginationOptions paginationOptions, ProductFilter productFilter)
         {
             return await _repository.GetAll(paginationOptions, productFilter);
         }
 
         public async Task<IEnumerable> GetDistinctAsync(string property)
         {
-            return await _repository.GetDistinct(property);
+            var distinct = await _repository.GetDistinct(property);
+
+            if (distinct == null)
+            {
+                throw new BadRequestException($"Could not find property with the name: {property}");
+            }
+
+            return distinct;
+        }
+
+        public async Task<bool> ExistsById(int id)
+        {
+            return await _repository.ExistsById(id);
         }
     }
 }

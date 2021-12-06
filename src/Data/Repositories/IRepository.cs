@@ -10,8 +10,11 @@ namespace Amir.Apparel.Demo.Api.Dotnet.Data.Repositories
     {
         Task<T> Get(int id);
         Task<IEnumerable<T>> GetAll();
-        Task<Page<T>> GetAll(IPaginationOptions paginationOptions);
-        Task<Page<T>> GetAll(IPaginationOptions paginationOptions, IFilterable<T> filterable);
+        Task<IPage<T>> GetAll(IPaginationOptions paginationOptions);
+        Task<IPage<T>> GetAll(IPaginationOptions paginationOptions, IFilterable<T> filterable);
         Task<IEnumerable> GetDistinct(string property);
+        Task<bool> ExistsById(int id);
+        Task<T> Save(T entity);
+
     }
 }

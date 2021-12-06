@@ -2,7 +2,7 @@
 
 namespace Amir.Apparel.Demo.Api.Dotnet.API.DTOs
 {
-    public class ProductDTO
+    public class ProductResponseDTO
     {
         public int Id { get; set; }
 

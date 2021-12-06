@@ -17,7 +17,7 @@ namespace Amir.Apparel.Demo.Api.Dotnet.Tests.IntegrationTests
             var response = await _client.GetAsync("/products/filter");
             Assert.Equal(HttpStatusCode.OK, response.StatusCode);
 
-            var content = await response.Content.ReadAsAsync<Page<ProductDTO>>();
+            var content = await response.Content.ReadAsAsync<Page<ProductResponseDTO>>();
             Assert.Equal(25, content.Content.Count());
             Assert.False(content.Empty);
             Assert.Equal(25, content.Size);
@@ -33,7 +33,7 @@ namespace Amir.Apparel.Demo.Api.Dotnet.Tests.IntegrationTests
             var response = await _client.GetAsync("/products/1");
             Assert.Equal(HttpStatusCode.OK, response.StatusCode);
 
-            var content = await response.Content.ReadAsAsync<ProductDTO>();
+            var content = await response.Content.ReadAsAsync<ProductResponseDTO>();
             Assert.Equal(1, content.Id);
         }
 
@@ -55,7 +55,7 @@ namespace Amir.Apparel.Demo.Api.Dotnet.Tests.IntegrationTests
             var response = await _client.GetAsync("/products/filter?demographic=men");
             Assert.Equal(HttpStatusCode.OK, response.StatusCode);
 
-            var content = await response.Content.ReadAsAsync<Page<ProductDTO>>();
+            var content = await response.Content.ReadAsAsync<Page<ProductResponseDTO>>();
             Assert.Empty(content.Content.Where(x => x.Demographic != "Men").ToList());
         }
 
@@ -65,7 +65,7 @@ namespace Amir.Apparel.Demo.Api.Dotnet.Tests.IntegrationTests
             var response = await _client.GetAsync("/products/filter?demographic=men,women");
             Assert.Equal(HttpStatusCode.OK, response.StatusCode);
 
-            var content = await response.Content.ReadAsAsync<Page<ProductDTO>>();
+            var content = await response.Content.ReadAsAsync<Page<ProductResponseDTO>>();
             Assert.Empty(content.Content.Where(x => x.Demographic != "Men" & x.Demographic != "Women").ToList());
         }
 
@@ -75,7 +75,7 @@ namespace Amir.Apparel.Demo.Api.Dotnet.Tests.IntegrationTests
             var response = await _client.GetAsync("/products/filter?demographic=men&material=cotton");
             Assert.Equal(HttpStatusCode.OK, response.StatusCode);
 
-            var content = await response.Content.ReadAsAsync<Page<ProductDTO>>();
+            var content = await response.Content.ReadAsAsync<Page<ProductResponseDTO>>();
             Assert.Empty(content.Content.Where(x => x.Demographic != "Men").ToList());
             Assert.Empty(content.Content.Where(x => x.Material != "Cotton").ToList());
         }
@@ -86,7 +86,7 @@ namespace Amir.Apparel.Demo.Api.Dotnet.Tests.IntegrationTests
             var response = await _client.GetAsync("/products/filter?demographic=men,women&material=cotton,silk");
             Assert.Equal(HttpStatusCode.OK, response.StatusCode);
 
-            var content = await response.Content.ReadAsAsync<Page<ProductDTO>>();
+            var content = await response.Content.ReadAsAsync<Page<ProductResponseDTO>>();
             Assert.Empty(content.Content.Where(x => x.Demographic != "Men" & x.Demographic != "Women").ToList());
             Assert.Empty(content.Content.Where(x => x.Material != "Cotton" & x.Material != "Silk").ToList());
         }
@@ -97,7 +97,7 @@ namespace Amir.Apparel.Demo.Api.Dotnet.Tests.IntegrationTests
             var response = await _client.GetAsync("/products/filter?demographic=foo");
             Assert.Equal(HttpStatusCode.OK, response.StatusCode);
 
-            var content = await response.Content.ReadAsAsync<Page<ProductDTO>>();
+            var content = await response.Content.ReadAsAsync<Page<ProductResponseDTO>>();
             Assert.Equal(0, content.TotalElements);
             Assert.True(content.Empty);
             Assert.Empty(content.Content);

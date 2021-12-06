@@ -5,7 +5,7 @@ namespace Amir.Apparel.Demo.Api.Dotnet.Data.Repositories
 {
     public class ProductRepository : EntityFrameworkBaseRepository<Product, ApplicationContext>, IProductRepository
     {
-        public ProductRepository(ApplicationContext context) : base(typeof(Product), context)
+        public ProductRepository(ApplicationContext context) : base(context)
         { }
     }
 }
