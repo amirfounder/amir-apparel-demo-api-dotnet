@@ -9,7 +9,7 @@ namespace Amir.Apparel.Demo.Api.Dotnet.Providers
     {
         private readonly IApplicationUserRepository _repository;
         private readonly IGoogleAuthenticator _googleAuthenticator;
-        
+
         public ApplicationUserProvider(IApplicationUserRepository repository, IGoogleAuthenticator googleAuthenticator)
         {
             _repository = repository;

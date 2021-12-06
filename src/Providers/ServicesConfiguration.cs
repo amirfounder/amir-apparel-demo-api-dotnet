@@ -14,7 +14,7 @@ namespace Amir.Apparel.Demo.Api.Dotnet.Providers
             services.AddScoped<IGoogleAuthenticator, GoogleAuthenticator>();
 
             services.AddScoped<ILineItemValidation, LineItemValidation>();
-            
+
             return services;
         }
     }
